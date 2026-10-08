@@ -144,14 +144,14 @@
         {
           "route": "69",
           "co": "gmb",
-          "stopId": 20005088,
-          "routeId": 2000410,
-          "routeSeq": 1,
+          "stopId": "20005088",
           "stopName": "船塢里, 富通中心外",
           "stopNameEn": "Shipyard Lane, outside Fortis Centre",
           "dir": null,
           "dest": "鰂魚涌(船塢里)(循環線)",
           "serviceType": 1,
+          "routeId": 2000410,
+          "routeSeq": 1,
           "lat": 22.284944141522637,
           "lon": 114.21360243136799
         }
@@ -266,6 +266,37 @@
           "serviceType": 1,
           "lat": 22.248523252091,
           "lon": 114.16362493053
+        }
+      ]
+    },
+    {
+      "id": "g-mv068s8h06po",
+      "title": "鰂魚涌: 寶峰園 (往灣仔)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "中環 (交易廣場)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
         }
       ]
     }
