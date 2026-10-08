@@ -40,3 +40,177 @@
           "dir": "O",
           "dest": "小西灣(藍灣半島)",
           "serviceType": 1,
+          "lat": 22.31153,
+          "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "ctb",
+          "stopId": "001510",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.311633,
+          "lon": 114.227618
+        }
+      ]
+    },
+    {
+      "id": "g-quarrybay",
+      "title": "鰂魚涌:惠安苑",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑",
+          "stopNameEn": "Westlands Gardens",
+          "dir": "O",
+          "dest": "柴灣(東)",
+          "serviceType": 1,
+          "lat": 22.284763,
+          "lon": 114.213193
+        },
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
+        }
+      ]
+    },
+    {
+      "id": "g-muzaa40wxtob",
+      "title": "大坑: 勵德邨",
+      "region": "大坑",
+      "routes": [
+        {
+          "route": "25",
+          "co": "gmb",
+          "stopId": "20000147",
+          "stopName": "百德新街, 珠城大廈外",
+          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
+          "dir": null,
+          "dest": "銅鑼灣(循環線)",
+          "serviceType": 1,
+          "routeId": 2002020,
+          "routeSeq": 1,
+          "lat": 22.280947501767017,
+          "lon": 114.18553940683883
+        },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "瑞士花園, 大坑道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        }
+      ]
+    },
+    {
+      "id": "g-muzeeeum1p34",
+      "title": "黃竹坑: 甄沾記大廈",
+      "region": "黃竹坑",
+      "routes": [
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "002344",
+          "stopName": "甄沾記大廈, 黃竹坑道",
+          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.248523252091,
+          "lon": 114.16362493053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "002343",
+          "stopName": "香港仔工業學校, 黃竹坑道",
+          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.248699582091,
+          "lon": 114.16253441053
+        },
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "002343",
+          "stopName": "香港仔工業學校, 黃竹坑道",
+          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "柴灣 (東)",
+          "serviceType": 1,
+          "lat": 22.248699582091,
+          "lon": 114.16253441053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002344",
+          "stopName": "甄沾記大廈, 黃竹坑道",
+          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.248523252091,
+          "lon": 114.16362493053
+        }
+      ]
+    }
+  ]
+}
