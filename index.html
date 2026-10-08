@@ -699,6 +699,11 @@ function toggleGps() {
     if (state.watchId != null) navigator.geolocation.clearWatch(state.watchId);
     state.watchId = null; state.pos = null;
     el.textContent = "關"; el.classList.remove("on");
+    if (state.regionFilter !== "all") {
+      state.regionFilter = "all";
+      renderFilterOptions();
+      toast("已關閉 GPS，地區篩選已還原為全部地區");
+    }
     renderBoards();
   }
 }
