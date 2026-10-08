@@ -99,6 +99,63 @@
           "lon": 114.21319278053
         }
       ]
+    },
+    {
+      "id": "g-muzaa40wxtob",
+      "title": "大坑: 勵德邨",
+      "region": "大坑",
+      "routes": [
+        {
+          "route": "25",
+          "co": "gmb",
+          "stopId": 20000147,
+          "routeId": 2002020,
+          "routeSeq": 1,
+          "stopName": "百德新街, 珠城大廈外",
+          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
+          "dir": null,
+          "dest": "銅鑼灣(循環線)",
+          "serviceType": 1,
+          "lat": 22.280947501767017,
+          "lon": 114.18553940683883
+        },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "瑞士花園, 大坑道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        }
+      ]
     }
   ]
 }
