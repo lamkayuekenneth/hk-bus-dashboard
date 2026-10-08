@@ -148,22 +148,29 @@ svg{display:block}
 @media (max-width:760px){
   body{padding:10px 10px 32px}
   .topbar{position:static}
-  .route-row{grid-template-columns:58px 1fr}
-  .route-num{grid-row:1;padding-top:12px}
-  .num-chip{min-width:44px;height:28px;font-size:13.5px}
-  .route-info{grid-column:2;grid-row:1}
-  .cell-line{border-left:0}
-  .eta-cells{grid-column:1/-1;grid-row:2;border-top:1px dashed var(--line2);margin-top:4px}
-  .eta-cell{padding:8px 10px}
-  .eta-cell .n-min{font-size:15px}
+  .route-row{grid-template-columns:52px minmax(104px,1.5fr) repeat(3,minmax(44px,0.9fr))}
+  .num-chip{min-width:40px;height:26px;font-size:12.5px}
+  .route-info{grid-column:2}
+  .stop-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cell-line{border-left:1px solid var(--line2)}
+  .eta-cells{grid-column:auto;grid-row:auto;border-top:0;margin-top:0}
+  .eta-cell{padding:8px 4px}
+  .eta-cell .n-min{font-size:14px}
+  .eta-cell .n-clock{font-size:11px}
+  .eta-empty{font-size:11px}
+  .eta-empty-sub{font-size:9px;letter-spacing:0}
+  .eta-loading{font-size:11px}
+  .route-num .co-tag{margin-top:3px}
+  .row-meta{margin-top:4px}
   .board-head{align-items:flex-start}
   .field input{width:100%}
   .filters .field{flex:1 1 40%}
 }
 @media (max-width:480px){
-  .eta-cell{padding:7px 10px}
-  .eta-cell .n-min{font-size:14px}
-  .eta-cell .n-clock{font-size:12px}
+  .eta-cell{padding:7px 3px}
+  .eta-cell .n-min{font-size:13px}
+  .eta-cell .n-clock{font-size:10.5px}
+  .eta-empty{font-size:10.5px}
 }
 </style>
 </head>
