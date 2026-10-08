@@ -104,6 +104,10 @@ svg{display:block}
 .reorder-handle button{width:26px;height:26px;border-radius:7px;background:var(--accent-soft);color:var(--accent);font-weight:800;align-items:center;justify-content:center;display:inline-flex}
 .reorder-handle button:hover{background:#dbe6ff}
 .reorder-handle button:disabled{opacity:.3}
+.gmove{display:flex;flex-direction:column;gap:3px;flex:none}
+.gmove button{width:26px;height:22px;border-radius:6px;background:var(--accent-soft);color:var(--accent);align-items:center;justify-content:center;display:inline-flex}
+.gmove button:hover{background:#dbe6ff}
+.gmove button:disabled{opacity:.3}
 .board-foot{padding:12px 16px;border-top:1px solid var(--line2);display:none;gap:8px;flex-wrap:wrap}
 .board.edit .board-foot{display:flex}
 
@@ -193,9 +197,9 @@ svg{display:block}
       </div>
     </div>
     <div class="top-actions">
-      <button id="sortBtn" class="btn" title="每個組別內按第一班車到站時間由近至遠自動排列">
+      <button id="sortGroupsBtn" class="btn" title="自訂組別顯示順序（上移／下移）">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h10M8 18h7"/><path d="M3 6l2-2 2 2M3 12l2-2 2 2M3 18l2-2 2 2"/></svg>
-        <span>自動排序</span><span id="sortState" class="toggle-state">開</span>
+        <span id="sortGroupsLabel">組別排序</span>
       </button>
       <button id="gpsBtn" class="btn" title="開啟定位後顯示各站距離">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
@@ -336,8 +340,7 @@ let config = null;
 const state = {
   gpsOn: false, pos: null, watchId: null,
   routeFilter: "", regionFilter: "all", groupFilter: "all",
-  editBoard: null, reorderBoard: null,
-  sortByEta: true,
+  editBoard: null, reorderBoard: null, reorderGroups: false,
   etaCache: {},            // key `${gid}::${rid}` -> {list, ts, err, loading}
   addTargetGroup: null,
   wiz: null                // 新增路線精靈狀態
@@ -392,8 +395,6 @@ async function loadConfig() {
   } else {
     config = normalizeConfig(local || CONFIG_FALLBACK);
   }
-  try { state.sortByEta = localStorage.getItem("hkbus.sortEta.v1") !== "0"; } catch (e) {}
-  updateSortBtn();
   $("#appTitle").textContent = config.appTitle;
   $("#autoLabel").textContent = "自動更新 " + config.autoRefreshSeconds + "s";
 }
@@ -523,22 +524,10 @@ function visibleGroups() {
     return true;
   });
 }
-function etaFirstMin(g, r, i) {
-  const eta = state.etaCache[g.id + "::" + i];
-  if (!eta || eta.loading || eta.err || !eta.list || !eta.list.length) return null;
-  return minsLeft(eta.list[0].time);
-}
 function visibleRoutes(g) {
   const q = state.routeFilter.trim().toLowerCase();
-  let list = g.routes.map((r, i) => ({ r, i }));
-  if (q) list = list.filter(({ r }) => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q));
-  if (state.sortByEta) {
-    list.sort((a, b) => {
-      const ma = etaFirstMin(g, a.r, a.i), mb = etaFirstMin(g, b.r, b.i);
-      return (ma == null ? 1e9 : ma) - (mb == null ? 1e9 : mb);
-    });
-  }
-  return list;
+  if (!q) return g.routes;
+  return g.routes.filter(r => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q));
 }
 function renderFilterOptions() {
   const regions = [...new Set(config.groups.map(g => g.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-HK"));
@@ -606,17 +595,21 @@ function rowHTML(g, r, i) {
     editBtns + reorderBtns +
     "</div>";
 }
-function boardHTML(g) {
+function boardHTML(g, gi) {
   const rows = visibleRoutes(g);
   const edit = state.editBoard === g.id, reorder = state.reorderBoard === g.id;
+  const gmove = state.reorderGroups
+    ? '<div class="gmove"><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="-1" ' + (gi === 0 ? "disabled" : "") + ' title="組別上移">' + IC.up + '</button><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="1" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="組別下移">' + IC.down + "</button></div>"
+    : "";
   return '<section class="board' + (edit ? " edit" : "") + (reorder ? " reorder" : "") + '" data-gid="' + esc(g.id) + '">' +
-    '<header class="board-head"><div><h2>' + esc(g.title) + '</h2><div class="subtitle">' + esc(boardSubtitle(g)) + "</div></div>" +
+    '<header class="board-head">' + gmove +
+    '<div><h2>' + esc(g.title) + '</h2><div class="subtitle">' + esc(boardSubtitle(g)) + "</div></div>" +
     '<div class="board-actions">' +
     '<button class="btn small" data-action="refresh" data-gid="' + esc(g.id) + '">' + IC.refresh + " 刷新全部</button>" +
     '<button class="btn small' + (edit ? " primary" : "") + '" data-action="edit" data-gid="' + esc(g.id) + '">' + IC.edit + (edit ? " 完成編輯" : " 編輯路線") + "</button>" +
     '<button class="btn small' + (reorder ? " primary" : "") + '" data-action="reorder" data-gid="' + esc(g.id) + '">' + IC.sort + (reorder ? " 完成排序" : " 自訂排序") + "</button>" +
     "</div></header>" +
-    (rows.length ? rows.map(x => rowHTML(g, x.r, x.i)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
+    (rows.length ? rows.map((r, i) => rowHTML(g, r, i)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
     '<div class="board-foot">' +
     '<button class="btn primary small" data-action="addroute" data-gid="' + esc(g.id) + '">＋ 加入路線</button>' +
     '<button class="btn small" data-action="editgroup" data-gid="' + esc(g.id) + '">編輯組別</button>' +
@@ -630,7 +623,7 @@ function renderBoards() {
     box.innerHTML = '<div class="empty"><h3>沒有符合條件的組別</h3><p>調整篩選，或按「新增組別」建立新組別。</p></div>';
     return;
   }
-  box.innerHTML = groups.map(boardHTML).join("");
+  box.innerHTML = groups.map((g, i) => boardHTML(g, i)).join("");
 }
 
 /* ---------- ETA 刷新 ---------- */
@@ -688,22 +681,20 @@ function toggleGps() {
 
 /* ---------- 編輯：路線／組別 ---------- */
 function toggleEdit(gid) { state.editBoard = state.editBoard === gid ? null : gid; state.reorderBoard = null; renderBoards(); }
-function toggleReorder(gid) {
-  state.reorderBoard = state.reorderBoard === gid ? null : gid;
-  state.editBoard = null;
-  if (state.reorderBoard) {
-    state.sortByEta = false;
-    localStorage.setItem("hkbus.sortEta.v1", "0");
-    updateSortBtn();
-    toast("已切換手動排序（自動排序已關閉）");
-  }
+function toggleReorder(gid) { state.reorderBoard = state.reorderBoard === gid ? null : gid; state.editBoard = null; renderBoards(); }
+function toggleReorderGroups() {
+  state.reorderGroups = !state.reorderGroups;
+  $("#sortGroupsBtn").classList.toggle("primary", state.reorderGroups);
+  $("#sortGroupsLabel").textContent = state.reorderGroups ? "完成排序" : "組別排序";
+  toast(state.reorderGroups ? "組別排序模式：用各組別左上角 ▲▼ 調整順序" : "已離開組別排序模式");
   renderBoards();
 }
-function updateSortBtn() {
-  const el = $("#sortState");
-  if (!el) return;
-  el.textContent = state.sortByEta ? "開" : "關";
-  el.classList.toggle("on", state.sortByEta);
+function moveGroup(gid, dir) {
+  const i = config.groups.findIndex(g => g.id === gid);
+  const j = i + dir;
+  if (i < 0 || j < 0 || j >= config.groups.length) return;
+  const t = config.groups[i]; config.groups[i] = config.groups[j]; config.groups[j] = t;
+  saveLocal(); renderBoards();
 }
 function moveRow(gid, idx, dir) {
   const g = config.groups.find(x => x.id === gid);
@@ -966,13 +957,7 @@ function closeModal(id) { const el = document.getElementById(id); el.hidden = tr
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 $("#gpsBtn").addEventListener("click", toggleGps);
-$("#sortBtn").addEventListener("click", () => {
-  state.sortByEta = !state.sortByEta;
-  localStorage.setItem("hkbus.sortEta.v1", state.sortByEta ? "1" : "0");
-  updateSortBtn();
-  renderBoards();
-  toast(state.sortByEta ? "自動排序已開啟：按到站時間近 → 遠排列" : "自動排序已關閉：使用手動順序");
-});
+$("#sortGroupsBtn").addEventListener("click", toggleReorderGroups);
 $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
@@ -1007,6 +992,7 @@ $("#boards").addEventListener("click", e => {
   else if (action === "delgroup") { const g = config.groups.find(x => x.id === gid); askConfirm("刪除組別", "確定刪除「" + (g ? g.title : "") + "」及其全部路線？此操作不能復原。", () => deleteGroup(gid)); }
   else if (action === "delrow") { const idx = +btn.dataset.idx; const g = config.groups.find(x => x.id === gid); const r = g && g.routes[idx]; askConfirm("刪除路線", "確定刪除路線 " + (r ? r.route : "") + "（" + (r ? r.stopName : "") + "）？", () => deleteRow(gid, idx)); }
   else if (action === "move") moveRow(gid, +btn.dataset.idx, +btn.dataset.dir);
+  else if (action === "gmove") moveGroup(gid, +btn.dataset.dir);
 });
 
 /* ---------- 啟動 ---------- */
