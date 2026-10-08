@@ -61,6 +61,20 @@ hk-bus-dashboard/
 
 ETA 數據屬官方開放數據，實際到站時間以營運商發佈為準；部分路線（如 641）於非服務時段會顯示「訊號未回傳」。
 
+## 自動同步去飛書表格（GitHub Actions）
+
+每次 push `config.json`，GitHub 會自動將路線清單寫入你嘅豆包雲端 spreadsheet「關注路線」，唔使手動貼。設定步驟：
+
+1. **飛書開放平台建自建應用**（`open.feishu.cn` → 開發者後台 → 建立企業自建應用）
+2. 喺應用後台攞到 **App ID** 同 **App Secret**
+3. 應用加權限：搜尋並開通 **`sheets:spreadsheet`（讀寫電子表格）**，然後「發佈版本」（需要企業管理員審批時，審批一次即可）
+4. 將你嘅飛書表格（香港巴士到站儀表板 - 關注路線）分享俾呢個應用（表格右上角分享 → 輸入應用 bot 名稱）
+5. 喺 GitHub repo → **Settings → Secrets and variables → Actions** 加入三個 Secrets：
+   - `FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_SPREADSHEET_TOKEN`（token 即 spreadsheet 連結 `.../sheets/BaqbswDzuhsAOjtDu0scuJ7Engb` 入面嗰串）
+6. 之後每次 push `config.json`，Actions 自動執行 `scripts/sync_to_feishu.py` 覆寫表格
+
+另：網頁底部有「匯出路線表 CSV」掣，編輯完可以即刻下載 CSV（Excel 可直接開啟），自己貼返入表格。
+
 ## 技術備註
 
 - 單檔自包含 HTML，無需 build、無後端、無 API key

@@ -229,6 +229,7 @@ svg{display:block}
     <span class="footer-note">應用內改動自動儲存於瀏覽器；按「匯出設定」下載 config.json，貼返入 GitHub repo 即可同步公開版本。</span>
   </div>
   <div class="footer-actions">
+    <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
     <button id="exportBtn" class="btn small">匯出設定</button>
     <button id="resetBtn" class="btn small ghost">重設設定</button>
   </div>
@@ -382,6 +383,26 @@ function exportConfig() {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = "config.json"; a.click();
   URL.revokeObjectURL(a.href);
+}
+function exportRoutesCsv() {
+  const headers = ["組別", "地區", "營運商", "路線", "車站", "車站ID", "方向", "目的地", "班次類型"];
+  const esc = v => { v = String(v == null ? "" : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  const rows = [headers];
+  config.groups.forEach(g => (g.routes || []).forEach(r => {
+    rows.push([
+      g.title, g.region || "",
+      (CO_META[r.co] || { name: r.co }).name,
+      r.route, r.stopName, r.stopId,
+      r.dir === "O" ? "去程" : r.dir === "I" ? "回程" : "不適用",
+      r.dest || "", r.serviceType || 1
+    ]);
+  }));
+  const csv = "\uFEFF" + rows.map(row => row.map(esc).join(",")).join("\r\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "hkbus-routes.csv"; a.click();
+  URL.revokeObjectURL(a.href);
+  toast("已下載路線清單 CSV（Excel 可直接開啟）", "ok");
 }
 function resetLocal() {
   localStorage.removeItem("hkbus.config.v1");
@@ -909,6 +930,7 @@ $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
 $("#exportBtn").addEventListener("click", () => { exportConfig(); toast("已下載 config.json，可貼返入 GitHub repo 同步", "ok"); });
+$("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
 $("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderBoards(); });
