@@ -1,7 +1,6 @@
 {
   "appTitle": "香港巴士到站儀表板",
   "autoRefreshSeconds": 60,
-  "updatedAt": "2026-10-08",
   "groups": [
     {
       "id": "g-kwuntong",
@@ -41,7 +40,7 @@
           "dir": "O",
           "dest": "小西灣(藍灣半島)",
           "serviceType": 1,
-          "lat": 22.311530,
+          "lat": 22.31153,
           "lon": 114.227804
         },
         {
@@ -55,20 +54,6 @@
           "serviceType": 1,
           "lat": 22.311633,
           "lon": 114.227618
-        },
-        {
-          "route": "34M",
-          "co": "gmb",
-          "stopId": "20014072",
-          "routeId": 2005946,
-          "routeSeq": 1,
-          "stopName": "裕民坊公共運輸交匯處",
-          "stopNameEn": "Yue Man Square Public Transport Interchange",
-          "dir": null,
-          "dest": "曉麗苑",
-          "serviceType": 1,
-          "lat": 22.314676,
-          "lon": 114.225224
         }
       ]
     },
@@ -88,6 +73,30 @@
           "serviceType": 1,
           "lat": 22.284763,
           "lon": 114.213193
+        },
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
         }
       ]
     }
