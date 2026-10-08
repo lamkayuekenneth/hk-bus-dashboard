@@ -1,4 +1,4 @@
-name: 同步 config 去飛書表格
+name: 同步 config 去 Google Sheets
 
 on:
   push:
@@ -21,9 +21,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: 同步到飛書表格
-        run: python scripts/sync_to_feishu.py
+      - name: 安裝 Google 認證依賴
+        run: pip install google-auth
+
+      - name: 同步到 Google Sheets
+        run: python scripts/sync_to_google.py
         env:
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-          FEISHU_SPREADSHEET_TOKEN: ${{ secrets.FEISHU_SPREADSHEET_TOKEN }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}

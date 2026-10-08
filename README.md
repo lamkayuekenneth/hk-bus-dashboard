@@ -61,17 +61,19 @@ hk-bus-dashboard/
 
 ETA 數據屬官方開放數據，實際到站時間以營運商發佈為準；部分路線（如 641）於非服務時段會顯示「訊號未回傳」。
 
-## 自動同步去飛書表格（GitHub Actions）
+## 自動同步去 Google Sheets（GitHub Actions）
 
-每次 push `config.json`，GitHub 會自動將路線清單寫入你嘅豆包雲端 spreadsheet「關注路線」，唔使手動貼。設定步驟：
+每次 push `config.json`，GitHub 會自動將路線清單寫入你嘅 Google Sheet，唔使手動貼。設定步驟：
 
-1. **飛書開放平台建自建應用**（`open.feishu.cn` → 開發者後台 → 建立企業自建應用）
-2. 喺應用後台攞到 **App ID** 同 **App Secret**
-3. 應用加權限：搜尋並開通 **`sheets:spreadsheet`（讀寫電子表格）**，然後「發佈版本」（需要企業管理員審批時，審批一次即可）
-4. 將你嘅飛書表格（香港巴士到站儀表板 - 關注路線）分享俾呢個應用（表格右上角分享 → 輸入應用 bot 名稱）
-5. 喺 GitHub repo → **Settings → Secrets and variables → Actions** 加入三個 Secrets：
-   - `FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_SPREADSHEET_TOKEN`（token 即 spreadsheet 連結 `.../sheets/BaqbswDzuhsAOjtDu0scuJ7Engb` 入面嗰串）
-6. 之後每次 push `config.json`，Actions 自動執行 `scripts/sync_to_feishu.py` 覆寫表格
+1. **開 Google Cloud Project**：`console.cloud.google.com` → 新建專案（例如 `hkbus-sync`）
+2. **啟用 API**：專案內 → API 和服務 → 啟用 API 和服務 → 搜尋並啟用 **Google Sheets API**
+3. **建 Service Account**：IAM 和管理 → 服務帳戶 → 建立服務帳戶（例如 `hkbus-sync`）→ 建立後喺「金鑰」分頁 → **新增金鑰 → JSON** → 下載（會得到一個 `xxx.json`）
+4. **開 Google Sheet**：用你嘅 Google 帳號喺 Google Drive 開一個新 Google 表格（例如「HK Bus 路線」），記低網址入面嘅 **Spreadsheet ID**（`/spreadsheets/d/XXXX/edit` 中嘅 `XXXX`）
+5. **分享俾服務帳戶**：表格右上角「分享」→ 輸入第 3 步嘅 service account email（格式 `xxx@hkbus-sync.iam.gserviceaccount.com`）→ 權限揀「編輯者」
+6. **加入 GitHub Secrets**：repo → **Settings → Secrets and variables → Actions** 加兩個：
+   - `GOOGLE_SERVICE_ACCOUNT_JSON` = 第 3 步下載嘅 JSON 金鑰成個內容（連大括號，可以直接成段貼入去）
+   - `GOOGLE_SHEET_ID` = 第 4 步嘅 Spreadsheet ID
+7. 之後每次 push `config.json`，Actions 自動執行 `scripts/sync_to_google.py` 寫入表格（第一張工作表）
 
 另：網頁底部有「匯出路線表 CSV」掣，編輯完可以即刻下載 CSV（Excel 可直接開啟），自己貼返入表格。
 
