@@ -4,14 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>香港巴士到站儀表板</title>
+<meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='4' width='18' height='13' rx='2' fill='%23e60012'/%3E%3Crect x='5.5' y='8' width='13' height='3.5' rx='1' fill='%23fff'/%3E%3Ccircle cx='8' cy='19' r='2' fill='%23111827'/%3E%3Ccircle cx='16' cy='19' r='2' fill='%23111827'/%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#eef0f3; --card:#ffffff; --line:#e3e6ea; --line2:#eef1f4;
   --text:#14181f; --muted:#6b7280; --faint:#9aa1ab;
   --kmb:#e60012; --ctb:#1a1a1a; --ctb-bg:#ffd100; --gmb:#0a7b3b;
-  --accent:#1f5eff; --accent-soft:#eaf0ff;
-  --danger:#dc2626; --radius:12px; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.05);
+  --accent:#1f5eff; --accent-soft:#eaf0ff; --accent-soft-strong:#dbe6ff;
+  --danger:#dc2626; --danger-soft:#fee2e2; --danger-soft-hover:#fecaca; --danger-border:#f3c6c6;
+  --field-bg:#ffffff; --btn-bg:#ffffff; --btn-hover-bg:#f7f8fa; --btn-hover-border:#c9cfd8;
+  --tag-kmb-bg:#fde8ea; --tag-ctb-bg:#fff7d6; --tag-ctb-fg:#8a6d00; --tag-gmb-bg:#e3f4ea;
+  --remark-bg:#fff7d6; --remark-fg:#8a6d00;
+  --modal-bg:#ffffff; --opt-hover:#f6f8fb;
+  --toast-bg:#16181d; --toast-fg:#ffffff;
+  --radius:12px; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.05);
+}
+:root.dark{
+  --bg:#12141a; --card:#1b1e26; --line:#2a2e3a; --line2:#232733;
+  --text:#e8eaf0; --muted:#9aa3b2; --faint:#6b7484;
+  --kmb:#ff4d5e; --ctb:#d6d9dd; --ctb-bg:#ffd100; --gmb:#34c77a;
+  --accent:#5b82ff; --accent-soft:#1e2a4d; --accent-soft-strong:#2a3a6e;
+  --danger:#ff6b6b; --danger-soft:#3a1a1f; --danger-soft-hover:#4a2027; --danger-border:#5a2730;
+  --field-bg:#22252e; --btn-bg:#1b1e26; --btn-hover-bg:#232733; --btn-hover-border:#3a4050;
+  --tag-kmb-bg:#3a1a20; --tag-ctb-bg:#3d3508; --tag-ctb-fg:#f0d264; --tag-gmb-bg:#12301f;
+  --remark-bg:#3d3508; --remark-fg:#f0d264;
+  --modal-bg:#1b1e26; --opt-hover:#232733;
+  --toast-bg:#e8eaf0; --toast-fg:#14181f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not(.light){
+    --bg:#12141a; --card:#1b1e26; --line:#2a2e3a; --line2:#232733;
+    --text:#e8eaf0; --muted:#9aa3b2; --faint:#6b7484;
+    --kmb:#ff4d5e; --ctb:#d6d9dd; --ctb-bg:#ffd100; --gmb:#34c77a;
+    --accent:#5b82ff; --accent-soft:#1e2a4d; --accent-soft-strong:#2a3a6e;
+    --danger:#ff6b6b; --danger-soft:#3a1a1f; --danger-soft-hover:#4a2027; --danger-border:#5a2730;
+    --field-bg:#22252e; --btn-bg:#1b1e26; --btn-hover-bg:#232733; --btn-hover-border:#3a4050;
+    --tag-kmb-bg:#3a1a20; --tag-ctb-bg:#3d3508; --tag-ctb-fg:#f0d264; --tag-gmb-bg:#12301f;
+    --remark-bg:#3d3508; --remark-fg:#f0d264;
+    --modal-bg:#1b1e26; --opt-hover:#232733;
+    --toast-bg:#e8eaf0; --toast-fg:#14181f;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.35);
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -42,17 +78,17 @@ svg{display:block}
 .field{display:flex;flex-direction:column;gap:4px;min-width:0}
 .field>span{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.5px}
 .field input,.field select{
-  height:34px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:13px;min-width:120px;outline:none;
+  height:34px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--field-bg);font-size:13px;min-width:120px;outline:none;
 }
 .field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .field input{width:170px}
-.btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--line);background:#fff;transition:background .12s,border-color .12s;white-space:nowrap}
-.btn:hover{border-color:#c9cfd8;background:#f7f8fa}
+.btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--btn-bg);transition:background .12s,border-color .12s;white-space:nowrap}
+.btn:hover{border-color:var(--btn-hover-border);background:var(--btn-hover-bg)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover{background:#1749d8}
 .btn.ghost{color:var(--muted)}
 .btn.ghost:hover{color:var(--text)}
-.btn.danger{color:var(--danger);border-color:#f3c6c6}
+.btn.danger{color:var(--danger);border-color:var(--danger-border)}
 .btn.small{height:28px;padding:0 9px;font-size:12px;border-radius:7px}
 .btn:disabled{opacity:.5;cursor:default}
 .toggle-state{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;border-radius:10px;background:var(--line);color:var(--muted);font-size:11px;font-weight:700;padding:0 6px}
@@ -81,9 +117,9 @@ svg{display:block}
 .dest b{color:var(--text);font-weight:600}
 .row-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--muted)}
 .co-tag{display:inline-flex;align-items:center;height:17px;padding:0 6px;border-radius:4px;font-size:10.5px;font-weight:700}
-.co-tag.kmb{background:#fde8ea;color:var(--kmb)}
-.co-tag.ctb{background:#fff7d6;color:#8a6d00}
-.co-tag.gmb{background:#e3f4ea;color:var(--gmb)}
+.co-tag.kmb{background:var(--tag-kmb-bg);color:var(--kmb)}
+.co-tag.ctb{background:var(--tag-ctb-bg);color:var(--tag-ctb-fg)}
+.co-tag.gmb{background:var(--tag-gmb-bg);color:var(--gmb)}
 .dist{color:var(--faint)}
 .route-row>.eta-cells{display:flex;flex-direction:row;align-items:stretch;padding:0;grid-column:span 3}
 .eta-cell{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:12px 10px;min-width:0}
@@ -92,15 +128,15 @@ svg{display:block}
 .eta-cell .n-min.soon{color:var(--kmb)}
 .eta-cell .n-clock{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:1px}
 .route-num .co-tag{margin-top:5px;height:15px;font-size:10px;padding:0 5px}
-.eta-remark{font-size:10.5px;color:#8a6d00;background:#fff7d6;border-radius:4px;padding:1px 5px;align-self:flex-start;margin-top:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eta-remark{font-size:10.5px;color:var(--remark-fg);background:var(--remark-bg);border-radius:4px;padding:1px 5px;align-self:flex-start;margin-top:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .eta-empty{font-size:13px;font-weight:700;color:var(--faint)}
 .eta-empty-sub{font-size:10.5px;color:var(--faint);letter-spacing:.5px;margin-top:2px}
 .eta-loading{color:var(--faint);font-size:12px}
-.row-del{display:none;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:#fee2e2;color:var(--danger)}
-.row-del:hover{background:#fecaca}
+.row-del{display:none;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:var(--danger-soft);color:var(--danger)}
+.row-del:hover{background:var(--danger-soft-hover)}
 .gmove{display:flex;flex-direction:column;gap:3px;flex:none}
 .gmove button{width:26px;height:22px;border-radius:6px;background:var(--accent-soft);color:var(--accent);align-items:center;justify-content:center;display:inline-flex}
-.gmove button:hover{background:#dbe6ff}
+.gmove button:hover{background:var(--accent-soft-strong)}
 .gmove button:disabled{opacity:.3}
 .board-foot{padding:12px 16px;border-top:1px solid var(--line2);display:none;gap:8px;flex-wrap:wrap}
 .board.edit .board-foot{display:flex}
@@ -112,7 +148,7 @@ svg{display:block}
 /* ===== Modal ===== */
 .modal-mask{position:fixed;inset:0;background:rgba(15,20,30,.45);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
 .modal-mask[hidden]{display:none}
-.modal{background:#fff;border-radius:14px;width:100%;max-width:560px;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.modal{background:var(--modal-bg);border-radius:14px;width:100%;max-width:560px;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.2)}
 .modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line2)}
 .modal-head h3{font-size:15px;font-weight:700}
 .modal-body{padding:16px 18px;overflow-y:auto}
@@ -124,12 +160,12 @@ svg{display:block}
 .form-item input,.form-item select{width:100%;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;outline:none}
 .form-item input:focus,.form-item select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{padding:7px 14px;border-radius:8px;border:1px solid var(--line);font-size:13px;font-weight:600;background:#fff}
+.tab{padding:7px 14px;border-radius:8px;border:1px solid var(--line);font-size:13px;font-weight:600;background:var(--btn-bg)}
 .tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .opt-list{border:1px solid var(--line);border-radius:10px;max-height:230px;overflow-y:auto}
 .opt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line2);cursor:pointer;font-size:13px}
 .opt:last-child{border-bottom:0}
-.opt:hover{background:#f6f8fb}
+.opt:hover{background:var(--opt-hover)}
 .opt.selected{background:var(--accent-soft)}
 .opt .badge{font-size:11px;color:var(--muted);white-space:nowrap}
 .search-input{position:relative}
@@ -138,8 +174,8 @@ svg{display:block}
 
 /* ===== Toast ===== */
 #toasts{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;width:min(92vw,420px)}
-.toast{background:#16181d;color:#fff;font-size:13px;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:toastIn .18s ease;text-align:center}
-.toast.ok{background:#0a7b3b}.toast.err{background:#b91c1c}
+.toast{background:var(--toast-bg);color:var(--toast-fg);font-size:13px;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:toastIn .18s ease;text-align:center}
+.toast.ok{background:#0a7b3b;color:#fff}.toast.err{background:#b91c1c;color:#fff}
 @keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ===== 響應式 ===== */
@@ -191,6 +227,10 @@ svg{display:block}
       </div>
     </div>
     <div class="top-actions">
+      <button id="appearanceBtn" class="btn" title="外觀：自動跟隨裝置／強制淺色／強制深色">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <span id="appearanceLabel">外觀：自動</span>
+      </button>
       <button id="sortGroupsBtn" class="btn" title="自訂組別顯示順序（上移／下移）">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h10M8 18h7"/><path d="M3 6l2-2 2 2M3 12l2-2 2 2M3 18l2-2 2 2"/></svg>
         <span id="sortGroupsLabel">組別排序</span>
@@ -335,6 +375,7 @@ const state = {
   gpsOn: false, pos: null, watchId: null,
   routeFilter: "", regionFilter: "all", groupFilter: "all",
   editBoard: null, reorderGroups: false,
+  appearance: "auto",
   etaCache: {},            // key `${gid}::${rid}` -> {list, ts, err, loading}
   addTargetGroup: null,
   wiz: null                // 新增路線精靈狀態
@@ -399,6 +440,13 @@ function toast(msg, type) {
   $("#toasts").appendChild(el);
   setTimeout(() => { el.style.opacity = "0"; el.style.transition = "opacity .3s"; setTimeout(() => el.remove(), 320); }, 2600);
 }
+function applyAppearance() {
+  const root = document.documentElement;
+  root.classList.toggle("dark", state.appearance === "dark");
+  root.classList.toggle("light", state.appearance === "light");
+  const el = $("#appearanceLabel");
+  if (el) el.textContent = "外觀：" + ({ auto: "自動", light: "淺色", dark: "深色" })[state.appearance];
+}
 function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
 
 /* ---------- 設定載入／儲存 ---------- */
@@ -422,6 +470,8 @@ async function loadConfig() {
   } else {
     config = normalizeConfig(local || CONFIG_FALLBACK);
   }
+  try { state.appearance = localStorage.getItem("hkbus.appearance.v1") || "auto"; } catch (e) {}
+  applyAppearance();
   $("#appTitle").textContent = config.appTitle;
   $("#autoLabel").textContent = "自動更新 " + config.autoRefreshSeconds + "s";
 }
@@ -976,6 +1026,12 @@ function closeModal(id) { const el = document.getElementById(id); el.hidden = tr
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 $("#gpsBtn").addEventListener("click", toggleGps);
+$("#appearanceBtn").addEventListener("click", () => {
+  state.appearance = state.appearance === "auto" ? "light" : state.appearance === "light" ? "dark" : "auto";
+  localStorage.setItem("hkbus.appearance.v1", state.appearance);
+  applyAppearance();
+  toast("外觀已設為" + ({ auto: "自動（跟隨裝置）", light: "淺色", dark: "深色" })[state.appearance]);
+});
 $("#sortGroupsBtn").addEventListener("click", toggleReorderGroups);
 $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
