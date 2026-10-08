@@ -193,6 +193,10 @@ svg{display:block}
       </div>
     </div>
     <div class="top-actions">
+      <button id="sortBtn" class="btn" title="每個組別內按第一班車到站時間由近至遠自動排列">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h10M8 18h7"/><path d="M3 6l2-2 2 2M3 12l2-2 2 2M3 18l2-2 2 2"/></svg>
+        <span>自動排序</span><span id="sortState" class="toggle-state">開</span>
+      </button>
       <button id="gpsBtn" class="btn" title="開啟定位後顯示各站距離">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
         <span>GPS</span><span id="gpsState" class="toggle-state">關</span>
@@ -333,6 +337,7 @@ const state = {
   gpsOn: false, pos: null, watchId: null,
   routeFilter: "", regionFilter: "all", groupFilter: "all",
   editBoard: null, reorderBoard: null,
+  sortByEta: true,
   etaCache: {},            // key `${gid}::${rid}` -> {list, ts, err, loading}
   addTargetGroup: null,
   wiz: null                // 新增路線精靈狀態
@@ -387,6 +392,8 @@ async function loadConfig() {
   } else {
     config = normalizeConfig(local || CONFIG_FALLBACK);
   }
+  try { state.sortByEta = localStorage.getItem("hkbus.sortEta.v1") !== "0"; } catch (e) {}
+  updateSortBtn();
   $("#appTitle").textContent = config.appTitle;
   $("#autoLabel").textContent = "自動更新 " + config.autoRefreshSeconds + "s";
 }
@@ -516,10 +523,22 @@ function visibleGroups() {
     return true;
   });
 }
+function etaFirstMin(g, r, i) {
+  const eta = state.etaCache[g.id + "::" + i];
+  if (!eta || eta.loading || eta.err || !eta.list || !eta.list.length) return null;
+  return minsLeft(eta.list[0].time);
+}
 function visibleRoutes(g) {
   const q = state.routeFilter.trim().toLowerCase();
-  if (!q) return g.routes;
-  return g.routes.filter(r => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q));
+  let list = g.routes.map((r, i) => ({ r, i }));
+  if (q) list = list.filter(({ r }) => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q));
+  if (state.sortByEta) {
+    list.sort((a, b) => {
+      const ma = etaFirstMin(g, a.r, a.i), mb = etaFirstMin(g, b.r, b.i);
+      return (ma == null ? 1e9 : ma) - (mb == null ? 1e9 : mb);
+    });
+  }
+  return list;
 }
 function renderFilterOptions() {
   const regions = [...new Set(config.groups.map(g => g.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-HK"));
@@ -597,7 +616,7 @@ function boardHTML(g) {
     '<button class="btn small' + (edit ? " primary" : "") + '" data-action="edit" data-gid="' + esc(g.id) + '">' + IC.edit + (edit ? " 完成編輯" : " 編輯路線") + "</button>" +
     '<button class="btn small' + (reorder ? " primary" : "") + '" data-action="reorder" data-gid="' + esc(g.id) + '">' + IC.sort + (reorder ? " 完成排序" : " 自訂排序") + "</button>" +
     "</div></header>" +
-    (rows.length ? rows.map((r, i) => rowHTML(g, r, i)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
+    (rows.length ? rows.map(x => rowHTML(g, x.r, x.i)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
     '<div class="board-foot">' +
     '<button class="btn primary small" data-action="addroute" data-gid="' + esc(g.id) + '">＋ 加入路線</button>' +
     '<button class="btn small" data-action="editgroup" data-gid="' + esc(g.id) + '">編輯組別</button>' +
@@ -669,7 +688,23 @@ function toggleGps() {
 
 /* ---------- 編輯：路線／組別 ---------- */
 function toggleEdit(gid) { state.editBoard = state.editBoard === gid ? null : gid; state.reorderBoard = null; renderBoards(); }
-function toggleReorder(gid) { state.reorderBoard = state.reorderBoard === gid ? null : gid; state.editBoard = null; renderBoards(); }
+function toggleReorder(gid) {
+  state.reorderBoard = state.reorderBoard === gid ? null : gid;
+  state.editBoard = null;
+  if (state.reorderBoard) {
+    state.sortByEta = false;
+    localStorage.setItem("hkbus.sortEta.v1", "0");
+    updateSortBtn();
+    toast("已切換手動排序（自動排序已關閉）");
+  }
+  renderBoards();
+}
+function updateSortBtn() {
+  const el = $("#sortState");
+  if (!el) return;
+  el.textContent = state.sortByEta ? "開" : "關";
+  el.classList.toggle("on", state.sortByEta);
+}
 function moveRow(gid, idx, dir) {
   const g = config.groups.find(x => x.id === gid);
   const j = idx + dir;
@@ -931,6 +966,13 @@ function closeModal(id) { const el = document.getElementById(id); el.hidden = tr
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 $("#gpsBtn").addEventListener("click", toggleGps);
+$("#sortBtn").addEventListener("click", () => {
+  state.sortByEta = !state.sortByEta;
+  localStorage.setItem("hkbus.sortEta.v1", state.sortByEta ? "1" : "0");
+  updateSortBtn();
+  renderBoards();
+  toast(state.sortByEta ? "自動排序已開啟：按到站時間近 → 遠排列" : "自動排序已關閉：使用手動順序");
+});
 $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
