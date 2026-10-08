@@ -1,0 +1,69 @@
+# 香港巴士到站儀表板 (HK Bus ETA Dashboard)
+
+一個可公開瀏覽嘅香港巴士／小巴實時到站儀表板：支援 **城巴、九巴、綠色小巴** 官方開放數據 ETA，可隨時新增／刪除你關注嘅路線同車站、自訂組別（group）標題、按地區同路線篩選，並可部署到 **GitHub Pages** 免費公開瀏覽。
+
+## 功能
+
+- **即時到站（ETA）**：九巴、城巴、綠色小巴三間營運商官方開放數據，顯示下一班到站分鐘數＋鐘面時間＋後續兩班，仲有「訊號未回傳 NEXT SIGNAL」／「API ERROR」狀態顯示
+- **自訂組別**：路線歸入你自己命名嘅組別（例如「觀塘:往港島」），每個組別有獨立板塊
+- **隨時增刪**：喺網頁上「編輯路線」刪除個別路線、「+ 新增組別」建組、「編輯組別／刪除組別」管理；所有改動即時生效並記入瀏覽器
+- **篩選**：按地區、組別、路線號即時過濾
+- **GPS 距離**：開啟 GPS 顯示每個車站同你嘅直線距離（米）
+- **自訂排序**：上移／下移調整路線顯示次序
+- **自動更新**：預設每 60 秒自動刷新，可手動「刷新全部」
+
+## 檔案結構
+
+```
+hk-bus-dashboard/
+├── index.html      # 主應用程式（單檔自包含，CSS + JS 全內聯）
+├── config.json     # 種子設定：組別、地區、路線、車站、方向、目的地
+└── README.md       # 本文件
+```
+
+`config.json` 欄位對應你嘅豆包雲端 spreadsheet「關注路線」：
+`組別 → groups[].title`、`地區 → groups[].region`、`營運商 → routes[].co`、`路線 → routes[].route`、`車站 → routes[].stopName`、`車站ID → routes[].stopId`、`方向 → routes[].dir`、`目的地 → routes[].dest`、`班次類型 → routes[].serviceType`。
+
+## 部署到 GitHub Pages（公開瀏覽）
+
+### 方法 A：自己 push（推薦，最快）
+
+1. 喺 GitHub 開一個新 repository（Public）
+2. 將呢個資料夾入面嘅 `index.html` 同 `config.json` 放喺 repo 根部
+3. 開啓 GitHub Pages：
+   - Repo → **Settings** → **Pages**
+   - **Source** 揀 `Deploy from a branch` → Branch 揀 `main`（或 master）→ `/ (root)` → **Save**
+4. 等 1–2 分鐘，即可喺 `https://<你的用戶名>.github.io/<repo名>/` 公開瀏覽
+
+### 方法 B：由我幫你 push
+
+如果你想我直接幫你上傳，請：
+
+1. 喺 GitHub 開好 Public repo（或者話我知你想要嘅 repo 名）
+2. 提供一個 **Personal Access Token**（權限只需 `repo`）——設定路徑：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → 勾 `Contents: Read and write`，scope 只限你嘅目標 repo
+3. 話我知 repo 名，我就會幫你 push 埋 `index.html`、`config.json`、`README.md`
+
+> 安全提示：token 等同帳號密碼，用完可以即刻喺 GitHub 撤銷。亦可以自己 push 唔使俾 token 我。
+
+## 點樣記錄關注路線（豆包雲端 spreadsheet ↔ 網頁）
+
+- **雲端 spreadsheet**（豆包／飛書表格「香港巴士到站儀表板 - 關注路線」）係你嘅路線登記簿，可以喺度加減路線、睇返每個欄位嘅意思
+- **網頁內改動**：喺儀表板按「匯出設定」會下載 `config.json`，將改動貼返入 GitHub repo 再 push，公開發佈版就會同步
+- **本地即時生效**：喺網頁上加嘅路線／組別會即刻存喺瀏覽器 localStorage，唔使改檔案
+
+## 開放數據來源
+
+| 營運商 | API |
+| --- | --- |
+| 九巴 KMB | `https://data.etabus.gov.hk/v1/transport/kmb/` |
+| 城巴 CTB | `https://rt.data.gov.hk/v2/transport/citybus/` |
+| 綠色小巴 GMB | `https://data.etagmb.gov.hk/` |
+
+ETA 數據屬官方開放數據，實際到站時間以營運商發佈為準；部分路線（如 641）於非服務時段會顯示「訊號未回傳」。
+
+## 技術備註
+
+- 單檔自包含 HTML，無需 build、無後端、無 API key
+- 全部資料經瀏覽器直接呼叫政府開放數據 API（支援 CORS）
+- 響應式設計：手機同桌面都用到
+- 如果喺沙箱／開發環境見到 34M 顯示 API ERROR，屬環境網絡限制；喺真實瀏覽器（GitHub Pages）會正常顯示

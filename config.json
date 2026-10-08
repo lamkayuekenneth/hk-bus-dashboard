@@ -1,0 +1,95 @@
+{
+  "appTitle": "香港巴士到站儀表板",
+  "autoRefreshSeconds": 60,
+  "updatedAt": "2026-10-08",
+  "groups": [
+    {
+      "id": "g-kwuntong",
+      "title": "觀塘:往港島",
+      "region": "觀塘",
+      "routes": [
+        {
+          "route": "601",
+          "co": "kmb",
+          "stopId": "114381B039350CBB",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "O",
+          "dest": "金鐘站(東)",
+          "serviceType": 1,
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "619",
+          "co": "ctb",
+          "stopId": "001510",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.311633,
+          "lon": 114.227618
+        },
+        {
+          "route": "606",
+          "co": "kmb",
+          "stopId": "AB2BD1CDDCB213CB",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "O",
+          "dest": "小西灣(藍灣半島)",
+          "serviceType": 1,
+          "lat": 22.311530,
+          "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "ctb",
+          "stopId": "001510",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.311633,
+          "lon": 114.227618
+        },
+        {
+          "route": "34M",
+          "co": "gmb",
+          "stopId": "20014072",
+          "routeId": 2005946,
+          "routeSeq": 1,
+          "stopName": "裕民坊公共運輸交匯處",
+          "stopNameEn": "Yue Man Square Public Transport Interchange",
+          "dir": null,
+          "dest": "曉麗苑",
+          "serviceType": 1,
+          "lat": 22.314676,
+          "lon": 114.225224
+        }
+      ]
+    },
+    {
+      "id": "g-quarrybay",
+      "title": "鰂魚涌:惠安苑",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "001269",
+          "stopName": "惠安苑",
+          "stopNameEn": "Westlands Gardens",
+          "dir": "O",
+          "dest": "柴灣(東)",
+          "serviceType": 1,
+          "lat": 22.284763,
+          "lon": 114.213193
+        }
+      ]
+    }
+  ]
+}
