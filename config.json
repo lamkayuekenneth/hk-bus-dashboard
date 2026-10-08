@@ -211,6 +211,49 @@
           "lon": 114.16362493053
         }
       ]
+    },
+    {
+      "id": "g-muzmzai1nd2p",
+      "title": "鰂魚涌: 寶峰園 (往南區)",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "海怡半島",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "001288",
+          "stopName": "康怡廣場, 康山道",
+          "stopNameEn": "Kornhill Plaza, Kornhill Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284499762091,
+          "lon": 114.21671745053
+        }
+      ]
     }
   ]
 }
