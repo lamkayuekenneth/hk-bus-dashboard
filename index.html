@@ -373,7 +373,14 @@ async function loadConfig() {
   try { const r = await fetch("./config.json", { cache: "no-store" }); if (r.ok) remote = await r.json(); } catch (e) { /* file:// 或離線 */ }
   let local = null;
   try { const raw = localStorage.getItem("hkbus.config.v1"); if (raw) local = JSON.parse(raw); } catch (e) {}
-  config = normalizeConfig(local || remote || CONFIG_FALLBACK);
+  if (remote) {
+    config = normalizeConfig(remote);
+    if (local && JSON.stringify(local) !== JSON.stringify(remote)) {
+      setTimeout(() => toast("已載入雲端設定；你本機有未上傳嘅改動（如要保留，請先「匯出設定」）", "warn"), 700);
+    }
+  } else {
+    config = normalizeConfig(local || CONFIG_FALLBACK);
+  }
   $("#appTitle").textContent = config.appTitle;
   $("#autoLabel").textContent = "自動更新 " + config.autoRefreshSeconds + "s";
 }
