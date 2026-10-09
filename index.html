@@ -629,8 +629,10 @@ function renderFilterOptions() {
   rf.innerHTML = '<option value="all">全部地區</option>' + regions.map(r => '<option value="' + esc(r) + '">' + esc(r) + "</option>").join("");
   rf.value = regions.includes(state.regionFilter) ? state.regionFilter : "all";
   const gf = $("#groupFilter");
-  gf.innerHTML = '<option value="all">全部組別</option>' + config.groups.map(g => '<option value="' + esc(g.id) + '">' + esc(g.title) + "</option>").join("");
-  gf.value = config.groups.some(g => g.id === state.groupFilter) ? state.groupFilter : "all";
+  const groupOpts = config.groups.filter(g => state.regionFilter === "all" || g.region === state.regionFilter);
+  if (state.groupFilter !== "all" && !groupOpts.some(g => g.id === state.groupFilter)) state.groupFilter = "all";
+  gf.innerHTML = '<option value="all">全部組別</option>' + groupOpts.map(g => '<option value="' + esc(g.id) + '">' + esc(g.title) + "</option>").join("");
+  gf.value = groupOpts.some(g => g.id === state.groupFilter) ? state.groupFilter : "all";
 }
 function clearFilters() {
   state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = "all"; state.groupNameFilter = "";
@@ -1051,7 +1053,7 @@ $("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
 $("#groupNameFilter").addEventListener("input", debounce(e => { state.groupNameFilter = e.target.value; renderBoards(); }, 250));
-$("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderBoards(); });
+$("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderFilterOptions(); renderBoards(); });
 $("#groupFilter").addEventListener("change", e => { state.groupFilter = e.target.value; renderBoards(); });
 $("#groupSaveBtn").addEventListener("click", saveGroup);
 $("#routeBackBtn").addEventListener("click", wizBack);
