@@ -311,6 +311,116 @@
           "lon": 114.21416959053
         }
       ]
+    },
+    {
+      "id": "g-mv0f2hg9m3j8",
+      "title": "灣仔: 伊館 (往銅鑼灣)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "72",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "72A",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "592",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        }
+      ]
+    },
+    {
+      "id": "g-mv0f63xrika3",
+      "title": "灣仔: 伊館 (往北角)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "38",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "42",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "65",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "I",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "42C",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        }
+      ]
     }
   ]
 }
