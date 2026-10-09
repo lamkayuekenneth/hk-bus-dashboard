@@ -253,6 +253,10 @@ svg{display:block}
       <input id="routeFilter" type="text" placeholder="輸入路線號或車站" autocomplete="off">
     </label>
     <label class="field">
+      <span>組別名稱</span>
+      <input id="groupNameFilter" type="text" placeholder="輸入組別名稱" autocomplete="off">
+    </label>
+    <label class="field">
       <span>地區</span>
       <select id="regionFilter"><option value="all">全部地區</option></select>
     </label>
@@ -374,7 +378,7 @@ const CONFIG_FALLBACK = {
 let config = null;
 const state = {
   gpsOn: false, pos: null, watchId: null,
-  routeFilter: "", regionFilter: "all", groupFilter: "all",
+  routeFilter: "", regionFilter: "all", groupFilter: "all", groupNameFilter: "",
   editBoard: null, reorderGroups: false,
   appearance: "auto",
   etaCache: {},            // key `${gid}::${rid}` -> {list, ts, err, loading}
@@ -594,9 +598,11 @@ const IC = {
 
 /* ---------- 篩選 ---------- */
 function visibleGroups() {
+  const qg = state.groupNameFilter.trim().toLowerCase();
   return config.groups.filter(g => {
     if (state.regionFilter !== "all" && g.region !== state.regionFilter) return false;
     if (state.groupFilter !== "all" && g.id !== state.groupFilter) return false;
+    if (qg && !g.title.toLowerCase().includes(qg)) return false;
     const q = state.routeFilter.trim().toLowerCase();
     if (q && !g.routes.some(r => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q))) return false;
     return true;
@@ -627,8 +633,8 @@ function renderFilterOptions() {
   gf.value = config.groups.some(g => g.id === state.groupFilter) ? state.groupFilter : "all";
 }
 function clearFilters() {
-  state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = "all";
-  $("#routeFilter").value = ""; renderFilterOptions(); renderBoards();
+  state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = "all"; state.groupNameFilter = "";
+  $("#routeFilter").value = ""; $("#groupNameFilter").value = ""; renderFilterOptions(); renderBoards();
 }
 
 /* ---------- 渲染板塊 ---------- */
@@ -1044,6 +1050,7 @@ $("#exportBtn").addEventListener("click", () => { exportConfig(); toast("已下�
 $("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
+$("#groupNameFilter").addEventListener("input", debounce(e => { state.groupNameFilter = e.target.value; renderBoards(); }, 250));
 $("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderBoards(); });
 $("#groupFilter").addEventListener("change", e => { state.groupFilter = e.target.value; renderBoards(); });
 $("#groupSaveBtn").addEventListener("click", saveGroup);
