@@ -82,21 +82,6 @@ svg{display:block}
 }
 .field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .field input{width:170px}
-.msel{position:relative}
-.msel-btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--btn-bg);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
-.msel-btn:hover{border-color:var(--btn-hover-border);background:var(--btn-hover-bg)}
-.msel-arrow{transition:transform .15s;opacity:.6}
-.msel.open .msel-arrow{transform:rotate(180deg)}
-.msel-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:60;min-width:220px;max-width:320px;background:var(--modal-bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.18)}
-.msel-panel.hidden{display:none}
-.msel-tools{display:flex;gap:10px;padding:10px 12px 8px;border-bottom:1px solid var(--line2)}
-.msel-link{font-size:12.5px;font-weight:600;color:var(--accent);padding:2px 0}
-.msel-link:hover{text-decoration:underline}
-.msel-list{max-height:280px;overflow-y:auto;padding:6px}
-.msel-opt{display:flex;align-items:center;gap:8px;padding:8px 8px;border-radius:8px;cursor:pointer;font-size:13px}
-.msel-opt:hover{background:var(--opt-hover)}
-.msel-opt input{width:15px;height:15px;accent-color:var(--accent);flex:none}
-.msel-opt .msel-count{color:var(--faint);font-size:11.5px;margin-left:auto;padding-left:8px;white-space:nowrap}
 .btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--btn-bg);transition:background .12s,border-color .12s;white-space:nowrap}
 .btn:hover{border-color:var(--btn-hover-border);background:var(--btn-hover-bg)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -271,22 +256,10 @@ svg{display:block}
       <span>地區</span>
       <select id="regionFilter"><option value="all">全部地區</option></select>
     </label>
-    <div class="field">
+    <label class="field">
       <span>組別</span>
-      <div class="msel" id="groupMsel">
-        <button type="button" id="groupFilterBtn" class="btn msel-btn">
-          <span id="groupFilterLabel">組別：全部</span>
-          <svg class="msel-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div id="groupFilterPanel" class="msel-panel hidden">
-          <div class="msel-tools">
-            <button type="button" id="mselAll" class="msel-link">全選</button>
-            <button type="button" id="mselNone" class="msel-link">清除</button>
-          </div>
-          <div class="msel-list" id="groupFilterList"></div>
-        </div>
-      </div>
-    </div>
+      <select id="groupFilter"><option value="all">全部組別</option></select>
+    </label>
     <button id="addGroupBtn" class="btn primary">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
       新增組別
@@ -401,7 +374,7 @@ const CONFIG_FALLBACK = {
 let config = null;
 const state = {
   gpsOn: false, pos: null, watchId: null,
-  routeFilter: "", regionFilter: "all", groupFilter: [],
+  routeFilter: "", regionFilter: "all", groupFilter: "all",
   editBoard: null, reorderGroups: false,
   appearance: "auto",
   etaCache: {},            // key `${gid}::${rid}` -> {list, ts, err, loading}
@@ -623,7 +596,7 @@ const IC = {
 function visibleGroups() {
   return config.groups.filter(g => {
     if (state.regionFilter !== "all" && g.region !== state.regionFilter) return false;
-    if (state.groupFilter.length && !state.groupFilter.includes(g.id)) return false;
+    if (state.groupFilter !== "all" && g.id !== state.groupFilter) return false;
     const q = state.routeFilter.trim().toLowerCase();
     if (q && !g.routes.some(r => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q))) return false;
     return true;
@@ -649,20 +622,12 @@ function renderFilterOptions() {
   const rf = $("#regionFilter");
   rf.innerHTML = '<option value="all">全部地區</option>' + regions.map(r => '<option value="' + esc(r) + '">' + esc(r) + "</option>").join("");
   rf.value = regions.includes(state.regionFilter) ? state.regionFilter : "all";
-  const label = $("#groupFilterLabel");
-  const valid = state.groupFilter.filter(id => config.groups.some(g => g.id === id));
-  state.groupFilter = valid;
-  if (label) label.textContent = valid.length ? "組別：" + valid.length + " 個" : "組別：全部";
-  const list = $("#groupFilterList");
-  if (list) {
-    list.innerHTML = config.groups.map(g =>
-      '<label class="msel-opt"><input type="checkbox" value="' + esc(g.id) + '"' + (valid.includes(g.id) ? " checked" : "") + "> " +
-      '<span>' + esc(g.title) + '</span><span class="msel-count">' + g.routes.length + " 條</span></label>"
-    ).join("") || '<div class="empty" style="padding:14px 10px;font-size:12.5px;color:var(--faint)">尚未建立組別</div>';
-  }
+  const gf = $("#groupFilter");
+  gf.innerHTML = '<option value="all">全部組別</option>' + config.groups.map(g => '<option value="' + esc(g.id) + '">' + esc(g.title) + "</option>").join("");
+  gf.value = config.groups.some(g => g.id === state.groupFilter) ? state.groupFilter : "all";
 }
 function clearFilters() {
-  state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = [];
+  state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = "all";
   $("#routeFilter").value = ""; renderFilterOptions(); renderBoards();
 }
 
@@ -1080,20 +1045,7 @@ $("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
 $("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderBoards(); });
-(function groupMsel() {
-  const btn = $("#groupFilterBtn"), panel = $("#groupFilterPanel"), msel = $("#groupMsel");
-  const apply = () => {
-    state.groupFilter = [...panel.querySelectorAll("input:checked")].map(c => c.value);
-    renderFilterOptions(); renderBoards();
-  };
-  btn.addEventListener("click", e => { e.stopPropagation(); msel.classList.toggle("open"); panel.classList.toggle("hidden"); });
-  $("#groupFilterList").addEventListener("change", apply);
-  $("#mselAll").addEventListener("click", e => { e.stopPropagation(); panel.querySelectorAll("input").forEach(c => c.checked = true); apply(); });
-  $("#mselNone").addEventListener("click", e => { e.stopPropagation(); panel.querySelectorAll("input").forEach(c => c.checked = false); apply(); });
-  document.addEventListener("click", e => {
-    if (!msel.contains(e.target)) { msel.classList.remove("open"); panel.classList.add("hidden"); }
-  });
-})();
+$("#groupFilter").addEventListener("change", e => { state.groupFilter = e.target.value; renderBoards(); });
 $("#groupSaveBtn").addEventListener("click", saveGroup);
 $("#routeBackBtn").addEventListener("click", wizBack);
 $("#routeConfirmBtn").addEventListener("click", () => { if (wiz.step === 1) { wiz.step = 2; renderWizard(); } else { confirmAddRoute(); } });
