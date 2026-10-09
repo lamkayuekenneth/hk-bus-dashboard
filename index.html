@@ -125,6 +125,7 @@ svg{display:block}
 .eta-cell{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:12px 10px;min-width:0}
 .eta-cell+.eta-cell{border-left:1px solid var(--line2)}
 .eta-cell .n-min{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
+.eta-cell.eta-cell-empty{min-height:52px}
 .eta-cell .n-min.soon{color:var(--kmb)}
 .eta-cell .n-clock{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:1px}
 .route-num .co-tag{margin-top:5px;height:15px;font-size:10px;padding:0 5px}
@@ -639,21 +640,23 @@ function rowHTML(g, r, i) {
   const destLabel = (eta && eta.list && eta.list.length && eta.list[0].dest) ? eta.list[0].dest : r.dest;
 
   let cells;
+  const padCells = n => { let s = ""; for (let k = 0; k < n; k++) s += '<div class="eta-cell eta-cell-empty"></div>'; return s; };
   if (!eta || eta.loading) {
-    cells = '<div class="eta-cell"><div class="eta-loading">載入中…</div></div>';
+    cells = '<div class="eta-cell"><div class="eta-loading">載入中…</div></div>' + padCells(2);
   } else if (eta.err) {
-    cells = '<div class="eta-cell"><div class="eta-empty">無法取得</div><div class="eta-empty-sub">API ERROR</div></div>';
+    cells = '<div class="eta-cell"><div class="eta-empty">無法取得</div><div class="eta-empty-sub">API ERROR</div></div>' + padCells(2);
   } else if (!eta.list.length) {
-    cells = '<div class="eta-cell"><div class="eta-empty">訊號未回傳</div><div class="eta-empty-sub">NEXT SIGNAL</div></div>';
+    cells = '<div class="eta-cell"><div class="eta-empty">訊號未回傳</div><div class="eta-empty-sub">NEXT SIGNAL</div></div>' + padCells(2);
   } else {
-    cells = eta.list.slice(0, 3).map((e, idx) => {
+    const items = eta.list.slice(0, 3);
+    cells = items.map((e, idx) => {
       const soon = idx === 0 && minsLeft(e.time) <= 3;
       return '<div class="eta-cell' + (idx === 0 ? " first" : "") + '">' +
         '<div class="n-min' + (soon ? " soon" : "") + '">' + minsLeft(e.time) + '分鐘</div>' +
         '<div class="n-clock">' + hhmm(e.time) + "</div>" +
         (e.remark && idx === 0 ? '<div class="eta-remark">' + esc(e.remark) + "</div>" : "") +
         "</div>";
-    }).join("");
+    }).join("") + padCells(3 - items.length);
   }
   const metaLine = '<div class="row-meta">' +
     (d != null ? '<span class="dist">約 ' + d + ' 米</span>' : "") +
