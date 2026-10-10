@@ -452,6 +452,37 @@
           "lon": 114.18020849053
         }
       ]
+    },
+    {
+      "id": "g-mv1sm4lbvm2n",
+      "title": "灣仔: 金星大廈 (往南豐)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "002967",
+          "stopName": "金星大廈, 駱克道",
+          "stopNameEn": "Golden Star Building, Lockhart Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.278188642091,
+          "lon": 114.16975256053
+        },
+        {
+          "route": "720",
+          "co": "ctb",
+          "stopId": "002967",
+          "stopName": "金星大廈, 駱克道",
+          "stopNameEn": "Golden Star Building, Lockhart Road",
+          "dir": "I",
+          "dest": "西灣河 (嘉亨灣)",
+          "serviceType": 1,
+          "lat": 22.278188642091,
+          "lon": 114.16975256053
+        }
+      ]
     }
   ]
 }
