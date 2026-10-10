@@ -604,7 +604,14 @@ function fareRoutesFor(row) {
   const co = ({ kmb: "KMB", ctb: "CTB" })[row.co];
   if (!co) return [];
   const seq = row.dir === "O" ? 1 : row.dir === "I" ? 2 : null;
-  const pool = ((fareData.bus && fareData.bus.routes) || []).filter(x => (x.co === co || (x.co === "KMB+CTB" && (co === "KMB" || co === "CTB"))) && x.r === String(row.route));
+  // KMB 同時覆蓋龍運 LWB（同一 API）；CTB 覆蓋聯營
+  const pool = ((fareData.bus && fareData.bus.routes) || []).filter(x => {
+    const xc = x.co;
+    const ok = co === "KMB" ? (xc === "KMB" || xc === "KMB+CTB" || xc === "LWB" || xc === "LWB+CTB")
+             : co === "CTB" ? (xc === "CTB" || xc === "KMB+CTB" || xc === "LWB+CTB")
+             : xc === co;
+    return ok && x.r === String(row.route);
+  });
   if (seq != null) {
     const hit = pool.find(x => x.seq === seq);
     if (hit) return [hit];
