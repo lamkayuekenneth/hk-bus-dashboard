@@ -121,6 +121,9 @@ svg{display:block}
 .co-tag.ctb{background:var(--tag-ctb-bg);color:var(--tag-ctb-fg)}
 .co-tag.gmb{background:var(--tag-gmb-bg);color:var(--gmb)}
 .dist{color:var(--faint)}
+.fare{font-size:14px;font-weight:700;color:var(--text);line-height:1.35}
+.fare-min{background:#17a05e;color:#fff;border-radius:4px;padding:0 6px}
+.fare-max{background:#d63c4f;color:#fff;border-radius:4px;padding:0 6px}
 .route-row>.eta-cells{display:flex;flex-direction:row;align-items:stretch;padding:0;grid-column:span 3}
 .eta-cell{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:12px 10px;min-width:0}
 .eta-cell+.eta-cell{border-left:1px solid var(--line2)}
@@ -722,7 +725,20 @@ function clearFilters() {
 }
 
 /* ---------- 渲染板塊 ---------- */
-function rowHTML(g, r, i) {
+/* 組別內最平／最貴巴士車費標記（只計巴士，小巴唔參與） */
+function fareMinMax(rows) {
+  let min = null, max = null;
+  for (const x of rows) {
+    const r = x.r;
+    if (r.co === "gmb") continue;
+    const f = lookupFare(r);
+    if (f == null) continue;
+    if (min == null || f < min) min = f;
+    if (max == null || f > max) max = f;
+  }
+  return { min, max };
+}
+function rowHTML(g, r, i, fmm) {
   const key = g.id + "::" + i;
   const eta = state.etaCache[key];
   const meta = CO_META[r.co] || CO_META.kmb;
@@ -749,9 +765,14 @@ function rowHTML(g, r, i) {
     }).join("") + padCells(3 - items.length);
   }
   const fare = lookupFare(r);
+  let fareCls = "dist fare";
+  if (fare != null && fmm && fmm.min != null && fmm.max != null && fmm.min < fmm.max) {
+    if (fare === fmm.min) fareCls += " fare-min";
+    else if (fare === fmm.max) fareCls += " fare-max";
+  }
   const metaLine = '<div class="row-meta">' +
     (d != null ? '<span class="dist">約 ' + d + ' 米</span>' : "") +
-    (fare ? '<span class="dist">車費 $' + fmtFare(fare) + '</span>' : (eta && eta.ts ? '<span class="dist">' + hhmm(eta.ts) + ' 更新</span>' : "")) +
+    (fare ? '<span class="' + fareCls + '">車費 $' + fmtFare(fare) + '</span>' : (eta && eta.ts ? '<span class="dist">' + hhmm(eta.ts) + ' 更新</span>' : "")) +
     "</div>";
   const editBtns = state.editBoard === g.id
     ? '<button class="row-del" data-action="delrow" data-gid="' + esc(g.id) + '" data-idx="' + i + '" title="刪除路線">' + IC.close + "</button>"
@@ -767,6 +788,7 @@ function rowHTML(g, r, i) {
 }
 function boardHTML(g, gi) {
   const rows = visibleRoutes(g);
+  const fmm = fareMinMax(rows);
   const edit = state.editBoard === g.id;
   const gmove = state.reorderGroups
     ? '<div class="gmove"><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="-1" ' + (gi === 0 ? "disabled" : "") + ' title="組別上移">' + IC.up + '</button><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="1" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="組別下移">' + IC.down + "</button></div>"
@@ -778,7 +800,7 @@ function boardHTML(g, gi) {
     '<button class="btn small" data-action="refresh" data-gid="' + esc(g.id) + '">' + IC.refresh + " 刷新全部</button>" +
     '<button class="btn small' + (edit ? " primary" : "") + '" data-action="edit" data-gid="' + esc(g.id) + '">' + IC.edit + (edit ? " 完成編輯" : " 編輯路線") + "</button>" +
     "</div></header>" +
-    (rows.length ? rows.map(x => rowHTML(g, x.r, x.i)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
+    (rows.length ? rows.map(x => rowHTML(g, x.r, x.i, fmm)).join("") : '<div class="empty" style="padding:22px">此組別沒有符合篩選的路線</div>') +
     '<div class="board-foot">' +
     '<button class="btn primary small" data-action="addroute" data-gid="' + esc(g.id) + '">＋ 加入路線</button>' +
     '<button class="btn small" data-action="editgroup" data-gid="' + esc(g.id) + '">編輯組別</button>' +
