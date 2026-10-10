@@ -354,6 +354,18 @@
           "serviceType": 1,
           "lat": 22.278859622091,
           "lon": 114.19353863053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002532",
+          "stopName": "香港真光中學, 大坑道",
+          "stopNameEn": "True Light Middle School of HK, Tai Hang Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276324832091,
+          "lon": 114.19520168053
         }
       ]
     },
@@ -597,14 +609,14 @@
         {
           "route": "69",
           "co": "gmb",
-          "stopId": 20000361,
-          "routeId": 2000410,
-          "routeSeq": 1,
+          "stopId": "20000361",
           "stopName": "香港仔海傍道, 逸港居外",
           "stopNameEn": "Aberdeen Praya Road, outside Ocean Court",
           "dir": null,
           "dest": "鰂魚涌(船塢里)(循環線)",
           "serviceType": 1,
+          "routeId": 2000410,
+          "routeSeq": 1,
           "lat": 22.24756948944506,
           "lon": 114.15931550542977
         }
