@@ -98,13 +98,29 @@ def match_section_stop(desc, stops):
         if hit_idx is not None and hit_idx + 1 < len(stops):
             return hit_idx + 1, dest
         return None
-    # 2) 括號內關鍵詞優先（英皇道(書局街) -> 書局街）
+    # 2) 括號內關鍵詞優先（英皇道(書局街) -> 書局街；英皇道(清風街天橋底) -> 清風街）
     bm = re.search(r"[（(]([^（）()]+)[)）]", start)
-    keys = [bm.group(1).strip()] if bm else []
+    if bm:
+        k = bm.group(1).strip()
+        kk = _key(k)
+        if kk.startswith("近"):
+            kk = kk[1:]  # 「(近利群道)」-> 利群道
+        if kk:
+            for idx, n in enumerate(names):
+                nn = _key(n)
+                if kk in nn or nn in kk:
+                    return idx, dest
+            # 模糊：key 前 3 字（清風街天橋底 -> 清風街）
+            if len(kk) >= 3:
+                for idx, n in enumerate(names):
+                    nn = _key(n)
+                    if kk[:3] in nn:
+                        return idx, dest
+        # 括號 key match 唔到 -> skip（唔好用寬泛街道 fallback，會提早分段，如 77 寶峰園）
+        return None
     # 3) 「近 X」-> X
     nm = re.search(r"近(.+)$", start)
-    if nm:
-        keys.append(nm.group(1).strip())
+    keys = [nm.group(1).strip()] if nm else []
     # 4) 去除「近」「過」「後」後嘅主要街道
     main = re.sub(r"^過.+?後|近.+$|[（(].*?[)）]", "", start).strip()
     if main:
