@@ -497,6 +497,37 @@
           "lon": 114.16975256053
         }
       ]
+    },
+    {
+      "id": "g-mv2cefsm48yt",
+      "title": "鰂魚涌: 寶峰園 (往北角)",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "海怡半島",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        }
+      ]
     }
   ]
 }
