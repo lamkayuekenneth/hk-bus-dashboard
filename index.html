@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>香港巴士到站儀表板</title>
+<title>巴士到站 Dashboard</title>
 <meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='4' width='18' height='13' rx='2' fill='%23e60012'/%3E%3Crect x='5.5' y='8' width='13' height='3.5' rx='1' fill='%23fff'/%3E%3Ccircle cx='8' cy='19' r='2' fill='%23111827'/%3E%3Ccircle cx='16' cy='19' r='2' fill='%23111827'/%3E%3C/svg%3E">
@@ -223,7 +223,7 @@ svg{display:block}
         <circle cx="16.5" cy="19.5" r="2.2" fill="#14181f"/>
       </svg>
       <div>
-        <h1 id="appTitle">香港巴士到站儀表板</h1>
+        <h1 id="appTitle">巴士到站 Dashboard</h1>
         <div class="sub">城巴 · 九巴 · 綠色小巴 即時到站</div>
       </div>
     </div>
@@ -347,7 +347,7 @@ svg{display:block}
 <script>
 "use strict";
 /* ================================================================
-   香港巴士到站儀表板
+   巴士到站 Dashboard
    數據來源（全部支援 CORS，瀏覽器可直接呼叫）：
    - 九巴 KMB : https://data.etabus.gov.hk/v1/transport/kmb/
    - 城巴 CTB : https://rt.data.gov.hk/v2/transport/citybus/
@@ -358,7 +358,7 @@ svg{display:block}
 
 /* ---------- 內嵌預設設定（與 config.json 內容一致，作 file:// 後備） ---------- */
 const CONFIG_FALLBACK = {
-  appTitle: "香港巴士到站儀表板",
+  appTitle: "巴士到站 Dashboard",
   autoRefreshSeconds: 60,
   groups: [
     { id: "g-kwuntong", title: "觀塘:往港島", region: "觀塘", routes: [
@@ -461,7 +461,7 @@ function normalizeConfig(c) {
     id: g.id || uid(), title: g.title || ("組別 " + (i + 1)), region: g.region || "",
     routes: (g.routes || []).map(r => ({ route: String(r.route), co: r.co || "kmb", stopId: String(r.stopId), stopName: r.stopName || "", stopNameEn: r.stopNameEn || "", dir: r.dir || null, dest: r.dest || "", serviceType: r.serviceType || 1, routeId: r.routeId, routeSeq: r.routeSeq, lat: r.lat, lon: r.lon }))
   }));
-  return { appTitle: c.appTitle || "香港巴士到站儀表板", autoRefreshSeconds: Math.max(15, Number(c.autoRefreshSeconds) || 60), groups };
+  return { appTitle: c.appTitle || "巴士到站 Dashboard", autoRefreshSeconds: Math.max(15, Number(c.autoRefreshSeconds) || 60), groups };
 }
 async function loadConfig() {
   let remote = null;

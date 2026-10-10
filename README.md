@@ -1,4 +1,4 @@
-# 香港巴士到站儀表板 (HK Bus ETA Dashboard)
+# 巴士到站 Dashboard (HK Bus ETA Dashboard)
 
 一個可公開瀏覽嘅香港巴士／小巴實時到站儀表板：支援 **城巴、九巴、綠色小巴** 官方開放數據 ETA，可隨時新增／刪除你關注嘅路線同車站、自訂組別（group）標題、按地區同路線篩選，並可部署到 **GitHub Pages** 免費公開瀏覽。
 
