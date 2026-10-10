@@ -526,6 +526,42 @@
           "serviceType": 1,
           "lat": 22.284594642091,
           "lon": 114.21416959053
+        },
+        {
+          "route": "8H",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "東華東院",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "81",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
         }
       ]
     }
