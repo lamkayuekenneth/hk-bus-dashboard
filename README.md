@@ -11,6 +11,7 @@
 - **GPS 距離**：開啟 GPS 顯示每個車站同你嘅直線距離（米）
 - **自訂排序**：上移／下移調整路線顯示次序
 - **自動更新**：預設每 60 秒自動刷新，可手動「刷新全部」
+- **該站車費**：每條路線顯示由該站上車嘅車費（運輸署開放數據，`fare_bus.json`／`fare_gmb.json`，約每月更新兩次；可用 `scripts/sync_fare.py` 重新同步）
 
 ## 檔案結構
 
@@ -18,6 +19,8 @@
 hk-bus-dashboard/
 ├── index.html      # 主應用程式（單檔自包含，CSS + JS 全內聯）
 ├── config.json     # 種子設定：組別、地區、路線、車站、方向、目的地
+├── fare_bus.json   # 巴士車費資料（運輸署開放數據精簡版，前端查詢「該站車費」）
+├── fare_gmb.json   # 綠色小巴車費資料（同上）
 └── README.md       # 本文件
 ```
 
@@ -58,6 +61,7 @@ hk-bus-dashboard/
 | 九巴 KMB | `https://data.etabus.gov.hk/v1/transport/kmb/` |
 | 城巴 CTB | `https://rt.data.gov.hk/v2/transport/citybus/` |
 | 綠色小巴 GMB | `https://data.etagmb.gov.hk/` |
+| 車費資料（運輸署） | `https://static.data.gov.hk/td/routes-fares-geojson/JSON_BUS.json`、`JSON_GMB.json`（經 `scripts/sync_fare.py` 精簡入 repo） |
 
 ETA 數據屬官方開放數據，實際到站時間以營運商發佈為準；部分路線（如 641）於非服務時段會顯示「訊號未回傳」。
 

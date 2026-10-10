@@ -554,6 +554,81 @@ async function fetchEtaFor(row) {
   return [];
 }
 
+/* ---------- 車費查詢（fare_bus.json / fare_gmb.json：運輸署開放數據精簡版） ---------- */
+let fareData = null;
+const FARE_CACHE_KEY = "hkbus-fare-v1";
+const FARE_TTL = 24 * 60 * 60 * 1000;   // 24 小時內用瀏覽器快取，之後先再 fetch
+const normName = s => String(s || "").replace(/[，,、\s]/g, "").toLowerCase();
+function fmtFare(f) {
+  const n = Number(f);
+  if (!isFinite(n)) return null;
+  return n % 1 === 0 ? String(n) : n.toFixed(1);
+}
+async function loadFareData() {
+  try {
+    const cached = await caches.match(FARE_CACHE_KEY);
+    let ts = 0;
+    try { ts = Number(localStorage.getItem("hkbus.fare.ts") || 0); } catch (e) {}
+    if (cached && Date.now() - ts < FARE_TTL) {
+      const j = await cached.json();
+      fareData = { bus: j.bus || null, gmb: j.gmb || null, ts };
+      renderBoards();
+      return;
+    }
+    const [rb, rg] = await Promise.all([
+      fetch("./fare_bus.json", { cache: "no-store" }),
+      fetch("./fare_gmb.json", { cache: "no-store" })
+    ]);
+    const bus = rb.ok ? await rb.json() : null;
+    const gmb = rg.ok ? await rg.json() : null;
+    fareData = { bus, gmb, ts: Date.now() };
+    if (bus || gmb) {
+      try {
+        const cache = await caches.open(FARE_CACHE_KEY);
+        await cache.put(FARE_CACHE_KEY, new Response(JSON.stringify(fareData), { headers: { "Content-Type": "application/json" } }));
+        localStorage.setItem("hkbus.fare.ts", String(fareData.ts));
+      } catch (e) { /* 快取失敗唔影響主功能 */ }
+      renderBoards();
+    }
+  } catch (e) {
+    console.error("[fare] 載入車費資料失敗：", e);
+    fareData = null;
+  }
+}
+function fareRoutesFor(row) {
+  if (!fareData) return [];
+  if (row.co === "gmb") {
+    const g = ((fareData.gmb && fareData.gmb.routes) || []).find(x => row.routeId != null && x.id === row.routeId && (row.routeSeq == null || x.seq === row.routeSeq));
+    return g ? [g] : [];
+  }
+  const co = ({ kmb: "KMB", ctb: "CTB" })[row.co];
+  if (!co) return [];
+  const seq = row.dir === "O" ? 1 : row.dir === "I" ? 2 : null;
+  const pool = ((fareData.bus && fareData.bus.routes) || []).filter(x => (x.co === co || (x.co === "KMB+CTB" && (co === "KMB" || co === "CTB"))) && x.r === String(row.route));
+  if (seq != null) {
+    const hit = pool.find(x => x.seq === seq);
+    if (hit) return [hit];
+  }
+  return pool;
+}
+function lookupFare(row) {
+  const routes = fareRoutesFor(row);
+  if (!routes.length) return null;
+  const haveLat = row.lat != null && row.lon != null;
+  let bestDist = null, bestName = null;
+  for (const g of routes) {
+    for (const st of g.stops) {
+      if (haveLat && st.lat != null && st.lon != null) {
+        const dd = haversine(row.lat, row.lon, st.lat, st.lon);
+        if (dd <= 400 && (bestDist == null || dd < bestDist.d)) bestDist = { d: dd, fare: st.f };
+      }
+      const a = normName(row.stopName), b = normName(st.n);
+      if (a && b && !bestName && (a === b || a.includes(b) || b.includes(a))) bestName = { fare: st.f };
+    }
+  }
+  return bestDist ? bestDist.fare : (bestName ? bestName.fare : null);
+}
+
 /* ---------- 路線／車站查詢（編輯器用，快取於模組變數） ---------- */
 let kmbRouteCache = null, kmbStopCache = null, ctbRouteCache = null, ctbStopNameCache = {};
 let gmbRouteCache = {};
@@ -666,9 +741,10 @@ function rowHTML(g, r, i) {
         "</div>";
     }).join("") + padCells(3 - items.length);
   }
+  const fare = lookupFare(r);
   const metaLine = '<div class="row-meta">' +
     (d != null ? '<span class="dist">約 ' + d + ' 米</span>' : "") +
-    (eta && eta.ts ? '<span class="dist">' + hhmm(eta.ts) + ' 更新</span>' : "") +
+    (fare ? '<span class="dist">車費 $' + fmtFare(fare) + '</span>' : (eta && eta.ts ? '<span class="dist">' + hhmm(eta.ts) + ' 更新</span>' : "")) +
     "</div>";
   const editBtns = state.editBoard === g.id
     ? '<button class="row-del" data-action="delrow" data-gid="' + esc(g.id) + '" data-idx="' + i + '" title="刪除路線">' + IC.close + "</button>"
@@ -1094,6 +1170,7 @@ async function init() {
   renderBoards();
   refreshAll();
   setInterval(refreshAll, config.autoRefreshSeconds * 1000);
+  loadFareData();   // 非阻塞：車費到咗後會再 render，搵唔到就保留「更新」時間
 }
 init();
 </script>
