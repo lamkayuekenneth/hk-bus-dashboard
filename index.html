@@ -981,7 +981,10 @@ function renderWizard() {
   else { confirmBtn.hidden = false; confirmBtn.textContent = "確認加入"; confirmBtn.disabled = !w.stop; }
   // step2 事件
   const q = $("#wizQuery");
-  if (q) q.addEventListener("keydown", e => { if (e.key === "Enter") doWizSearch(); });
+  if (q) {
+    q.addEventListener("keydown", e => { if (e.key === "Enter") doWizSearch(); });
+    q.focus();
+  }
   const sb = $("#wizSearch");
   if (sb) sb.addEventListener("click", doWizSearch);
   const stopQ = $("#wizStopQuery");
