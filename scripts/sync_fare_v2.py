@@ -156,7 +156,17 @@ def is_circular(stops):
         return False
     return norm(stops[0]["n"]) == norm(stops[-1]["n"])
 
-def compute_stop_fares(fare_table, stops, dest_name):
+# 681 分段描述 match 唔到站名時嘅手動 override：(co, r, seq) -> [(起點站名關鍵詞, 車費)]
+# 用法：681 收費表有分段但站表冇對應站名（地標分段），用手動起點站套用
+SECTION_OVERRIDES = {
+    ("CTB", "41A", 1): [
+        # 681「司徒拔道迴旋處往北角碼頭 $7.30」：司徒拔道迴旋處＝黃泥涌峽道/大坑道交界，
+        # 41A 站表冇「司徒拔道迴旋處」站；大坑道第一個站＝瑪利曼小學，App 驗證大坑道段（大寶閣/真光中學）$7.3
+        ("瑪利曼小學", 7.30),
+    ],
+}
+
+def compute_stop_fares(fare_table, stops, dest_name, co=None, rn=None, seq=None):
     """對指定 seq（尾站 dest_name）計算每站車費。
     循環線分段表係「上車站→折返點」下車分段模型，同「上車站→終點」唔相容，維持全程價。"""
     full = fare_table["full"]
@@ -168,6 +178,15 @@ def compute_stop_fares(fare_table, stops, dest_name):
                 idx, d = hit
                 if direction_of(dest_name, d):
                     bounds.append((idx, amt))
+        bounds.sort(key=lambda x: x[0])
+    # 手動 override：681 分段描述 match 唔到站名時套用（如 41A 司徒拔道迴旋處）
+    ovr = SECTION_OVERRIDES.get((co, rn, seq))
+    if ovr:
+        for kw, amt in ovr:
+            for idx, n in enumerate(stops):
+                if kw in n["n"]:
+                    bounds.append((idx, amt))
+                    break
         bounds.sort(key=lambda x: x[0])
     fares = []
     for i in range(len(stops)):
@@ -194,7 +213,7 @@ def process_route(route_group):
         return None
     stops = route_group["stops"]
     dest_name = stops[-1]["n"] if stops else ""
-    fares, bounds = compute_stop_fares(ft, stops, dest_name)
+    fares, bounds = compute_stop_fares(ft, stops, dest_name, co, rn, seq)
     # 更新每站 f（有分段計算就用計算值，無分段都係 full）
     new_stops = []
     for st, f in zip(stops, fares):
