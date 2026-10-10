@@ -97,6 +97,20 @@
           "serviceType": 1,
           "lat": 22.284763112091,
           "lon": 114.21319278053
+        },
+        {
+          "route": "32A",
+          "co": "gmb",
+          "stopId": 20016089,
+          "routeId": 2005688,
+          "routeSeq": 1,
+          "stopName": "英皇道,近惠安苑",
+          "stopNameEn": "KING'S ROAD, near Westlands Gardens",
+          "dir": null,
+          "dest": "英皇道(太古城中心)(循環線)",
+          "serviceType": 1,
+          "lat": 22.284763129650916,
+          "lon": 114.2130893468857
         }
       ]
     },
