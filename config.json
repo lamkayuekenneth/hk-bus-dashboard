@@ -59,7 +59,7 @@
     },
     {
       "id": "g-quarrybay",
-      "title": "鰂魚涌:惠安苑",
+      "title": "鰂魚涌: 惠安苑",
       "region": "鰂魚涌",
       "routes": [
         {
@@ -101,14 +101,14 @@
         {
           "route": "32A",
           "co": "gmb",
-          "stopId": 20016089,
-          "routeId": 2005688,
-          "routeSeq": 1,
+          "stopId": "20016089",
           "stopName": "英皇道,近惠安苑",
           "stopNameEn": "KING'S ROAD, near Westlands Gardens",
           "dir": null,
           "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
+          "routeId": 2005688,
+          "routeSeq": 1,
           "lat": 22.284763129650916,
           "lon": 114.2130893468857
         }
