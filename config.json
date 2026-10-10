@@ -366,6 +366,30 @@
           "serviceType": 1,
           "lat": 22.276324832091,
           "lon": 114.19520168053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002545",
+          "stopName": "香港網球中心, 黃泥涌峽道",
+          "stopNameEn": "Hong Kong Tennis Centre, Wong Nai Chung Gap Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.259090472091,
+          "lon": 114.19230905053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002546",
+          "stopName": "怡園, 黃泥涌峽道",
+          "stopNameEn": "Woodland Heights, Wong Nai Chung Gap Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.263140312091,
+          "lon": 114.18575988053
         }
       ]
     },
