@@ -11,7 +11,7 @@
 - **GPS 距離**：開啟 GPS 顯示每個車站同你嘅直線距離（米）
 - **自訂排序**：上移／下移調整路線顯示次序
 - **自動更新**：預設每 60 秒自動刷新，可手動「刷新全部」
-- **該站車費**：每條路線顯示由該站上車至該方向終點嘅分段車費（非全程價）。數據經 `scripts/sync_fare.py`（運輸署全程收費）＋ `scripts/sync_fare_v2.py`（681 巴士總站分段收費表，整理自營運商官方收費，套用至逐站）生成 `fare_bus.json`。已驗證與城巴 App 逐站車費一致（如 81 寶峰園→勵德邨 $5.5、8H 寶峰園→東華東院 $5.5、65 立德里→北角碼頭 $5.5）。已知限制：循環線維持全程收費（循環線分段屬「落車分段」模型，與「上車→終點」唔相容）；九巴站名無街道後綴，681 分段表街道名未能完全對應嘅路線維持全程價；小巴 `fare_gmb.json` 仍為運輸署全程收費。
+- **該站車費**：每條路線顯示由該站上車至該方向終點嘅分段車費（非全程價）。巴士數據經 `scripts/sync_fare.py`（運輸署全程收費）＋ `scripts/sync_fare_v2.py`（681 巴士總站分段收費表，整理自營運商官方收費，套用至逐站）生成 `fare_bus.json`；小巴經 `scripts/sync_fare_gmb_v2.py`（運輸署 HK eMobility GMB Faretable，逐站分段）生成 `fare_gmb.json`。已驗證與城巴 App 逐站車費一致（如 81 寶峰園→勵德邨 $5.5、8H 寶峰園→東華東院 $5.5、65 立德里→北角碼頭 $5.5、小巴 69 逸港居→數碼港 $7.0）。已知限制：巴士循環線維持全程收費（循環線分段屬「落車分段」模型，與「上車→終點」唔相容）；九巴站名無街道後綴，681 分段表街道名未能完全對應嘅路線維持全程價；小巴只有能可靠對照分段邊界嘅路線（目前 69）套用分段，其餘維持運輸署全程收費。
 
 ## 檔案結構
 
@@ -20,7 +20,7 @@ hk-bus-dashboard/
 ├── index.html      # 主應用程式（單檔自包含，CSS + JS 全內聯）
 ├── config.json     # 種子設定：組別、地區、路線、車站、方向、目的地
 ├── fare_bus.json   # 巴士車費資料 v2（分段收費：每站「上車→該方向終點」車費；681 分段表＋運輸署站點）
-├── fare_gmb.json   # 綠色小巴車費資料（同上，仍為全程收費）
+├── fare_gmb.json   # 綠色小巴車費資料 v2（分段收費：69 等已套用分段，其餘維持全程價）
 └── README.md       # 本文件
 ```
 
@@ -62,6 +62,7 @@ hk-bus-dashboard/
 | 城巴 CTB | `https://rt.data.gov.hk/v2/transport/citybus/` |
 | 綠色小巴 GMB | `https://data.etagmb.gov.hk/` |
 | 車費資料（運輸署） | `https://static.data.gov.hk/td/routes-fares-geojson/JSON_BUS.json`、`JSON_GMB.json`（經 `scripts/sync_fare.py` 精簡入 repo；全程收費） |
+| 小巴分段收費（運輸署 HK eMobility） | `https://h2-app-rr.hkemobility.gov.hk/ris_page/get_gmb_detail.php?route_id=<id>`（GMB Faretable，路段×路段車資表；`fare_gmb.json` 嘅 route id 即係 hkemobility route_id） |
 | 分段收費（681 巴士總站） | `https://www.681busterminal.com/`（收費表整理自營運商官方，經 `scripts/sync_fare_v2.py` 套用至逐站） |
 
 ETA 數據屬官方開放數據，實際到站時間以營運商發佈為準；部分路線（如 641）於非服務時段會顯示「訊號未回傳」。
