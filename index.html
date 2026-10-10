@@ -377,7 +377,7 @@ const CONFIG_FALLBACK = {
 /* ---------- 全域狀態 ---------- */
 let config = null;
 const state = {
-  gpsOn: false, pos: null, watchId: null,
+  gpsOn: false, pos: null,
   routeFilter: "", regionFilter: "all", groupFilter: "all", groupNameFilter: "",
   editBoard: null, reorderGroups: false,
   appearance: "auto",
@@ -741,25 +741,12 @@ function refreshAll() {
 }
 
 /* ---------- GPS ---------- */
+let geoRequestId = 0; // 防止舊回調干擾新請求
 function toggleGps() {
-  state.gpsOn = !state.gpsOn;
   const el = $("#gpsState");
   if (state.gpsOn) {
-    if (!("geolocation" in navigator)) { state.gpsOn = false; toast("此瀏覽器不支援定位", "err"); return; }
-    el.textContent = "定位中"; el.classList.add("on");
-    state.watchId = navigator.geolocation.watchPosition(p => {
-      state.pos = { lat: p.coords.latitude, lon: p.coords.longitude };
-      el.textContent = "開";
-      autoFilterRegion(p.coords.latitude, p.coords.longitude);
-      renderBoards();
-    }, e => {
-      state.gpsOn = false; state.pos = null; state.watchId = null;
-      el.textContent = "關"; el.classList.remove("on");
-      toast("定位失敗：" + (e.code === 1 ? "未授權使用定位" : "無法取得位置"), "err");
-    }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 30000 });
-  } else {
-    if (state.watchId != null) navigator.geolocation.clearWatch(state.watchId);
-    state.watchId = null; state.pos = null;
+    // 關 GPS：清除地區 filter、重置狀態（一次性定位早已結束，無需額外釋放）
+    state.gpsOn = false; state.pos = null; geoRequestId++;
     el.textContent = "關"; el.classList.remove("on");
     if (state.regionFilter !== "all") {
       state.regionFilter = "all";
@@ -767,7 +754,26 @@ function toggleGps() {
       toast("已關閉 GPS，地區篩選已還原為全部地區");
     }
     renderBoards();
+    return;
   }
+  if (!("geolocation" in navigator)) { toast("此瀏覽器不支援定位", "err"); return; }
+  state.gpsOn = true;
+  el.textContent = "定位中"; el.classList.add("on");
+  const myId = ++geoRequestId;
+  navigator.geolocation.getCurrentPosition(p => {
+    if (myId !== geoRequestId || !state.gpsOn) return; // 已被關閉，忽略
+    state.pos = { lat: p.coords.latitude, lon: p.coords.longitude };
+    el.textContent = "開";
+    autoFilterRegion(p.coords.latitude, p.coords.longitude);
+    renderBoards();
+    console.log("定位完成，已釋放地理定位（一次性請求）");
+  }, e => {
+    if (myId !== geoRequestId) return;
+    state.gpsOn = false; state.pos = null;
+    el.textContent = "關"; el.classList.remove("on");
+    toast("定位失敗：" + (e.code === 1 ? "未授權使用定位" : "無法取得位置"), "err");
+    console.log("定位失敗，已釋放地理定位");
+  }, { enableHighAccuracy: false, maximumAge: 0, timeout: 8000 });
 }
 
 /* ---------- 編輯：路線／組別 ---------- */
