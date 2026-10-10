@@ -559,7 +559,7 @@ async function fetchEtaFor(row) {
 
 /* ---------- 車費查詢（fare_bus.json / fare_gmb.json：運輸署開放數據精簡版） ---------- */
 let fareData = null;
-const FARE_CACHE_KEY = "hkbus-fare-v1";
+const FARE_CACHE_KEY = "hkbus-fare-v2";   // v2：分段收費（fare_bus.json 加 dest、逐站車費）
 const FARE_TTL = 24 * 60 * 60 * 1000;   // 24 小時內用瀏覽器快取，之後先再 fetch
 const normName = s => String(s || "").replace(/[，,、\s]/g, "").toLowerCase();
 function fmtFare(f) {
@@ -615,15 +615,35 @@ function fareRoutesFor(row) {
              : xc === co;
     return ok && x.r === String(row.route);
   });
-  if (seq != null) {
-    const hit = pool.find(x => x.seq === seq);
-    if (hit) return [hit];
+  if (seq != null || row.dest) {
+    // 方向優先：用 config 目的地同 fare 檔每 seq 終點站名匹配（v2 分段後兩方向車費唔同）
+    const destKey = normName(row.dest || "");
+    if (destKey) {
+      const byDest = pool.filter(g => {
+        const d = normName(g.dest || "");
+        return d && (d.includes(destKey) || destKey.includes(d));
+      });
+      if (byDest.length) return byDest;
+    }
+    if (seq != null) {
+      const hit = pool.find(x => x.seq === seq);
+      if (hit) return [hit];
+    }
   }
   return pool;
 }
 function lookupFare(row) {
-  const routes = fareRoutesFor(row);
+  let routes = fareRoutesFor(row);
   if (!routes.length) return null;
+  // 方向優先：用 config 嘅目的地同 fare 檔每 seq 嘅終點站名匹配（v2 分段後兩方向車費唔同）
+  const destKey = normName(row.dest || "");
+  if (destKey) {
+    const byDest = routes.filter(g => {
+      const d = normName(g.dest || "");
+      return d && (d.includes(destKey) || destKey.includes(d));
+    });
+    if (byDest.length) routes = byDest;
+  }
   const haveLat = row.lat != null && row.lon != null;
   let bestDist = null, bestName = null;
   for (const g of routes) {
