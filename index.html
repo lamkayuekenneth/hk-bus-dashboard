@@ -559,7 +559,7 @@ async function fetchEtaFor(row) {
 
 /* ---------- 車費查詢（fare_bus.json / fare_gmb.json：運輸署開放數據精簡版） ---------- */
 let fareData = null;
-const FARE_CACHE_KEY = "hkbus-fare-v3";   // v3：fare_gmb.json 加入小巴分段收費（69）；v2 = 巴士分段收費
+const FARE_CACHE_KEY = "hkbus-fare-v4";   // v4：41A 大坑道分段修正（fare_bus.json 內容更新）
 const FARE_TTL = 24 * 60 * 60 * 1000;   // 24 小時內用瀏覽器快取，之後先再 fetch
 const normName = s => String(s || "").replace(/[，,、\s]/g, "").toLowerCase();
 function fmtFare(f) {
