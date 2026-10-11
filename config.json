@@ -346,30 +346,6 @@
         {
           "route": "41A",
           "co": "ctb",
-          "stopId": "001289",
-          "stopName": "勵德邨德全樓, 勵德邨道",
-          "stopNameEn": "Tak Chuen Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.278859622091,
-          "lon": 114.19353863053
-        },
-        {
-          "route": "41A",
-          "co": "ctb",
-          "stopId": "002532",
-          "stopName": "香港真光中學, 大坑道",
-          "stopNameEn": "True Light Middle School of HK, Tai Hang Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.276324832091,
-          "lon": 114.19520168053
-        },
-        {
-          "route": "41A",
-          "co": "ctb",
           "stopId": "002545",
           "stopName": "香港網球中心, 黃泥涌峽道",
           "stopNameEn": "Hong Kong Tennis Centre, Wong Nai Chung Gap Road",
