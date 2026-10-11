@@ -667,6 +667,18 @@
           "serviceType": 1,
           "lat": 22.284739002091,
           "lon": 114.22425488053
+        },
+        {
+          "route": "6",
+          "co": "ctb",
+          "stopId": "002542",
+          "stopName": "香港網球中心, 黃泥涌峽道",
+          "stopNameEn": "Hong Kong Tennis Centre, Wong Nai Chung Gap Road",
+          "dir": "O",
+          "dest": "赤柱村",
+          "serviceType": 1,
+          "lat": 22.260060482091,
+          "lon": 114.19182820053
         }
       ]
     }
