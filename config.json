@@ -645,40 +645,18 @@
           "lon": 114.15931550542977
         },
         {
-          "route": "1",
-          "co": "ctb",
-          "stopId": "001027",
-          "stopName": "中環 (港澳碼頭)",
-          "stopNameEn": "Central (Macao Ferry)",
-          "dir": "O",
-          "dest": "跑馬地 (上)",
+          "route": "69",
+          "co": "gmb",
+          "stopId": 20005088,
+          "routeId": 2000410,
+          "routeSeq": 1,
+          "stopName": "船塢里, 富通中心外",
+          "stopNameEn": "Shipyard Lane, outside Fortis Centre",
+          "dir": null,
+          "dest": "鰂魚涌(船塢里)(循環線)",
           "serviceType": 1,
-          "lat": 22.288274152091,
-          "lon": 114.15042248053
-        },
-        {
-          "route": "2",
-          "co": "ctb",
-          "stopId": "003155",
-          "stopName": "西灣河 (嘉亨灣)",
-          "stopNameEn": "Sai Wan Ho (Grand Promenade)",
-          "dir": "O",
-          "dest": "中環 (港澳碼頭)",
-          "serviceType": 1,
-          "lat": 22.284739002091,
-          "lon": 114.22425488053
-        },
-        {
-          "route": "6",
-          "co": "ctb",
-          "stopId": "002542",
-          "stopName": "香港網球中心, 黃泥涌峽道",
-          "stopNameEn": "Hong Kong Tennis Centre, Wong Nai Chung Gap Road",
-          "dir": "O",
-          "dest": "赤柱村",
-          "serviceType": 1,
-          "lat": 22.260060482091,
-          "lon": 114.19182820053
+          "lat": 22.284944141522637,
+          "lon": 114.21360243136799
         }
       ]
     }
