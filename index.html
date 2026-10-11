@@ -286,6 +286,7 @@ svg{display:block}
   </div>
   <div class="footer-actions">
     <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
+    <button id="ghSyncBtn" class="btn small" title="GitHub 自動同步設定：每次改動 config 自動 commit + push 上 GitHub">GitHub 同步</button>
     <button id="exportBtn" class="btn small">匯出設定</button>
     <button id="resetBtn" class="btn small ghost">重設設定</button>
   </div>
@@ -343,6 +344,27 @@ svg{display:block}
     <div class="modal-foot">
       <button class="btn ghost" data-close="confirmModal">取消</button>
       <button class="btn danger" id="confirmOkBtn">刪除</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal：GitHub 同步設定 ===== -->
+<div class="modal-mask" id="ghModal" hidden>
+  <div class="modal" style="max-width:460px">
+    <div class="modal-head">
+      <h3>GitHub 自動同步設定</h3>
+      <button class="modal-close" data-close="ghModal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-item">
+        <label>GitHub Personal Access Token（需有 repo 內容寫入權限）</label>
+        <input id="ghTokenInput" type="password" placeholder="github_pat_… 或 ghp_…" autocomplete="off">
+        <div style="margin-top:8px;font-size:12px;opacity:.8;line-height:1.6">Token 只存喺你瀏覽器 localStorage，唔會上傳去任何地方。設好之後，每次喺本頁加路線／刪路線／改組別，都會自動 commit + push config.json 上 <b>lamkayuekenneth/hk-bus-dashboard</b> main 分支，再等 GitHub Pages 自動更新。冇設定 Token 時，網頁照樣正常運作，只係唔會自動 push。</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" data-close="ghModal">取消</button>
+      <button class="btn primary" id="ghSaveBtn">儲存</button>
     </div>
   </div>
 </div>
@@ -484,7 +506,52 @@ async function loadConfig() {
   $("#appTitle").textContent = config.appTitle;
   $("#autoLabel").textContent = "自動更新 " + config.autoRefreshSeconds + "s";
 }
-function saveLocal() { try { localStorage.setItem("hkbus.config.v1", JSON.stringify(config)); } catch (e) {} }
+function saveLocal() { try { localStorage.setItem("hkbus.config.v1", JSON.stringify(config)); } catch (e) {} scheduleGhSync(); }
+
+/* ---------- GitHub 自動同步（改動 config 後自動 push config.json 上 repo） ---------- */
+const GH_REPO = "lamkayuekenneth/hk-bus-dashboard";
+const GH_BRANCH = "main";
+const GH_TOKEN_KEY = "hkbus.github.token.v1";
+let ghSyncTimer = null;
+function ghGetToken() { try { return localStorage.getItem(GH_TOKEN_KEY) || ""; } catch (e) { return ""; } }
+function ghSetToken(t) { try { localStorage.setItem(GH_TOKEN_KEY, t); } catch (e) {} }
+function scheduleGhSync() {
+  if (ghSyncTimer) clearTimeout(ghSyncTimer);
+  ghSyncTimer = setTimeout(pushConfigToGithub, 4000);   // 4 秒 debounce：連續操作合併一次 push
+}
+async function pushConfigToGithub(manual) {
+  ghSyncTimer = null;
+  const token = ghGetToken();
+  if (!token) { if (manual) toast("未設定 GitHub Token，撳「GitHub 同步」設定", "err"); return; }
+  const payload = JSON.stringify(config, null, 2);
+  const enc = btoa(unescape(encodeURIComponent(payload)));
+  const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+  try {
+    // 1) 攞現有 config.json 嘅 sha（避免覆蓋遙遠端改動）
+    const getRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json?ref=" + GH_BRANCH, { headers });
+    if (!getRes.ok) throw new Error("讀取現有 config 失敗 (HTTP " + getRes.status + ")");
+    const meta = await getRes.json();
+    // 2) 用 SHA 寫入新內容（Contents API 原子 commit：併發衝突會回 409）
+    const putRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json", {
+      method: "PUT",
+      headers: Object.assign({ "Content-Type": "application/json" }, headers),
+      body: JSON.stringify({
+        message: "Update config.json from web UI",
+        content: enc,
+        sha: meta.sha,
+        branch: GH_BRANCH
+      })
+    });
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      throw new Error((err.message || "push 失敗") + " (HTTP " + putRes.status + ")");
+    }
+    toast("已自動同步上 GitHub ✓", "ok");
+  } catch (e) {
+    if (manual) toast("GitHub 同步失敗：" + e.message, "err");
+    else console.warn("GitHub 自動同步失敗：" + e.message);
+  }
+}
 function exportConfig() {
   const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
@@ -1183,6 +1250,14 @@ $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
 $("#exportBtn").addEventListener("click", () => { exportConfig(); toast("已下載 config.json，可貼返入 GitHub repo 同步", "ok"); });
+$("#ghSyncBtn").addEventListener("click", () => { $("#ghTokenInput").value = ghGetToken(); showModal("ghModal"); });
+$("#ghSaveBtn").addEventListener("click", () => {
+  const t = $("#ghTokenInput").value.trim();
+  ghSetToken(t);
+  closeModal("ghModal");
+  toast(t ? "GitHub Token 已儲存，之後每次改動都會自動同步 ✓" : "已清除 GitHub Token", "ok");
+  if (t) pushConfigToGithub(true);
+});
 $("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
