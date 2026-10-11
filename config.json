@@ -643,6 +643,18 @@
           "routeSeq": 1,
           "lat": 22.24756948944506,
           "lon": 114.15931550542977
+        },
+        {
+          "route": "1",
+          "co": "ctb",
+          "stopId": "001027",
+          "stopName": "中環 (港澳碼頭)",
+          "stopNameEn": "Central (Macao Ferry)",
+          "dir": "O",
+          "dest": "跑馬地 (上)",
+          "serviceType": 1,
+          "lat": 22.288274152091,
+          "lon": 114.15042248053
         }
       ]
     }
