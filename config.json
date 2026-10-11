@@ -655,6 +655,18 @@
           "serviceType": 1,
           "lat": 22.288274152091,
           "lon": 114.15042248053
+        },
+        {
+          "route": "2",
+          "co": "ctb",
+          "stopId": "003155",
+          "stopName": "西灣河 (嘉亨灣)",
+          "stopNameEn": "Sai Wan Ho (Grand Promenade)",
+          "dir": "O",
+          "dest": "中環 (港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.284739002091,
+          "lon": 114.22425488053
         }
       ]
     }
