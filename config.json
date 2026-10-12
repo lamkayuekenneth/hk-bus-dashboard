@@ -122,70 +122,70 @@
         {
           "route": "32A",
           "co": "gmb",
-          "stopId": 20016089,
-          "routeId": 2005688,
-          "routeSeq": 1,
+          "stopId": "20016089",
           "stopName": "英皇道,近惠安苑",
           "stopNameEn": "KING'S ROAD, near Westlands Gardens",
           "dir": null,
           "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
+          "routeId": 2005688,
+          "routeSeq": 1,
           "lat": 22.284763129650916,
           "lon": 114.2130893468857
         },
         {
           "route": "32A",
           "co": "gmb",
-          "stopId": 20018745,
-          "routeId": 2005688,
-          "routeSeq": 1,
+          "stopId": "20018745",
           "stopName": "康安街,近康怡花園 Q 座",
           "stopNameEn": "HONG ON STREET, near Kornhill Block Q",
           "dir": null,
           "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
+          "routeId": 2005688,
+          "routeSeq": 1,
           "lat": 22.283837237374435,
           "lon": 114.21546677592033
         },
         {
           "route": "32A",
           "co": "gmb",
-          "stopId": 20018743,
-          "routeId": 2005688,
-          "routeSeq": 1,
+          "stopId": "20018743",
           "stopName": "英皇道,近仁孚工業大廈",
           "stopNameEn": "KING'S ROAD, near Zung Fu Industrial Building",
           "dir": null,
           "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
+          "routeId": 2005688,
+          "routeSeq": 1,
           "lat": 22.285365054834028,
           "lon": 114.21504820667003
         },
         {
           "route": "32A",
           "co": "gmb",
-          "stopId": 20012989,
-          "routeId": 2005688,
-          "routeSeq": 1,
+          "stopId": "20012989",
           "stopName": "英皇道,近寶峰園Ｃ座",
           "stopNameEn": "KING'S ROAD, near Bo Fung Gardens Block C",
           "dir": null,
           "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
+          "routeId": 2005688,
+          "routeSeq": 1,
           "lat": 22.284582241249055,
           "lon": 114.2146144326007
         },
         {
           "route": "32",
           "co": "gmb",
-          "stopId": 20018744,
-          "routeId": 2005689,
-          "routeSeq": 2,
+          "stopId": "20018744",
           "stopName": "英皇道,近太古小學",
           "stopNameEn": "KING'S ROAD, near Taikoo Primary School",
           "dir": null,
           "dest": "康山",
           "serviceType": 1,
+          "routeId": 2005689,
+          "routeSeq": 2,
           "lat": 22.284590523283413,
           "lon": 114.21480663048506
         }
@@ -670,7 +670,20 @@
       "id": "g-mv2hpct7frfm",
       "title": "temp",
       "region": "temp",
-      "routes": []
+      "routes": [
+        {
+          "route": "1",
+          "co": "kmb",
+          "stopId": "C88E34E485B43EFB",
+          "stopName": "尖沙咀碼頭,海港城 (YT912)",
+          "stopNameEn": "STAR FERRY, HARBOUR CITY (YT912)",
+          "dir": "I",
+          "dest": "竹園邨",
+          "serviceType": "1",
+          "lat": 22.294304,
+          "lon": 114.169112
+        }
+      ]
     }
   ]
 }
