@@ -669,6 +669,18 @@
           "serviceType": 1,
           "lat": 22.411838772091,
           "lon": 114.22409992053
+        },
+        {
+          "route": "681",
+          "co": "ctb",
+          "stopId": "001251",
+          "stopName": "興發街",
+          "stopNameEn": "Hing Fat Street",
+          "dir": "O",
+          "dest": "馬鞍山市中心",
+          "serviceType": 1,
+          "lat": 22.283573922091,
+          "lon": 114.19109346053
         }
       ]
     }
