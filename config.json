@@ -645,6 +645,18 @@
           "serviceType": 1,
           "lat": 22.263140312091,
           "lon": 114.18575988053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002532",
+          "stopName": "香港真光中學, 大坑道",
+          "stopNameEn": "True Light Middle School of HK, Tai Hang Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276324832091,
+          "lon": 114.19520168053
         }
       ]
     }
