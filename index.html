@@ -814,12 +814,11 @@ function clearFilters() {
 }
 
 /* ---------- 渲染板塊 ---------- */
-/* 組別內最平／最貴巴士車費標記（只計巴士，小巴唔參與） */
+/* 組別內最平／最貴車費標記（巴士＋小巴都參與） */
 function fareMinMax(rows) {
   let min = null, max = null;
   for (const x of rows) {
     const r = x.r;
-    if (r.co === "gmb") continue;
     const f = lookupFare(r);
     if (f == null) continue;
     if (min == null || f < min) min = f;
