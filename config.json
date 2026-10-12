@@ -670,20 +670,7 @@
       "id": "g-mv2hpct7frfm",
       "title": "temp",
       "region": "temp",
-      "routes": [
-        {
-          "route": "1",
-          "co": "kmb",
-          "stopId": "65B934D14EA190F1",
-          "stopName": "協和小學, MOKO (MK750)",
-          "stopNameEn": "HEEP WOH PRIMARY SCHOOL, MOKO (MK750)",
-          "dir": "O",
-          "dest": "尖沙咀碼頭",
-          "serviceType": "1",
-          "lat": 22.324613,
-          "lon": 114.17257
-        }
-      ]
+      "routes": []
     }
   ]
 }
