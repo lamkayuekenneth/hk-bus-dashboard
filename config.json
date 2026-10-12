@@ -621,66 +621,6 @@
           "routeSeq": 1,
           "lat": 22.284944141522637,
           "lon": 114.21360243136799
-        },
-        {
-          "route": "681",
-          "co": "ctb",
-          "stopId": "001196",
-          "stopName": "香港站",
-          "stopNameEn": "Hong Kong Station",
-          "dir": "O",
-          "dest": "馬鞍山市中心",
-          "serviceType": 1,
-          "lat": 22.286284332091,
-          "lon": 114.15649042053
-        },
-        {
-          "route": "681",
-          "co": "ctb",
-          "stopId": "001464",
-          "stopName": "東區海底隧道巴士轉乘站",
-          "stopNameEn": "Eastern Harbour Crossing Bus-Bus Interchange",
-          "dir": "O",
-          "dest": "馬鞍山市中心",
-          "serviceType": 1,
-          "lat": 22.301112152091,
-          "lon": 114.23320554053
-        },
-        {
-          "route": "681",
-          "co": "ctb",
-          "stopId": "001985",
-          "stopName": "大老山隧道巴士轉乘站",
-          "stopNameEn": "Tate's Cairn Tunnel Bus-Bus Interchange",
-          "dir": "O",
-          "dest": "馬鞍山市中心",
-          "serviceType": 1,
-          "lat": 22.376911412091,
-          "lon": 114.21178876053
-        },
-        {
-          "route": "681",
-          "co": "ctb",
-          "stopId": "003850",
-          "stopName": "錦駿苑, 馬鞍山路",
-          "stopNameEn": "Kam Chun Court, Ma On Shan Road",
-          "dir": "O",
-          "dest": "馬鞍山市中心",
-          "serviceType": 1,
-          "lat": 22.411838772091,
-          "lon": 114.22409992053
-        },
-        {
-          "route": "681",
-          "co": "ctb",
-          "stopId": "001251",
-          "stopName": "興發街",
-          "stopNameEn": "Hing Fat Street",
-          "dir": "O",
-          "dest": "馬鞍山市中心",
-          "serviceType": 1,
-          "lat": 22.283573922091,
-          "lon": 114.19109346053
         }
       ]
     }
