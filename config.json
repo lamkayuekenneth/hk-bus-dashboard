@@ -593,64 +593,7 @@
       "id": "g-mv2hpct7frfm",
       "title": "temp",
       "region": "temp",
-      "routes": [
-        {
-          "route": "69",
-          "co": "gmb",
-          "stopId": 20007719,
-          "routeId": 2000410,
-          "routeSeq": 1,
-          "stopName": "數碼港道, 資訊道",
-          "stopNameEn": "Information Crescent, Cyberport Road",
-          "dir": null,
-          "dest": "鰂魚涌(船塢里)(循環線)",
-          "serviceType": 1,
-          "lat": 22.260957427048748,
-          "lon": 114.13142144680025
-        },
-        {
-          "route": "69",
-          "co": "gmb",
-          "stopId": 20000378,
-          "routeId": 2000410,
-          "routeSeq": 1,
-          "stopName": "渣華道, 渣華道市政大廈",
-          "stopNameEn": "Java Road Municipal Building Complex, Java Road",
-          "dir": null,
-          "dest": "鰂魚涌(船塢里)(循環線)",
-          "serviceType": 1,
-          "lat": 22.292243463770284,
-          "lon": 114.1995528160979
-        },
-        {
-          "route": "69",
-          "co": "gmb",
-          "stopId": 20002495,
-          "routeId": 2000410,
-          "routeSeq": 1,
-          "stopName": "香港仔隧道收費廣場",
-          "stopNameEn": "Aberdeen Tunnel Toll Plaza",
-          "dir": null,
-          "dest": "鰂魚涌(船塢里)(循環線)",
-          "serviceType": 1,
-          "lat": 22.249972587173318,
-          "lon": 114.17565198948495
-        },
-        {
-          "route": "69",
-          "co": "gmb",
-          "stopId": 20005088,
-          "routeId": 2000410,
-          "routeSeq": 1,
-          "stopName": "船塢里, 富通中心外",
-          "stopNameEn": "Shipyard Lane, outside Fortis Centre",
-          "dir": null,
-          "dest": "鰂魚涌(船塢里)(循環線)",
-          "serviceType": 1,
-          "lat": 22.284944141522637,
-          "lon": 114.21360243136799
-        }
-      ]
+      "routes": []
     }
   ]
 }
