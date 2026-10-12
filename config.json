@@ -635,6 +635,34 @@
           "serviceType": 1,
           "lat": 22.2843288006025,
           "lon": 114.2135936021805
+        },
+        {
+          "route": "33",
+          "co": "gmb",
+          "stopId": 20005086,
+          "routeId": 2005685,
+          "routeSeq": 2,
+          "stopName": "英皇道,近太古坊康橋大廈",
+          "stopNameEn": "KING'S ROAD, near Cambridge House, TAIKOO PLACE",
+          "dir": null,
+          "dest": "康山",
+          "serviceType": 1,
+          "lat": 22.286805104890526,
+          "lon": 114.21059476618228
+        },
+        {
+          "route": "33",
+          "co": "gmb",
+          "stopId": 20000210,
+          "routeId": 2005685,
+          "routeSeq": 2,
+          "stopName": "馬寶道,華禮大廈外",
+          "stopNameEn": "Marble Road, outside Wah Lai Mansion",
+          "dir": null,
+          "dest": "康山",
+          "serviceType": 1,
+          "lat": 22.292026411372348,
+          "lon": 114.20171679018387
         }
       ]
     }
