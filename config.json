@@ -593,78 +593,7 @@
       "id": "g-mv2hpct7frfm",
       "title": "temp",
       "region": "temp",
-      "routes": [
-        {
-          "route": "33",
-          "co": "gmb",
-          "stopId": 20013702,
-          "routeId": 2005685,
-          "routeSeq": 1,
-          "stopName": "康盛街,近康怡花園俱樂部",
-          "stopNameEn": "HONG SHING STREET, near Kornhill Recreation Club",
-          "dir": null,
-          "dest": "北角(馬寶道)",
-          "serviceType": 1,
-          "lat": 22.280126907630095,
-          "lon": 114.21400666236879
-        },
-        {
-          "route": "33",
-          "co": "gmb",
-          "stopId": 20018746,
-          "routeId": 2005685,
-          "routeSeq": 1,
-          "stopName": "英皇道,近海山樓",
-          "stopNameEn": "KING'S ROAD, near Montane Mansion",
-          "dir": null,
-          "dest": "北角(馬寶道)",
-          "serviceType": 1,
-          "lat": 22.284652726507808,
-          "lon": 114.21227998219082
-        },
-        {
-          "route": "33",
-          "co": "gmb",
-          "stopId": 20013714,
-          "routeId": 2005685,
-          "routeSeq": 2,
-          "stopName": "基利路,近基利路休憩處",
-          "stopNameEn": "GREIG ROAD, near GREIG ROAD SITTING-OUT AREA",
-          "dir": null,
-          "dest": "康山",
-          "serviceType": 1,
-          "lat": 22.2843288006025,
-          "lon": 114.2135936021805
-        },
-        {
-          "route": "33",
-          "co": "gmb",
-          "stopId": 20005086,
-          "routeId": 2005685,
-          "routeSeq": 2,
-          "stopName": "英皇道,近太古坊康橋大廈",
-          "stopNameEn": "KING'S ROAD, near Cambridge House, TAIKOO PLACE",
-          "dir": null,
-          "dest": "康山",
-          "serviceType": 1,
-          "lat": 22.286805104890526,
-          "lon": 114.21059476618228
-        },
-        {
-          "route": "33",
-          "co": "gmb",
-          "stopId": 20000210,
-          "routeId": 2005685,
-          "routeSeq": 2,
-          "stopName": "馬寶道,華禮大廈外",
-          "stopNameEn": "Marble Road, outside Wah Lai Mansion",
-          "dir": null,
-          "dest": "康山",
-          "serviceType": 1,
-          "lat": 22.292026411372348,
-          "lon": 114.20171679018387
-        }
-      ]
+      "routes": []
     }
   ]
 }
