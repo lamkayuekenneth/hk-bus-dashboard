@@ -673,6 +673,49 @@
       "routes": []
     },
     {
+      "id": "g-mv51iw2rfmtq",
+      "title": "灣仔: 史釗域道 (往勵德邨)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "002434",
+          "stopName": "史釗域道, 軒尼詩道",
+          "stopNameEn": "Stewart Road, Hennessy Road",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.278009642091,
+          "lon": 114.17617122053
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "002434",
+          "stopName": "史釗域道, 軒尼詩道",
+          "stopNameEn": "Stewart Road, Hennessy Road",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.278009642091,
+          "lon": 114.17617122053
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002434",
+          "stopName": "史釗域道, 軒尼詩道",
+          "stopNameEn": "Stewart Road, Hennessy Road",
+          "dir": "O",
+          "dest": "瑞士花園, 大坑道",
+          "serviceType": 1,
+          "lat": 22.278009642091,
+          "lon": 114.17617122053
+        }
+      ]
+    },
+    {
       "id": "g-mv51fvi0w3pg",
       "title": "銅鑼灣: 百德新街 (往勵德邨)",
       "region": "銅鑼灣",
@@ -716,12 +759,6 @@
           "lon": 114.18607065053
         }
       ]
-    },
-    {
-      "id": "g-mv51iw2rfmtq",
-      "title": "灣仔: 史釗域道 (往勵德邨)",
-      "region": "灣仔",
-      "routes": []
     }
   ]
 }
