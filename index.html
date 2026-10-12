@@ -66,7 +66,9 @@ svg{display:block}
 .footer-title{font-weight:700;font-size:13px}
 .footer-note{color:var(--muted);font-size:12.5px}
 .footer-actions{display:flex;gap:8px}
+.footer-group{display:flex;gap:8px;align-items:center}
 @media (max-width:760px){.footer-note{width:100%;order:3}}
+@media (max-width:760px){.footer-actions{flex-direction:column;align-items:stretch}.footer-group{width:100%}.footer-group>*{flex:1;justify-content:center}}
 .topbar-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .topbar-row.top{justify-content:space-between;margin-bottom:12px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
@@ -289,11 +291,15 @@ svg{display:block}
     <span class="footer-note">應用內改動自動儲存於瀏覽器；按「匯出設定」下載 config.json，貼返入 GitHub repo 即可同步公開版本。</span>
   </div>
   <div class="footer-actions">
-    <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
-    <button id="ghSyncBtn" class="btn small" title="即時將目前 config.json 同步 push 上 GitHub">GitHub 同步</button>
-    <button id="ghTokenStatus" type="button" class="gh-token-missing" title="撳入去更改／儲存 GitHub Token">未設定 Token</button>
-    <button id="exportBtn" class="btn small">匯出設定</button>
-    <button id="resetBtn" class="btn small ghost">重設設定</button>
+    <div class="footer-group">
+      <button id="ghSyncBtn" class="btn small" title="即時將目前 config.json 同步 push 上 GitHub">GitHub 同步</button>
+      <button id="ghTokenStatus" type="button" class="gh-token-missing" title="撳入去更改／儲存 GitHub Token">未設定 Token</button>
+    </div>
+    <div class="footer-group">
+      <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
+      <button id="exportBtn" class="btn small">匯出設定</button>
+      <button id="resetBtn" class="btn small ghost">重設設定</button>
+    </div>
   </div>
 </footer>
 
