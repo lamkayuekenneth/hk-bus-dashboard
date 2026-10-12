@@ -657,6 +657,18 @@
           "serviceType": 1,
           "lat": 22.276324832091,
           "lon": 114.19520168053
+        },
+        {
+          "route": "681",
+          "co": "ctb",
+          "stopId": "001196",
+          "stopName": "香港站",
+          "stopNameEn": "Hong Kong Station",
+          "dir": "O",
+          "dest": "馬鞍山市中心",
+          "serviceType": 1,
+          "lat": 22.286284332091,
+          "lon": 114.15649042053
         }
       ]
     }
