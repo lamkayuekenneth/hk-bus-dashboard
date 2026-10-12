@@ -89,8 +89,10 @@ svg{display:block}
 .btn.ghost{color:var(--muted)}
 .btn.ghost:hover{color:var(--text)}
 .btn.danger{color:var(--danger);border-color:var(--danger-border)}
-.gh-token-ok{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#16a34a;color:#fff;white-space:nowrap}
-.gh-token-missing{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#dc2626;color:#fff;white-space:nowrap}
+.gh-token-ok{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#16a34a;color:#fff;white-space:nowrap;cursor:pointer;border:1px solid transparent}
+.gh-token-ok:hover{background:#15803d}
+.gh-token-missing{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#dc2626;color:#fff;white-space:nowrap;cursor:pointer;border:1px solid transparent}
+.gh-token-missing:hover{background:#b91c1c}
 .btn.small{height:28px;padding:0 9px;font-size:12px;border-radius:7px}
 .btn:disabled{opacity:.5;cursor:default}
 .toggle-state{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;border-radius:10px;background:var(--line);color:var(--muted);font-size:11px;font-weight:700;padding:0 6px}
@@ -288,8 +290,8 @@ svg{display:block}
   </div>
   <div class="footer-actions">
     <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
-    <button id="ghSyncBtn" class="btn small" title="GitHub 自動同步設定：每次改動 config 自動 commit + push 上 GitHub">GitHub 同步</button>
-    <span id="ghTokenStatus" class="gh-token-missing" title="瀏覽器 localStorage 有冇儲存 GitHub Token">未設定 Token</span>
+    <button id="ghSyncBtn" class="btn small" title="即時將目前 config.json 同步 push 上 GitHub">GitHub 同步</button>
+    <button id="ghTokenStatus" type="button" class="gh-token-missing" title="撳入去更改／儲存 GitHub Token">未設定 Token</button>
     <button id="exportBtn" class="btn small">匯出設定</button>
     <button id="resetBtn" class="btn small ghost">重設設定</button>
   </div>
@@ -355,7 +357,7 @@ svg{display:block}
 <div class="modal-mask" id="ghModal" hidden>
   <div class="modal" style="max-width:460px">
     <div class="modal-head">
-      <h3>GitHub 自動同步設定</h3>
+      <h3>GitHub Token 設定</h3>
       <button class="modal-close" data-close="ghModal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="modal-body">
@@ -1244,7 +1246,8 @@ $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
 $("#exportBtn").addEventListener("click", () => { exportConfig(); toast("已下載 config.json，可貼返入 GitHub repo 同步", "ok"); });
-$("#ghSyncBtn").addEventListener("click", () => { $("#ghTokenInput").value = ghGetToken(); showModal("ghModal"); });
+$("#ghSyncBtn").addEventListener("click", () => pushConfigToGithub(true));
+$("#ghTokenStatus").addEventListener("click", () => { $("#ghTokenInput").value = ghGetToken(); showModal("ghModal"); });
 $("#ghSaveBtn").addEventListener("click", () => {
   const t = $("#ghTokenInput").value.trim();
   ghSetToken(t);
