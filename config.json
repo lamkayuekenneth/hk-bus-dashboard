@@ -667,12 +667,6 @@
       ]
     },
     {
-      "id": "g-mv2hpct7frfm",
-      "title": "temp",
-      "region": "temp",
-      "routes": []
-    },
-    {
       "id": "g-mv51iw2rfmtq",
       "title": "灣仔: 史釗域道 (往勵德邨)",
       "region": "灣仔",
@@ -723,14 +717,14 @@
         {
           "route": "25",
           "co": "gmb",
-          "stopId": 20000147,
-          "routeId": 2002020,
-          "routeSeq": 1,
+          "stopId": "20000147",
           "stopName": "百德新街, 珠城大廈外",
           "stopNameEn": "Paterson Street, outside Pearl City Mansion",
           "dir": null,
           "dest": "銅鑼灣(循環線)",
           "serviceType": 1,
+          "routeId": 2002020,
+          "routeSeq": 1,
           "lat": 22.280947501767017,
           "lon": 114.18553940683883
         },
@@ -759,6 +753,12 @@
           "lon": 114.18607065053
         }
       ]
+    },
+    {
+      "id": "g-mv2hpct7frfm",
+      "title": "temp",
+      "region": "temp",
+      "routes": []
     }
   ]
 }
