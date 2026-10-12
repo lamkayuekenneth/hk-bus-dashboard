@@ -20,18 +20,6 @@
           "lon": 114.227935
         },
         {
-          "route": "619",
-          "co": "ctb",
-          "stopId": "001510",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "I",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": 1,
-          "lat": 22.311633,
-          "lon": 114.227618
-        },
-        {
           "route": "606",
           "co": "kmb",
           "stopId": "AB2BD1CDDCB213CB",
@@ -54,6 +42,18 @@
           "serviceType": 1,
           "lat": 22.311633,
           "lon": 114.227618
+        },
+        {
+          "route": "619",
+          "co": "kmb",
+          "stopId": "114381B039350CBB",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
         }
       ]
     },
