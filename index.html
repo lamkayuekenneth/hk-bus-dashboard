@@ -626,8 +626,6 @@ async function fetchEtaFor(row) {
 
 /* ---------- 車費查詢（fare_bus.json / fare_gmb.json：運輸署開放數據精簡版） ---------- */
 let fareData = null;
-const FARE_CACHE_KEY = "hkbus-fare-v5";   // v5：官方 XML 權威 + 班次拆分（站序交叉/越行越貴清零）
-const FARE_TTL = 24 * 60 * 60 * 1000;   // 24 小時內用瀏覽器快取，之後先再 fetch
 const normName = s => String(s || "").replace(/[，,、\s]/g, "").toLowerCase();
 function fmtFare(f) {
   const n = Number(f);
@@ -636,30 +634,16 @@ function fmtFare(f) {
 }
 async function loadFareData() {
   try {
-    const cached = await caches.match(FARE_CACHE_KEY);
-    let ts = 0;
-    try { ts = Number(localStorage.getItem("hkbus.fare.ts") || 0); } catch (e) {}
-    if (cached && Date.now() - ts < FARE_TTL) {
-      const j = await cached.json();
-      fareData = { bus: j.bus || null, gmb: j.gmb || null, ts };
-      renderBoards();
-      return;
-    }
+    // 每次載入都重新驗證（no-cache：GitHub Pages 有 ETag，未變會回 304 慳 bandwidth；
+    // 已變就攞最新，避免 Cache API 令車費修正睇唔到）
     const [rb, rg] = await Promise.all([
-      fetch("./fare_bus.json", { cache: "no-store" }),
-      fetch("./fare_gmb.json", { cache: "no-store" })
+      fetch("./fare_bus.json", { cache: "no-cache" }),
+      fetch("./fare_gmb.json", { cache: "no-cache" })
     ]);
     const bus = rb.ok ? await rb.json() : null;
     const gmb = rg.ok ? await rg.json() : null;
     fareData = { bus, gmb, ts: Date.now() };
-    if (bus || gmb) {
-      try {
-        const cache = await caches.open(FARE_CACHE_KEY);
-        await cache.put(FARE_CACHE_KEY, new Response(JSON.stringify(fareData), { headers: { "Content-Type": "application/json" } }));
-        localStorage.setItem("hkbus.fare.ts", String(fareData.ts));
-      } catch (e) { /* 快取失敗唔影響主功能 */ }
-      renderBoards();
-    }
+    renderBoards();
   } catch (e) {
     console.error("[fare] 載入車費資料失敗：", e);
     fareData = null;
