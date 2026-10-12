@@ -593,7 +593,36 @@
       "id": "g-mv2hpct7frfm",
       "title": "temp",
       "region": "temp",
-      "routes": []
+      "routes": [
+        {
+          "route": "69",
+          "co": "gmb",
+          "stopId": 20007719,
+          "routeId": 2000410,
+          "routeSeq": 1,
+          "stopName": "數碼港道, 資訊道",
+          "stopNameEn": "Information Crescent, Cyberport Road",
+          "dir": null,
+          "dest": "鰂魚涌(船塢里)(循環線)",
+          "serviceType": 1,
+          "lat": 22.260957427048748,
+          "lon": 114.13142144680025
+        },
+        {
+          "route": "69",
+          "co": "gmb",
+          "stopId": 20000378,
+          "routeId": 2000410,
+          "routeSeq": 1,
+          "stopName": "渣華道, 渣華道市政大廈",
+          "stopNameEn": "Java Road Municipal Building Complex, Java Road",
+          "dir": null,
+          "dest": "鰂魚涌(船塢里)(循環線)",
+          "serviceType": 1,
+          "lat": 22.292243463770284,
+          "lon": 114.1995528160979
+        }
+      ]
     }
   ]
 }
