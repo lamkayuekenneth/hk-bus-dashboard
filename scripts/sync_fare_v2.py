@@ -47,19 +47,22 @@ def fetch(url):
         return None
 
 def parse_fare_table(html):
-    """解析 681 收費表 -> {"full": float, "sections": [(描述, 金額)]}"""
-    i = html.find("全程收費")
+    """解析 681 收費表 -> {"full": float, "sections": [(描述, 金額)]}
+    先定位「收費表 </u>」標題，再由該處搵「全程收費」——唔可以由全頁第一個
+    「全程收費」開始（歷史文章會先出現，如 KMB 40 頁「1970年…全程收費」）。"""
+    m = re.search(r"<u[^>]*>\s*收費表\s*</u>", html)
+    if not m:
+        return None
+    i = html.find("全程收費", m.end())
     if i < 0:
         return None
-    j = html.find("八達通轉乘優惠")
+    j = html.find("八達通轉乘優惠", i)
     if j < 0:
         j = i + 4000
     seg = html[i:j]
     out = {"full": None, "sections": []}
-    # 全程收費：`全程收費</td>...<td>6.20</td>`
-    m = re.search(r"全程收費\s*</td>.*?<td[^>]*>\s*([\d.]+)\s*</td>", seg, re.S)
-    if not m:
-        m = re.search(r"全程收費.{0,80}?(\d+(?:\.\d+)?)", seg, re.S)
+    # 全程收費：`全程收費</td><td...><div...>17.10</div></td>`（數字可能被 div 包住）
+    m = re.search(r"全程收費\s*</td>\s*<td[^>]*>\s*(?:<div[^>]*>\s*)?([\d.]+)", seg, re.S)
     if m:
         out["full"] = float(m.group(1))
     rows = re.findall(r"<tr[^>]*>(.*?)</tr>", seg, re.S)
@@ -129,13 +132,17 @@ def match_section_stop(desc, stops):
         if not key:
             continue
         kk = _key(key)
+        # 完全相等優先（「筲箕灣」應對「筲箕灣」總站而非「筲箕灣廣場」）
+        for idx, n in enumerate(names):
+            if kk and _key(n) == kk:
+                return idx, dest
         for idx, n in enumerate(names):
             nn = _key(n)
-            if kk and (kk in nn or nn.startswith(kk)):
+            if kk and (kk in nn or nn in kk or nn.startswith(kk)):
                 return idx, dest
-    # 5) fallback：頭兩個字 match
+    # 5) fallback：前三個字 match（「西貢北巴士總站」→「西貢北(西貢警署)」）
     if main:
-        pre = _key(main)[:2]
+        pre = _key(main)[:3]
         for idx, n in enumerate(names):
             if pre and _key(n).startswith(pre):
                 return idx, dest
@@ -171,11 +178,16 @@ def compute_stop_fares(fare_table, stops, dest_name, co=None, rn=None, seq=None)
     循環線分段表係「上車站→折返點」下車分段模型，同「上車站→終點」唔相容，維持全程價。"""
     full = fare_table["full"]
     bounds = []
+    n = len(stops)
     if not is_circular(stops):
         for desc, amt in fare_table["sections"]:
             hit = match_section_stop(desc, stops)
             if hit:
                 idx, d = hit
+                # 起點站(0)或尾站(n-1)：分段「由總站上車」＝反方向/無分段意義，skip
+                # （例：77「筲箕灣往筲箕灣道近太祥街」對 seq1（終點筲箕灣）誤配）
+                if idx <= 0 or idx >= n - 1:
+                    continue
                 if direction_of(dest_name, d):
                     bounds.append((idx, amt))
         bounds.sort(key=lambda x: x[0])
