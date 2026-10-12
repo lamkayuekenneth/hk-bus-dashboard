@@ -89,6 +89,8 @@ svg{display:block}
 .btn.ghost{color:var(--muted)}
 .btn.ghost:hover{color:var(--text)}
 .btn.danger{color:var(--danger);border-color:var(--danger-border)}
+.gh-token-ok{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#16a34a;color:#fff;white-space:nowrap}
+.gh-token-missing{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:#dc2626;color:#fff;white-space:nowrap}
 .btn.small{height:28px;padding:0 9px;font-size:12px;border-radius:7px}
 .btn:disabled{opacity:.5;cursor:default}
 .toggle-state{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;border-radius:10px;background:var(--line);color:var(--muted);font-size:11px;font-weight:700;padding:0 6px}
@@ -287,6 +289,7 @@ svg{display:block}
   <div class="footer-actions">
     <button id="exportCsvBtn" class="btn small" title="下載路線清單 CSV（Excel 可直接開啟），可貼返入飛書表格">匯出路線表 CSV</button>
     <button id="ghSyncBtn" class="btn small" title="GitHub 自動同步設定：每次改動 config 自動 commit + push 上 GitHub">GitHub 同步</button>
+    <span id="ghTokenStatus" class="gh-token-missing" title="瀏覽器 localStorage 有冇儲存 GitHub Token">未設定 Token</span>
     <button id="exportBtn" class="btn small">匯出設定</button>
     <button id="resetBtn" class="btn small ghost">重設設定</button>
   </div>
@@ -515,6 +518,13 @@ const GH_TOKEN_KEY = "hkbus.github.token.v1";
 let ghSyncTimer = null;
 function ghGetToken() { try { return localStorage.getItem(GH_TOKEN_KEY) || ""; } catch (e) { return ""; } }
 function ghSetToken(t) { try { localStorage.setItem(GH_TOKEN_KEY, t); } catch (e) {} }
+function updateGhTokenStatus() {
+  const el = $("#ghTokenStatus");
+  if (!el) return;
+  const has = !!ghGetToken();
+  el.textContent = has ? "已設定 Token" : "未設定 Token";
+  el.className = has ? "gh-token-ok" : "gh-token-missing";
+}
 function scheduleGhSync() {
   if (ghSyncTimer) clearTimeout(ghSyncTimer);
   ghSyncTimer = setTimeout(pushConfigToGithub, 4000);   // 4 秒 debounce：連續操作合併一次 push
@@ -1238,6 +1248,7 @@ $("#ghSyncBtn").addEventListener("click", () => { $("#ghTokenInput").value = ghG
 $("#ghSaveBtn").addEventListener("click", () => {
   const t = $("#ghTokenInput").value.trim();
   ghSetToken(t);
+  updateGhTokenStatus();
   closeModal("ghModal");
   toast(t ? "GitHub Token 已儲存，之後每次改動都會自動同步 ✓" : "已清除 GitHub Token", "ok");
   if (t) pushConfigToGithub(true);
@@ -1277,6 +1288,7 @@ $("#boards").addEventListener("click", e => {
 /* ---------- 啟動 ---------- */
 async function init() {
   await loadConfig();
+  updateGhTokenStatus();
   renderFilterOptions();
   renderBoards();
   refreshAll();
