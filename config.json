@@ -755,12 +755,6 @@
       ]
     },
     {
-      "id": "g-mv2hpct7frfm",
-      "title": "temp",
-      "region": "temp",
-      "routes": []
-    },
-    {
       "id": "g-mv5886d6kiuf",
       "title": "銅鑼灣: Sogo (往南豐)",
       "region": "銅鑼灣",
@@ -788,8 +782,26 @@
           "serviceType": 1,
           "lat": 22.280207632091,
           "lon": 114.18417804053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "002438",
+          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
+          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.280207632091,
+          "lon": 114.18417804053
         }
       ]
+    },
+    {
+      "id": "g-mv2hpct7frfm",
+      "title": "temp",
+      "region": "temp",
+      "routes": []
     }
   ]
 }
