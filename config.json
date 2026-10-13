@@ -367,6 +367,20 @@
           "serviceType": 1,
           "lat": 22.280207632091,
           "lon": 114.18417804053
+        },
+        {
+          "route": "116",
+          "co": "joint",
+          "stopId": "B618AF0918FC2598",
+          "stopIdCtb": "002438",
+          "stopName": "崇光百貨",
+          "stopNameEn": "SOGO DEPARTMENT STORE",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "鰂魚涌(祐民街)",
+          "serviceType": "1",
+          "lat": 22.280249,
+          "lon": 114.183934
         }
       ]
     },
