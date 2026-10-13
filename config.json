@@ -1293,7 +1293,20 @@
       "id": "g-mv6bqnlut2pl",
       "title": "金鐘: 聖約翰座堂",
       "region": "金鐘",
-      "routes": []
+      "routes": [
+        {
+          "route": "23",
+          "co": "ctb",
+          "stopId": "001073",
+          "stopName": "聖約翰座堂, 花園道",
+          "stopNameEn": "St. John's Cathedral, Garden Road",
+          "dir": "I",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.278373862091,
+          "lon": 114.15978086053
+        }
+      ]
     }
   ]
 }
