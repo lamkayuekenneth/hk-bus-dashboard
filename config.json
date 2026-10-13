@@ -3,126 +3,233 @@
   "autoRefreshSeconds": 60,
   "groups": [
     {
-      "id": "g-kwuntong",
-      "title": "觀塘:往港島",
-      "region": "觀塘",
+      "id": "g-mv0jnqe5jn28",
+      "title": "大坑: 勵德邨 (往北角)",
+      "region": "大坑",
       "routes": [
         {
-          "route": "601",
-          "co": "kmb",
-          "stopId": "114381B039350CBB",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "O",
-          "dest": "金鐘站(東)",
-          "serviceType": 1,
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "606",
-          "co": "kmb",
-          "stopId": "AB2BD1CDDCB213CB",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "O",
-          "dest": "小西灣(藍灣半島)",
-          "serviceType": 1,
-          "lat": 22.31153,
-          "lon": 114.227804
-        },
-        {
-          "route": "641",
+          "route": "81",
           "co": "ctb",
-          "stopId": "001510",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
+          "stopId": "001291",
+          "stopName": "勵德邨邨榮樓, 勵德邨道",
+          "stopNameEn": "Tsuen Wing Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
           "dir": "I",
-          "dest": "中環(港澳碼頭)",
+          "dest": "興華邨",
           "serviceType": 1,
-          "lat": 22.311633,
-          "lon": 114.227618
+          "lat": 22.278092282091,
+          "lon": 114.19423311053
         },
         {
-          "route": "619",
-          "co": "kmb",
-          "stopId": "114381B039350CBB",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "001289",
+          "stopName": "勵德邨德全樓, 勵德邨道",
+          "stopNameEn": "Tak Chuen Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
           "dir": "O",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "641",
-          "co": "kmb",
-          "stopId": "114381B039350CBB",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.278859622091,
+          "lon": 114.19353863053
         }
       ]
     },
     {
-      "id": "g-quarrybay",
-      "title": "鰂魚涌: 惠安苑",
-      "region": "鰂魚涌",
+      "id": "g-muzaa40wxtob",
+      "title": "大坑: 勵德邨 (往灣仔)",
+      "region": "大坑",
       "routes": [
         {
-          "route": "770",
-          "co": "ctb",
-          "stopId": "001269",
-          "stopName": "惠安苑",
-          "stopNameEn": "Westlands Gardens",
-          "dir": "O",
-          "dest": "柴灣(東)",
+          "route": "25",
+          "co": "gmb",
+          "stopId": "20000147",
+          "stopName": "百德新街, 珠城大廈外",
+          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
+          "dir": null,
+          "dest": "銅鑼灣(循環線)",
           "serviceType": 1,
-          "lat": 22.284763,
-          "lon": 114.213193
+          "routeId": 2002020,
+          "routeSeq": 1,
+          "lat": 22.280947501767017,
+          "lon": 114.18553940683883
         },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "瑞士花園, 大坑道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        }
+      ]
+    },
+    {
+      "id": "g-muzeeeum1p34",
+      "title": "黃竹坑: 甄沾記大廈",
+      "region": "黃竹坑",
+      "routes": [
         {
           "route": "99",
           "co": "ctb",
-          "stopId": "001269",
-          "stopName": "惠安苑, 英皇道",
-          "stopNameEn": "Westlands Gardens, King's Road",
+          "stopId": "002344",
+          "stopName": "甄沾記大廈, 黃竹坑道",
+          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
           "dir": "O",
           "dest": "筲箕灣",
           "serviceType": 1,
-          "lat": 22.284763112091,
-          "lon": 114.21319278053
+          "lat": 22.248523252091,
+          "lon": 114.16362493053
         },
         {
           "route": "77",
           "co": "ctb",
-          "stopId": "001269",
-          "stopName": "惠安苑, 英皇道",
-          "stopNameEn": "Westlands Gardens, King's Road",
+          "stopId": "002343",
+          "stopName": "香港仔工業學校, 黃竹坑道",
+          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
           "dir": "O",
           "dest": "筲箕灣",
           "serviceType": 1,
-          "lat": 22.284763112091,
-          "lon": 114.21319278053
+          "lat": 22.248699582091,
+          "lon": 114.16253441053
         },
         {
-          "route": "32A",
-          "co": "gmb",
-          "stopId": "20016089",
-          "stopName": "英皇道,近惠安苑",
-          "stopNameEn": "KING'S ROAD, near Westlands Gardens",
-          "dir": null,
-          "dest": "英皇道(太古城中心)(循環線)",
+          "route": "770",
+          "co": "ctb",
+          "stopId": "002343",
+          "stopName": "香港仔工業學校, 黃竹坑道",
+          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "柴灣 (東)",
           "serviceType": 1,
-          "routeId": 2005688,
+          "lat": 22.248699582091,
+          "lon": 114.16253441053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "002344",
+          "stopName": "甄沾記大廈, 黃竹坑道",
+          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.248523252091,
+          "lon": 114.16362493053
+        }
+      ]
+    },
+    {
+      "id": "g-mv51fvi0w3pg",
+      "title": "銅鑼灣: 百德新街 (往勵德邨)",
+      "region": "銅鑼灣",
+      "routes": [
+        {
+          "route": "25",
+          "co": "gmb",
+          "stopId": "20000147",
+          "stopName": "百德新街, 珠城大廈外",
+          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
+          "dir": null,
+          "dest": "銅鑼灣(循環線)",
+          "serviceType": 1,
+          "routeId": 2002020,
           "routeSeq": 1,
-          "lat": 22.284763129650916,
-          "lon": 114.2130893468857
+          "lat": 22.280947501767017,
+          "lon": 114.18553940683883
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
+        }
+      ]
+    },
+    {
+      "id": "g-mv5886d6kiuf",
+      "title": "銅鑼灣: Sogo (往南豐)",
+      "region": "銅鑼灣",
+      "routes": [
+        {
+          "route": "116",
+          "co": "ctb",
+          "stopId": "002438",
+          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
+          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "dir": "I",
+          "dest": "鰂魚涌",
+          "serviceType": 1,
+          "lat": 22.280207632091,
+          "lon": 114.18417804053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "002438",
+          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
+          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.280207632091,
+          "lon": 114.18417804053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "002438",
+          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
+          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.280207632091,
+          "lon": 114.18417804053
         }
       ]
     },
@@ -204,386 +311,59 @@
       ]
     },
     {
-      "id": "g-muzmzai1nd2p",
-      "title": "鰂魚涌: 寶峰園 (往南區)",
+      "id": "g-quarrybay",
+      "title": "鰂魚涌: 惠安苑",
       "region": "鰂魚涌",
       "routes": [
         {
-          "route": "99",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "I",
-          "dest": "海怡半島",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        },
-        {
-          "route": "77",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "I",
-          "dest": "田灣邨",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        },
-        {
           "route": "770",
           "co": "ctb",
-          "stopId": "001288",
-          "stopName": "康怡廣場, 康山道",
-          "stopNameEn": "Kornhill Plaza, Kornhill Road",
-          "dir": "I",
-          "dest": "田灣邨",
+          "stopId": "001269",
+          "stopName": "惠安苑",
+          "stopNameEn": "Westlands Gardens",
+          "dir": "O",
+          "dest": "柴灣(東)",
           "serviceType": 1,
-          "lat": 22.284499762091,
-          "lon": 114.21671745053
+          "lat": 22.284763,
+          "lon": 114.213193
         },
-        {
-          "route": "69",
-          "co": "gmb",
-          "stopId": "20005088",
-          "stopName": "船塢里, 富通中心外",
-          "stopNameEn": "Shipyard Lane, outside Fortis Centre",
-          "dir": null,
-          "dest": "鰂魚涌(船塢里)(循環線)",
-          "serviceType": 1,
-          "routeId": 2000410,
-          "routeSeq": 1,
-          "lat": 22.284944141522637,
-          "lon": 114.21360243136799
-        }
-      ]
-    },
-    {
-      "id": "g-muzeeeum1p34",
-      "title": "黃竹坑: 甄沾記大廈",
-      "region": "黃竹坑",
-      "routes": [
         {
           "route": "99",
           "co": "ctb",
-          "stopId": "002344",
-          "stopName": "甄沾記大廈, 黃竹坑道",
-          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
           "dir": "O",
           "dest": "筲箕灣",
           "serviceType": 1,
-          "lat": 22.248523252091,
-          "lon": 114.16362493053
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
         },
         {
           "route": "77",
           "co": "ctb",
-          "stopId": "002343",
-          "stopName": "香港仔工業學校, 黃竹坑道",
-          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
+          "stopId": "001269",
+          "stopName": "惠安苑, 英皇道",
+          "stopNameEn": "Westlands Gardens, King's Road",
           "dir": "O",
           "dest": "筲箕灣",
           "serviceType": 1,
-          "lat": 22.248699582091,
-          "lon": 114.16253441053
+          "lat": 22.284763112091,
+          "lon": 114.21319278053
         },
         {
-          "route": "770",
-          "co": "ctb",
-          "stopId": "002343",
-          "stopName": "香港仔工業學校, 黃竹坑道",
-          "stopNameEn": "Aberdeen Technical School, Wong Chuk Hang Road",
-          "dir": "O",
-          "dest": "柴灣 (東)",
-          "serviceType": 1,
-          "lat": 22.248699582091,
-          "lon": 114.16253441053
-        },
-        {
-          "route": "41A",
-          "co": "ctb",
-          "stopId": "002344",
-          "stopName": "甄沾記大廈, 黃竹坑道",
-          "stopNameEn": "Yan's Tower, Wong Chuk Hang Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.248523252091,
-          "lon": 114.16362493053
-        }
-      ]
-    },
-    {
-      "id": "g-mv068s8h06po",
-      "title": "鰂魚涌: 寶峰園 (往灣仔)",
-      "region": "鰂魚涌",
-      "routes": [
-        {
-          "route": "722",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "O",
-          "dest": "中環 (交易廣場)",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        },
-        {
-          "route": "2A",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "O",
-          "dest": "會展站",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        },
-        {
-          "route": "N8X",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "O",
-          "dest": "堅尼地城",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        }
-      ]
-    },
-    {
-      "id": "g-muzaa40wxtob",
-      "title": "大坑: 勵德邨 (往灣仔)",
-      "region": "大坑",
-      "routes": [
-        {
-          "route": "25",
+          "route": "32A",
           "co": "gmb",
-          "stopId": "20000147",
-          "stopName": "百德新街, 珠城大廈外",
-          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
+          "stopId": "20016089",
+          "stopName": "英皇道,近惠安苑",
+          "stopNameEn": "KING'S ROAD, near Westlands Gardens",
           "dir": null,
-          "dest": "銅鑼灣(循環線)",
+          "dest": "英皇道(太古城中心)(循環線)",
           "serviceType": 1,
-          "routeId": 2002020,
+          "routeId": 2005688,
           "routeSeq": 1,
-          "lat": 22.280947501767017,
-          "lon": 114.18553940683883
-        },
-        {
-          "route": "25A",
-          "co": "ctb",
-          "stopId": "002574",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
-          "dir": "O",
-          "dest": "雲景台, 雲景道",
-          "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        },
-        {
-          "route": "26",
-          "co": "ctb",
-          "stopId": "002574",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
-          "dir": "I",
-          "dest": "勵德邨",
-          "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        },
-        {
-          "route": "11",
-          "co": "ctb",
-          "stopId": "002574",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
-          "dir": "O",
-          "dest": "瑞士花園, 大坑道",
-          "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        }
-      ]
-    },
-    {
-      "id": "g-mv0jnqe5jn28",
-      "title": "大坑: 勵德邨 (往北角)",
-      "region": "大坑",
-      "routes": [
-        {
-          "route": "81",
-          "co": "ctb",
-          "stopId": "001291",
-          "stopName": "勵德邨邨榮樓, 勵德邨道",
-          "stopNameEn": "Tsuen Wing Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
-          "dir": "I",
-          "dest": "興華邨",
-          "serviceType": 1,
-          "lat": 22.278092282091,
-          "lon": 114.19423311053
-        },
-        {
-          "route": "41A",
-          "co": "ctb",
-          "stopId": "001289",
-          "stopName": "勵德邨德全樓, 勵德邨道",
-          "stopNameEn": "Tak Chuen Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.278859622091,
-          "lon": 114.19353863053
-        }
-      ]
-    },
-    {
-      "id": "g-mv0f2hg9m3j8",
-      "title": "灣仔: 伊館 (往銅鑼灣)",
-      "region": "灣仔",
-      "routes": [
-        {
-          "route": "72",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "銅鑼灣 (摩頓台)",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "72A",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "銅鑼灣 (摩頓台)",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "592",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "銅鑼灣 (摩頓台)",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        }
-      ]
-    },
-    {
-      "id": "g-mv0f63xrika3",
-      "title": "灣仔: 伊館 (往北角)",
-      "region": "灣仔",
-      "routes": [
-        {
-          "route": "38",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "42",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "65",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "I",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "42C",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "北角碼頭",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        },
-        {
-          "route": "77",
-          "co": "ctb",
-          "stopId": "002467",
-          "stopName": "立德里, 摩理臣山道",
-          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
-          "dir": "O",
-          "dest": "筲箕灣",
-          "serviceType": 1,
-          "lat": 22.276064312091,
-          "lon": 114.18020849053
-        }
-      ]
-    },
-    {
-      "id": "g-mv1sm4lbvm2n",
-      "title": "灣仔: 金星大廈 (往南豐)",
-      "region": "灣仔",
-      "routes": [
-        {
-          "route": "722",
-          "co": "ctb",
-          "stopId": "002967",
-          "stopName": "金星大廈, 駱克道",
-          "stopNameEn": "Golden Star Building, Lockhart Road",
-          "dir": "I",
-          "dest": "耀東邨",
-          "serviceType": 1,
-          "lat": 22.278188642091,
-          "lon": 114.16975256053
-        },
-        {
-          "route": "720",
-          "co": "ctb",
-          "stopId": "002967",
-          "stopName": "金星大廈, 駱克道",
-          "stopNameEn": "Golden Star Building, Lockhart Road",
-          "dir": "I",
-          "dest": "西灣河 (嘉亨灣)",
-          "serviceType": 1,
-          "lat": 22.278188642091,
-          "lon": 114.16975256053
+          "lat": 22.284763129650916,
+          "lon": 114.2130893468857
         }
       ]
     },
@@ -679,6 +459,137 @@
       ]
     },
     {
+      "id": "g-muzmzai1nd2p",
+      "title": "鰂魚涌: 寶峰園 (往南區)",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "海怡半島",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "77",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "001288",
+          "stopName": "康怡廣場, 康山道",
+          "stopNameEn": "Kornhill Plaza, Kornhill Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284499762091,
+          "lon": 114.21671745053
+        },
+        {
+          "route": "69",
+          "co": "gmb",
+          "stopId": "20005088",
+          "stopName": "船塢里, 富通中心外",
+          "stopNameEn": "Shipyard Lane, outside Fortis Centre",
+          "dir": null,
+          "dest": "鰂魚涌(船塢里)(循環線)",
+          "serviceType": 1,
+          "routeId": 2000410,
+          "routeSeq": 1,
+          "lat": 22.284944141522637,
+          "lon": 114.21360243136799
+        }
+      ]
+    },
+    {
+      "id": "g-mv068s8h06po",
+      "title": "鰂魚涌: 寶峰園 (往灣仔)",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "中環 (交易廣場)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "N8X",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "堅尼地城",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        }
+      ]
+    },
+    {
+      "id": "g-mv5xr10m1lt2",
+      "title": "鰂魚涌: 寶峰園 (往觀塘)",
+      "region": "鰂魚涌",
+      "routes": [
+        {
+          "route": "606",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "彩雲 (豐盛街)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "606A",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "彩雲 (豐盛街)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        }
+      ]
+    },
+    {
       "id": "g-mv51iw2rfmtq",
       "title": "灣仔: 史釗域道 (往勵德邨)",
       "region": "灣仔",
@@ -722,90 +633,210 @@
       ]
     },
     {
-      "id": "g-mv51fvi0w3pg",
-      "title": "銅鑼灣: 百德新街 (往勵德邨)",
-      "region": "銅鑼灣",
+      "id": "g-mv0f63xrika3",
+      "title": "灣仔: 伊館 (往北角)",
+      "region": "灣仔",
       "routes": [
         {
-          "route": "25",
-          "co": "gmb",
-          "stopId": "20000147",
-          "stopName": "百德新街, 珠城大廈外",
-          "stopNameEn": "Paterson Street, outside Pearl City Mansion",
-          "dir": null,
-          "dest": "銅鑼灣(循環線)",
-          "serviceType": 1,
-          "routeId": 2002020,
-          "routeSeq": 1,
-          "lat": 22.280947501767017,
-          "lon": 114.18553940683883
-        },
-        {
-          "route": "26",
+          "route": "38",
           "co": "ctb",
-          "stopId": "002574",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
-          "dir": "I",
-          "dest": "勵德邨",
-          "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        },
-        {
-          "route": "25A",
-          "co": "ctb",
-          "stopId": "002574",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
           "dir": "O",
-          "dest": "雲景台, 雲景道",
+          "dest": "北角碼頭",
           "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        }
-      ]
-    },
-    {
-      "id": "g-mv5886d6kiuf",
-      "title": "銅鑼灣: Sogo (往南豐)",
-      "region": "銅鑼灣",
-      "routes": [
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
         {
-          "route": "116",
+          "route": "42",
           "co": "ctb",
-          "stopId": "002438",
-          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
-          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
-          "dir": "I",
-          "dest": "鰂魚涌",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "北角碼頭",
           "serviceType": 1,
-          "lat": 22.280207632091,
-          "lon": 114.18417804053
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "65",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "I",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "42C",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "北角碼頭",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
         },
         {
           "route": "77",
           "co": "ctb",
-          "stopId": "002438",
-          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
-          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
           "dir": "O",
           "dest": "筲箕灣",
           "serviceType": 1,
-          "lat": 22.280207632091,
-          "lon": 114.18417804053
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        }
+      ]
+    },
+    {
+      "id": "g-mv0f2hg9m3j8",
+      "title": "灣仔: 伊館 (往銅鑼灣)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "72",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
         },
         {
-          "route": "2A",
+          "route": "72A",
           "co": "ctb",
-          "stopId": "002438",
-          "stopName": "銅鑼灣 - 崇光百貨, 軒尼詩道",
-          "stopNameEn": "Causeway Bay - Sogo Department Store, Hennessy Road",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        },
+        {
+          "route": "592",
+          "co": "ctb",
+          "stopId": "002467",
+          "stopName": "立德里, 摩理臣山道",
+          "stopNameEn": "Lap Tak Lane, Morrison Hill Road",
+          "dir": "O",
+          "dest": "銅鑼灣 (摩頓台)",
+          "serviceType": 1,
+          "lat": 22.276064312091,
+          "lon": 114.18020849053
+        }
+      ]
+    },
+    {
+      "id": "g-mv1sm4lbvm2n",
+      "title": "灣仔: 金星大廈 (往南豐)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "002967",
+          "stopName": "金星大廈, 駱克道",
+          "stopNameEn": "Golden Star Building, Lockhart Road",
           "dir": "I",
           "dest": "耀東邨",
           "serviceType": 1,
-          "lat": 22.280207632091,
-          "lon": 114.18417804053
+          "lat": 22.278188642091,
+          "lon": 114.16975256053
+        },
+        {
+          "route": "720",
+          "co": "ctb",
+          "stopId": "002967",
+          "stopName": "金星大廈, 駱克道",
+          "stopNameEn": "Golden Star Building, Lockhart Road",
+          "dir": "I",
+          "dest": "西灣河 (嘉亨灣)",
+          "serviceType": 1,
+          "lat": 22.278188642091,
+          "lon": 114.16975256053
+        }
+      ]
+    },
+    {
+      "id": "g-kwuntong",
+      "title": "觀塘:往港島",
+      "region": "觀塘",
+      "routes": [
+        {
+          "route": "601",
+          "co": "kmb",
+          "stopId": "114381B039350CBB",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "O",
+          "dest": "金鐘站(東)",
+          "serviceType": 1,
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "606",
+          "co": "kmb",
+          "stopId": "AB2BD1CDDCB213CB",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "O",
+          "dest": "小西灣(藍灣半島)",
+          "serviceType": 1,
+          "lat": 22.31153,
+          "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "ctb",
+          "stopId": "001510",
+          "stopName": "觀塘站",
+          "stopNameEn": "Kwun Tong Station",
+          "dir": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.311633,
+          "lon": 114.227618
+        },
+        {
+          "route": "619",
+          "co": "kmb",
+          "stopId": "114381B039350CBB",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "641",
+          "co": "kmb",
+          "stopId": "114381B039350CBB",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
         }
       ]
     },
@@ -814,37 +845,6 @@
       "title": "temp",
       "region": "temp",
       "routes": []
-    },
-    {
-      "id": "g-mv5xr10m1lt2",
-      "title": "鰂魚涌: 寶峰園 (往觀塘)",
-      "region": "鰂魚涌",
-      "routes": [
-        {
-          "route": "606",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "O",
-          "dest": "彩雲 (豐盛街)",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        },
-        {
-          "route": "606A",
-          "co": "ctb",
-          "stopId": "001271",
-          "stopName": "寶峰園, 英皇道",
-          "stopNameEn": "Bo Fung Gardens, King's Road",
-          "dir": "I",
-          "dest": "彩雲 (豐盛街)",
-          "serviceType": 1,
-          "lat": 22.284594642091,
-          "lon": 114.21416959053
-        }
-      ]
     }
   ]
 }
