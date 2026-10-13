@@ -966,7 +966,20 @@
       "id": "g-mv6asu1szf1d",
       "title": "鰂魚涌: 寶峰園 (往勵德邨)",
       "region": "鰂魚涌",
-      "routes": []
+      "routes": [
+        {
+          "route": "81",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        }
+      ]
     }
   ]
 }
