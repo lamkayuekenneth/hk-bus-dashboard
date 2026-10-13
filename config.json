@@ -205,6 +205,18 @@
           "serviceType": 1,
           "lat": 22.279778702091,
           "lon": 114.18607065053
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002574",
+          "stopName": "銅鑼灣 - 百德新街, 怡和街",
+          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
+          "dir": "O",
+          "dest": "瑞士花園, 大坑道",
+          "serviceType": 1,
+          "lat": 22.279778702091,
+          "lon": 114.18607065053
         }
       ]
     },
