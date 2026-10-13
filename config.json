@@ -1120,6 +1120,20 @@
           "serviceType": 1,
           "lat": 22.291435122091,
           "lon": 114.20118525053
+        },
+        {
+          "route": "33",
+          "co": "gmb",
+          "stopId": 20000210,
+          "routeId": 2005685,
+          "routeSeq": 2,
+          "stopName": "馬寶道,華禮大廈外",
+          "stopNameEn": "Marble Road, outside Wah Lai Mansion",
+          "dir": null,
+          "dest": "康山",
+          "serviceType": 1,
+          "lat": 22.292026411372348,
+          "lon": 114.20171679018387
         }
       ]
     }
