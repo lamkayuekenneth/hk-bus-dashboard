@@ -1141,8 +1141,8 @@ function renderWizard() {
   // footer 按鈕狀態
   $("#routeBackBtn").hidden = w.step <= 1;
   const confirmBtn = $("#routeConfirmBtn");
-  if (w.step === 1) { confirmBtn.hidden = false; confirmBtn.textContent = "下一步"; }
-  else if (w.step === 2) { confirmBtn.hidden = true; }
+  if (w.step === 1) { confirmBtn.hidden = false; confirmBtn.textContent = "下一步"; confirmBtn.disabled = false; }
+  else if (w.step === 2) { confirmBtn.hidden = true; confirmBtn.disabled = false; }
   else { confirmBtn.hidden = false; confirmBtn.textContent = "確認加入"; confirmBtn.disabled = !w.stop; }
   // step2 事件
   const q = $("#wizQuery");
