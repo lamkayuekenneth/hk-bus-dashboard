@@ -1003,7 +1003,20 @@
       "id": "g-mv6bd0lqidcg",
       "title": "灣仔: 入境事務處 (往南豐)",
       "region": "灣仔",
-      "routes": []
+      "routes": [
+        {
+          "route": "720",
+          "co": "ctb",
+          "stopId": "002423",
+          "stopName": "入境事務大樓, 告士打道",
+          "stopNameEn": "Immigration Tower, Gloucester Road",
+          "dir": "I",
+          "dest": "西灣河 (嘉亨灣)",
+          "serviceType": 1,
+          "lat": 22.279435952091,
+          "lon": 114.17270317053
+        }
+      ]
     }
   ]
 }
