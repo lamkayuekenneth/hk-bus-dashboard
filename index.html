@@ -246,6 +246,10 @@ svg{display:block}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h10M8 18h7"/><path d="M3 6l2-2 2 2M3 12l2-2 2 2M3 18l2-2 2 2"/></svg>
         <span id="sortGroupsLabel">組別排序</span>
       </button>
+      <button id="sortByNameBtn" class="btn" hidden title="按組別名稱自動排序（需確認）">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h13M3 12h9M3 18h6"/><path d="M18 8l3-3 3 3"/><path d="M24 15l-3 3-3-3"/></svg>
+        <span>按組別排序</span>
+      </button>
       <button id="gpsBtn" class="btn" title="開啟定位後顯示各站距離">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
         <span>GPS</span><span id="gpsState" class="toggle-state">關</span>
@@ -976,8 +980,14 @@ function toggleReorderGroups() {
   state.reorderGroups = !state.reorderGroups;
   $("#sortGroupsBtn").classList.toggle("primary", state.reorderGroups);
   $("#sortGroupsLabel").textContent = state.reorderGroups ? "完成排序" : "組別排序";
-  toast(state.reorderGroups ? "組別排序模式：用各組別左上角 ▲▼ 調整順序" : "已離開組別排序模式");
+  $("#sortByNameBtn").hidden = !state.reorderGroups;
+  toast(state.reorderGroups ? "組別排序模式：用各組別左上角 ▲▼ 調整順序，或按「按組別排序」自動排列" : "已離開組別排序模式");
   renderBoards();
+}
+function sortGroupsByName() {
+  config.groups.sort((a, b) => (a.title || "").localeCompare(b.title || "", "zh-Hant-HK"));
+  saveLocal(); renderFilterOptions(); renderBoards();
+  toast("已按組別名稱排序", "ok");
 }
 function moveGroup(gid, dir) {
   const i = config.groups.findIndex(g => g.id === gid);
@@ -1251,6 +1261,7 @@ $("#appearanceBtn").addEventListener("click", () => {
   toast("外觀已設為" + ({ auto: "自動（跟隨裝置）", light: "淺色", dark: "深色" })[state.appearance]);
 });
 $("#sortGroupsBtn").addEventListener("click", toggleReorderGroups);
+$("#sortByNameBtn").addEventListener("click", () => askConfirm("按組別名稱排序", "確定按組別名稱重新排列所有組別？", sortGroupsByName, "確定"));
 $("#refreshAllBtn").addEventListener("click", refreshAll);
 $("#addGroupBtn").addEventListener("click", () => openGroupModal(null));
 $("#clearFilterBtn").addEventListener("click", clearFilters);
