@@ -1077,7 +1077,20 @@
       "id": "g-mv6bhl8f483o",
       "title": "北角: 新時代廣場 (往勵德邨)",
       "region": "北角",
-      "routes": []
+      "routes": [
+        {
+          "route": "81",
+          "co": "ctb",
+          "stopId": "001282",
+          "stopName": "新時代廣場, 英皇道",
+          "stopNameEn": "New Trend Plaza, King's Road",
+          "dir": "O",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.289909792091,
+          "lon": 114.19515688053
+        }
+      ]
     }
   ]
 }
