@@ -1391,6 +1391,20 @@
           "serviceType": 1,
           "lat": 22.290567652091,
           "lon": 114.19788360053
+        },
+        {
+          "route": "601",
+          "co": "joint",
+          "stopId": "8D05916401FE8BCB",
+          "stopIdCtb": "001281",
+          "stopName": "美麗閣",
+          "stopNameEn": "MARY COURT",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "金鐘站(東)",
+          "serviceType": "1",
+          "lat": 22.290652,
+          "lon": 114.198441
         }
       ]
     }
