@@ -1365,34 +1365,6 @@
       "region": "temp",
       "routes": [
         {
-          "route": "41A",
-          "co": "ctb",
-          "stopId": "001281",
-          "stopIdCtb": "",
-          "stopName": "美麗閣, 英皇道",
-          "stopNameEn": "Mary Court, King's Road",
-          "dir": "I",
-          "dirCtb": null,
-          "dest": "華富 (中)",
-          "serviceType": 1,
-          "lat": 22.290567652091,
-          "lon": 114.19788360053
-        },
-        {
-          "route": "81",
-          "co": "ctb",
-          "stopId": "001281",
-          "stopIdCtb": "",
-          "stopName": "美麗閣, 英皇道",
-          "stopNameEn": "Mary Court, King's Road",
-          "dir": "O",
-          "dirCtb": null,
-          "dest": "勵德邨",
-          "serviceType": 1,
-          "lat": 22.290567652091,
-          "lon": 114.19788360053
-        },
-        {
           "route": "26",
           "co": "ctb",
           "stopId": "001289",
