@@ -1158,6 +1158,18 @@
           "serviceType": 1,
           "lat": 22.291435122091,
           "lon": 114.20118525053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001373",
+          "stopName": "琴行街, 英皇道",
+          "stopNameEn": "Kam Hong Street, King's Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.291435122091,
+          "lon": 114.20118525053
         }
       ]
     }
