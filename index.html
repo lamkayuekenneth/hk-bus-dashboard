@@ -1094,12 +1094,15 @@ function renderWizard() {
   const q = $("#wizQuery");
   if (q) {
     q.addEventListener("keydown", e => { if (e.key === "Enter") doWizSearch(); });
-    q.focus();
+    if (!w.busy && !w.searched) q.focus();   // 初次進入先 focus；搜尋後唔好搶 focus
   }
   const sb = $("#wizSearch");
   if (sb) sb.addEventListener("click", doWizSearch);
   const stopQ = $("#wizStopQuery");
-  if (stopQ) stopQ.addEventListener("input", () => { const t = stopQ.value.trim().toLowerCase(); w.stops.forEach(s => { s.visible = !t || s.searchKey.includes(t); }); rerenderStopList(); });
+  if (stopQ) {
+    stopQ.addEventListener("input", () => { const t = stopQ.value.trim().toLowerCase(); w.stops.forEach(s => { s.visible = !t || s.searchKey.includes(t); }); rerenderStopList(); });
+    stopQ.focus();   // 揀咗方向入到步驟 3，focus 放喺車站搜尋
+  }
 }
 function rerenderStopList() {
   const w = wiz;
