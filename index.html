@@ -906,8 +906,10 @@ function rowHTML(g, r, i, fmm) {
   }
   const fare = lookupFare(r);
   let fareCls = "dist fare";
-  if (fare != null && fmm && fmm.min != null && fmm.max != null && fmm.min < fmm.max) {
-    if (fare === fmm.min) fareCls += " fare-min";
+  if (fare != null && fmm && fmm.min != null && fmm.max != null) {
+    if (fmm.min === fmm.max) {
+      fareCls += " fare-min";   // 全組同一車費：全部標綠色
+    } else if (fare === fmm.min) fareCls += " fare-min";
     else if (fare === fmm.max) fareCls += " fare-max";
   }
   const metaLine = '<div class="row-meta">' +
