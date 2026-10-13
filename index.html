@@ -571,12 +571,12 @@ async function pushConfigToGithub(manual) {
   const enc = btoa(unescape(encodeURIComponent(payload)));
   const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
   try {
-    // 1) 攞現有 config.json 嘅 sha（避免覆蓋遙遠端改動）
-    const getRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json?ref=" + GH_BRANCH, { headers });
+    // 1) 攞現有 config.json 嘅 sha（避免覆蓋遙遠端改動；no-store 防止瀏覽器 cache 舊 sha 導致 409）
+    const getRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json?ref=" + GH_BRANCH, { headers, cache: "no-store" });
     if (!getRes.ok) throw new Error("讀取現有 config 失敗 (HTTP " + getRes.status + ")");
     const meta = await getRes.json();
     // 2) 用 SHA 寫入新內容（Contents API 原子 commit：併發衝突會回 409）
-    const putRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json", {
+    let putRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json", {
       method: "PUT",
       headers: Object.assign({ "Content-Type": "application/json" }, headers),
       body: JSON.stringify({
@@ -586,6 +586,21 @@ async function pushConfigToGithub(manual) {
         branch: GH_BRANCH
       })
     });
+    if (putRes.status === 409) {
+      // 遠端喺 GET 之後被更新（例如啱啱自動同步過）：重新攞最新 sha 再試一次
+      const get2 = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json?ref=" + GH_BRANCH, { headers, cache: "no-store" });
+      const meta2 = get2.ok ? await get2.json() : meta;
+      putRes = await fetch("https://api.github.com/repos/" + GH_REPO + "/contents/config.json", {
+        method: "PUT",
+        headers: Object.assign({ "Content-Type": "application/json" }, headers),
+        body: JSON.stringify({
+          message: "Update config.json from web UI",
+          content: enc,
+          sha: meta2.sha,
+          branch: GH_BRANCH
+        })
+      });
+    }
     if (!putRes.ok) {
       const err = await putRes.json().catch(() => ({}));
       throw new Error((err.message || "push 失敗") + " (HTTP " + putRes.status + ")");
