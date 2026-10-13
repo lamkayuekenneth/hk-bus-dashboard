@@ -22,20 +22,6 @@
           "lon": 114.227935
         },
         {
-          "route": "606",
-          "co": "kmb",
-          "stopId": "AB2BD1CDDCB213CB",
-          "stopIdCtb": "",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "O",
-          "dirCtb": null,
-          "dest": "小西灣(藍灣半島)",
-          "serviceType": 1,
-          "lat": 22.31153,
-          "lon": 114.227804
-        },
-        {
           "route": "641",
           "co": "ctb",
           "stopId": "001510",
@@ -76,20 +62,6 @@
           "serviceType": "1",
           "lat": 22.311431,
           "lon": 114.227935
-        },
-        {
-          "route": "606",
-          "co": "ctb",
-          "stopId": "001510",
-          "stopIdCtb": "",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "I",
-          "dirCtb": null,
-          "dest": "小西灣 (藍灣半島)",
-          "serviceType": 1,
-          "lat": 22.311633112091,
-          "lon": 114.22761751053
         },
         {
           "route": "606",
