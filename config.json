@@ -8,34 +8,6 @@
       "region": "觀塘",
       "routes": [
         {
-          "route": "641",
-          "co": "ctb",
-          "stopId": "001510",
-          "stopIdCtb": "",
-          "stopName": "觀塘站",
-          "stopNameEn": "Kwun Tong Station",
-          "dir": "I",
-          "dirCtb": null,
-          "dest": "中環(港澳碼頭)",
-          "serviceType": 1,
-          "lat": 22.311633,
-          "lon": 114.227618
-        },
-        {
-          "route": "641",
-          "co": "kmb",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": null,
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
           "route": "606",
           "co": "joint",
           "stopId": "AB2BD1CDDCB213CB",
