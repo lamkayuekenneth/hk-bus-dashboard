@@ -1250,7 +1250,20 @@
       "id": "g-mv6bolopoapi",
       "title": "金鐘: Pacific Place (往香港公園)",
       "region": "金鐘",
-      "routes": []
+      "routes": [
+        {
+          "route": "40",
+          "co": "ctb",
+          "stopId": "001140",
+          "stopName": "金鐘 - 太古廣場, 金鐘道",
+          "stopNameEn": "Admiralty - Pacific Place, Queensway",
+          "dir": "I",
+          "dest": "華富 (北)",
+          "serviceType": 1,
+          "lat": 22.278070732091,
+          "lon": 114.16486695053
+        }
+      ]
     }
   ]
 }
