@@ -1243,7 +1243,23 @@ async function pickRouteResult(i) {
       }
       dest = wiz.gmb.dest;
     }
-    wiz.stops = stops.map(s => ({ ...s, label: s.name_tc + (s.name_en ? "　" + s.name_en : ""), badge: "第 " + s.seq + " 站", visible: true }));
+    // 匹配官方車費：每站顯示分段車費（fare_bus.json / fare_gmb.json，已載入先有）
+    let fareRoute = null;
+    if (fareData) {
+      if (wiz.co === "kmb") {
+        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "KMB" || x.co === "KMB+CTB" || x.co === "LWB" || x.co === "LWB+CTB") && x.r === String(wiz.kmb.route) && x.seq === (wiz.kmb.bound === "O" ? 1 : 2));
+      } else if (wiz.co === "ctb") {
+        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "CTB" || x.co === "KMB+CTB" || x.co === "LWB+CTB") && x.r === String(wiz.ctb.entry.route) && x.seq === (wiz.ctb.dir === "O" ? 1 : 2));
+      } else {
+        fareRoute = ((fareData.gmb && fareData.gmb.routes) || []).find(x => x.id === wiz.gmb.routeId && (wiz.gmb.routeSeq == null || x.seq === wiz.gmb.routeSeq));
+      }
+    }
+    const fareBySeq = {};
+    if (fareRoute) (fareRoute.stops || []).forEach(fs => { fareBySeq[fs.s] = fs.f; });
+    wiz.stops = stops.map(s => {
+      const f = fareBySeq[s.seq];
+      return { ...s, label: s.name_tc, badge: f != null ? "$" + fmtFare(f) : "第 " + s.seq + " 站", visible: true };
+    });
     wiz.stop = null; wiz.pickedStopIdx = null;
     wiz.routeDesc = o.label;
     wiz.step = 3; wiz.busy = false;
