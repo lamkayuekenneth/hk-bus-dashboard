@@ -1393,32 +1393,6 @@
           "lon": 114.19788360053
         },
         {
-          "route": "601",
-          "co": "joint",
-          "stopId": "8D05916401FE8BCB",
-          "stopIdCtb": "001281",
-          "stopName": "美麗閣",
-          "stopNameEn": "MARY COURT",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "金鐘站(東)",
-          "serviceType": "1",
-          "lat": 22.290652,
-          "lon": 114.198441
-        },
-        {
-          "route": "26",
-          "co": "ctb",
-          "stopId": "001054",
-          "stopName": "置地廣場, 德輔道中",
-          "stopNameEn": "The Landmark, Des Voeux Road Central",
-          "dir": "O",
-          "dest": "雲咸街",
-          "serviceType": 1,
-          "lat": 22.281316152091,
-          "lon": 114.15825054053
-        },
-        {
           "route": "26",
           "co": "ctb",
           "stopId": "001289",
