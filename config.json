@@ -1015,6 +1015,18 @@
           "serviceType": 1,
           "lat": 22.279435952091,
           "lon": 114.17270317053
+        },
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "002423",
+          "stopName": "入境事務大樓, 告士打道",
+          "stopNameEn": "Immigration Tower, Gloucester Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.279435952091,
+          "lon": 114.17270317053
         }
       ]
     }
