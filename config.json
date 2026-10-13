@@ -83,6 +83,20 @@
           "serviceType": 1,
           "lat": 22.279778702091,
           "lon": 114.18607065053
+        },
+        {
+          "route": "25",
+          "co": "gmb",
+          "stopId": 20000123,
+          "routeId": 2002020,
+          "routeSeq": 1,
+          "stopName": "勵德邨道, 邨榮樓外",
+          "stopNameEn": "Lai Tak Tsuen Road, outside Tsuen Wing Lau",
+          "dir": null,
+          "dest": "銅鑼灣(循環線)",
+          "serviceType": 1,
+          "lat": 22.277623496028585,
+          "lon": 114.19452425618063
         }
       ]
     },
