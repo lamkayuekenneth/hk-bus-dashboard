@@ -1324,7 +1324,20 @@
       "id": "g-mv6brzs4de4l",
       "title": "北角: 炮台山站 (往西環)",
       "region": "北角",
-      "routes": []
+      "routes": [
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001283",
+          "stopName": "炮台山站, 英皇道",
+          "stopNameEn": "Fortress Hill Station, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.288146742091,
+          "lon": 114.19355472053
+        }
+      ]
     }
   ]
 }
