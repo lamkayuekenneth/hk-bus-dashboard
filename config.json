@@ -807,7 +807,32 @@
       "id": "g-mv5xr10m1lt2",
       "title": "鰂魚涌: 寶峰園 (往觀塘)",
       "region": "鰂魚涌",
-      "routes": []
+      "routes": [
+        {
+          "route": "606",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "O",
+          "dest": "彩雲 (豐盛街)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        },
+        {
+          "route": "606A",
+          "co": "ctb",
+          "stopId": "001271",
+          "stopName": "寶峰園, 英皇道",
+          "stopNameEn": "Bo Fung Gardens, King's Road",
+          "dir": "I",
+          "dest": "彩雲 (豐盛街)",
+          "serviceType": 1,
+          "lat": 22.284594642091,
+          "lon": 114.21416959053
+        }
+      ]
     }
   ]
 }
