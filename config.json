@@ -83,6 +83,18 @@
           "serviceType": 1,
           "lat": 22.277623496028585,
           "lon": 114.19452425618063
+        },
+        {
+          "route": "11",
+          "co": "ctb",
+          "stopId": "002533",
+          "stopName": "利群道, 大坑道",
+          "stopNameEn": "Li Kwan Avenue, Tai Hang Road",
+          "dir": "I",
+          "dest": "中環碼頭 - 巴士總站",
+          "serviceType": 1,
+          "lat": 22.276757522091,
+          "lon": 114.19422681053
         }
       ]
     },
