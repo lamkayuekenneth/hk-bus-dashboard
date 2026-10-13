@@ -951,7 +951,19 @@ async function refreshGroup(gid) {
   renderBoards();
 }
 function refreshAll() {
+  resetAutoCountdown();
   config.groups.forEach(g => refreshGroup(g.id));
+}
+/* ---------- 自動更新倒數（每秒更新 label，到 0 自動刷新） ---------- */
+let autoCountdown = 60;
+function resetAutoCountdown() {
+  autoCountdown = config.autoRefreshSeconds;
+  $("#autoLabel").textContent = "自動更新 " + autoCountdown + "s";
+}
+function tickAutoCountdown() {
+  autoCountdown--;
+  if (autoCountdown <= 0) { refreshAll(); return; }
+  $("#autoLabel").textContent = "自動更新 " + autoCountdown + "s";
 }
 
 /* ---------- GPS ---------- */
@@ -1347,7 +1359,7 @@ async function init() {
   renderFilterOptions();
   renderBoards();
   refreshAll();
-  setInterval(refreshAll, config.autoRefreshSeconds * 1000);
+  setInterval(tickAutoCountdown, 1000);
   loadFareData();   // 非阻塞：車費到咗後會再 render，搵唔到就保留「更新」時間
 }
 init();
