@@ -76,6 +76,20 @@
           "serviceType": "1",
           "lat": 22.31153,
           "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
         }
       ]
     },
