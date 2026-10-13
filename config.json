@@ -1108,7 +1108,20 @@
       "id": "g-mv6bjn17jx18",
       "title": "北角: 琴行街 (往南豐)",
       "region": "北角: 琴行街",
-      "routes": []
+      "routes": [
+        {
+          "route": "99",
+          "co": "ctb",
+          "stopId": "001373",
+          "stopName": "琴行街, 英皇道",
+          "stopNameEn": "Kam Hong Street, King's Road",
+          "dir": "O",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.291435122091,
+          "lon": 114.20118525053
+        }
+      ]
     }
   ]
 }
