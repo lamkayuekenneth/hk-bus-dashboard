@@ -103,6 +103,37 @@
       ]
     },
     {
+      "id": "g-mv6brzs4de4l",
+      "title": "北角: 炮台山站 (往西環)",
+      "region": "北角",
+      "routes": [
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001283",
+          "stopName": "炮台山站, 英皇道",
+          "stopNameEn": "Fortress Hill Station, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.288146742091,
+          "lon": 114.19355472053
+        },
+        {
+          "route": "10",
+          "co": "ctb",
+          "stopId": "001283",
+          "stopName": "炮台山站, 英皇道",
+          "stopNameEn": "Fortress Hill Station, King's Road",
+          "dir": "I",
+          "dest": "堅尼地城",
+          "serviceType": 1,
+          "lat": 22.288146742091,
+          "lon": 114.19355472053
+        }
+      ]
+    },
+    {
       "id": "g-mv6bjn17jx18",
       "title": "北角: 琴行街 (往南豐)",
       "region": "北角: 琴行街",
@@ -1319,37 +1350,6 @@
       "title": "temp",
       "region": "temp",
       "routes": []
-    },
-    {
-      "id": "g-mv6brzs4de4l",
-      "title": "北角: 炮台山站 (往西環)",
-      "region": "北角",
-      "routes": [
-        {
-          "route": "2A",
-          "co": "ctb",
-          "stopId": "001283",
-          "stopName": "炮台山站, 英皇道",
-          "stopNameEn": "Fortress Hill Station, King's Road",
-          "dir": "O",
-          "dest": "會展站",
-          "serviceType": 1,
-          "lat": 22.288146742091,
-          "lon": 114.19355472053
-        },
-        {
-          "route": "10",
-          "co": "ctb",
-          "stopId": "001283",
-          "stopName": "炮台山站, 英皇道",
-          "stopNameEn": "Fortress Hill Station, King's Road",
-          "dir": "I",
-          "dest": "堅尼地城",
-          "serviceType": 1,
-          "lat": 22.288146742091,
-          "lon": 114.19355472053
-        }
-      ]
     }
   ]
 }
