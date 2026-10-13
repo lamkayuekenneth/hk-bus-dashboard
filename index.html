@@ -948,8 +948,10 @@ async function refreshGroup(gid) {
       }
     }
   }));
+  if ($$(".modal-mask").some(m => !m.hidden)) { pendingRender = true; return; }   // modal 開住：唔重建版面，避免跳動誤觸，關閉後補 render
   renderBoards();
 }
+let pendingRender = false;   // modal 開住時自動更新暫停 render，關閉後一次過補
 function refreshAll() {
   resetAutoCountdown();
   config.groups.forEach(g => refreshGroup(g.id));
@@ -1290,7 +1292,7 @@ function confirmAddRoute() {
 
 /* ---------- Modal 工具 ---------- */
 function showModal(id) { const el = document.getElementById(id); el.hidden = false; document.body.style.overflow = "hidden"; }
-function closeModal(id) { const el = document.getElementById(id); el.hidden = true; if ($$(".modal-mask").every(m => m.hidden)) document.body.style.overflow = ""; }
+function closeModal(id) { const el = document.getElementById(id); el.hidden = true; if ($$(".modal-mask").every(m => m.hidden)) { document.body.style.overflow = ""; if (pendingRender) { pendingRender = false; renderBoards(); } } }
 
 /* ---------- 事件綁定 ---------- */
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
