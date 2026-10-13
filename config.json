@@ -43,20 +43,6 @@
       "region": "大坑",
       "routes": [
         {
-          "route": "26",
-          "co": "ctb",
-          "stopId": "002574",
-          "stopIdCtb": "",
-          "stopName": "銅鑼灣 - 百德新街, 怡和街",
-          "stopNameEn": "Causeway Bay - Paterson Street, Yee Wo Street",
-          "dir": "I",
-          "dirCtb": null,
-          "dest": "勵德邨",
-          "serviceType": 1,
-          "lat": 22.279778702091,
-          "lon": 114.18607065053
-        },
-        {
           "route": "25",
           "co": "gmb",
           "stopId": 20000123,
