@@ -709,6 +709,49 @@
       ]
     },
     {
+      "id": "g-mv6bd0lqidcg",
+      "title": "灣仔: 入境事務處 (往南豐)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "720",
+          "co": "ctb",
+          "stopId": "002423",
+          "stopName": "入境事務大樓, 告士打道",
+          "stopNameEn": "Immigration Tower, Gloucester Road",
+          "dir": "I",
+          "dest": "西灣河 (嘉亨灣)",
+          "serviceType": 1,
+          "lat": 22.279435952091,
+          "lon": 114.17270317053
+        },
+        {
+          "route": "722",
+          "co": "ctb",
+          "stopId": "002423",
+          "stopName": "入境事務大樓, 告士打道",
+          "stopNameEn": "Immigration Tower, Gloucester Road",
+          "dir": "I",
+          "dest": "耀東邨",
+          "serviceType": 1,
+          "lat": 22.279435952091,
+          "lon": 114.17270317053
+        },
+        {
+          "route": "2",
+          "co": "ctb",
+          "stopId": "002423",
+          "stopName": "入境事務大樓, 告士打道",
+          "stopNameEn": "Immigration Tower, Gloucester Road",
+          "dir": "I",
+          "dest": "西灣河 (嘉亨灣)",
+          "serviceType": 1,
+          "lat": 22.279435952091,
+          "lon": 114.17270317053
+        }
+      ]
+    },
+    {
       "id": "g-mv51iw2rfmtq",
       "title": "灣仔: 史釗域道 (往勵德邨)",
       "region": "灣仔",
@@ -998,49 +1041,6 @@
       "title": "temp",
       "region": "temp",
       "routes": []
-    },
-    {
-      "id": "g-mv6bd0lqidcg",
-      "title": "灣仔: 入境事務處 (往南豐)",
-      "region": "灣仔",
-      "routes": [
-        {
-          "route": "720",
-          "co": "ctb",
-          "stopId": "002423",
-          "stopName": "入境事務大樓, 告士打道",
-          "stopNameEn": "Immigration Tower, Gloucester Road",
-          "dir": "I",
-          "dest": "西灣河 (嘉亨灣)",
-          "serviceType": 1,
-          "lat": 22.279435952091,
-          "lon": 114.17270317053
-        },
-        {
-          "route": "722",
-          "co": "ctb",
-          "stopId": "002423",
-          "stopName": "入境事務大樓, 告士打道",
-          "stopNameEn": "Immigration Tower, Gloucester Road",
-          "dir": "I",
-          "dest": "耀東邨",
-          "serviceType": 1,
-          "lat": 22.279435952091,
-          "lon": 114.17270317053
-        },
-        {
-          "route": "2",
-          "co": "ctb",
-          "stopId": "002423",
-          "stopName": "入境事務大樓, 告士打道",
-          "stopNameEn": "Immigration Tower, Gloucester Road",
-          "dir": "I",
-          "dest": "西灣河 (嘉亨灣)",
-          "serviceType": 1,
-          "lat": 22.279435952091,
-          "lon": 114.17270317053
-        }
-      ]
     }
   ]
 }
