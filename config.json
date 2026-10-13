@@ -266,6 +266,49 @@
       ]
     },
     {
+      "id": "g-mv6bolopoapi",
+      "title": "金鐘: Pacific Place (往香港公園)",
+      "region": "金鐘",
+      "routes": [
+        {
+          "route": "40",
+          "co": "ctb",
+          "stopId": "001140",
+          "stopName": "金鐘 - 太古廣場, 金鐘道",
+          "stopNameEn": "Admiralty - Pacific Place, Queensway",
+          "dir": "I",
+          "dest": "華富 (北)",
+          "serviceType": 1,
+          "lat": 22.278070732091,
+          "lon": 114.16486695053
+        },
+        {
+          "route": "23",
+          "co": "ctb",
+          "stopId": "001140",
+          "stopName": "金鐘 - 太古廣場, 金鐘道",
+          "stopNameEn": "Admiralty - Pacific Place, Queensway",
+          "dir": "O",
+          "dest": "蒲飛路",
+          "serviceType": 1,
+          "lat": 22.278070732091,
+          "lon": 114.16486695053
+        },
+        {
+          "route": "23B",
+          "co": "ctb",
+          "stopId": "001140",
+          "stopName": "金鐘 - 太古廣場, 金鐘道",
+          "stopNameEn": "Admiralty - Pacific Place, Queensway",
+          "dir": "O",
+          "dest": "高主教書院, 羅便臣道",
+          "serviceType": 1,
+          "lat": 22.278070732091,
+          "lon": 114.16486695053
+        }
+      ]
+    },
+    {
       "id": "g-muzeeeum1p34",
       "title": "黃竹坑: 甄沾記大廈",
       "region": "黃竹坑",
@@ -1245,37 +1288,6 @@
       "title": "temp",
       "region": "temp",
       "routes": []
-    },
-    {
-      "id": "g-mv6bolopoapi",
-      "title": "金鐘: Pacific Place (往香港公園)",
-      "region": "金鐘",
-      "routes": [
-        {
-          "route": "40",
-          "co": "ctb",
-          "stopId": "001140",
-          "stopName": "金鐘 - 太古廣場, 金鐘道",
-          "stopNameEn": "Admiralty - Pacific Place, Queensway",
-          "dir": "I",
-          "dest": "華富 (北)",
-          "serviceType": 1,
-          "lat": 22.278070732091,
-          "lon": 114.16486695053
-        },
-        {
-          "route": "23",
-          "co": "ctb",
-          "stopId": "001140",
-          "stopName": "金鐘 - 太古廣場, 金鐘道",
-          "stopNameEn": "Admiralty - Pacific Place, Queensway",
-          "dir": "O",
-          "dest": "蒲飛路",
-          "serviceType": 1,
-          "lat": 22.278070732091,
-          "lon": 114.16486695053
-        }
-      ]
     }
   ]
 }
