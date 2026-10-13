@@ -81,6 +81,18 @@
           "serviceType": 1,
           "lat": 22.276757522091,
           "lon": 114.19422681053
+        },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "001291",
+          "stopName": "勵德邨邨榮樓, 勵德邨道",
+          "stopNameEn": "Tsuen Wing Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
+          "dir": "I",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.278092282091,
+          "lon": 114.19423311053
         }
       ]
     },
