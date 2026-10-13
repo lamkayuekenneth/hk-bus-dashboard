@@ -1403,6 +1403,18 @@
           "serviceType": 1,
           "lat": 22.278859622091,
           "lon": 114.19353863053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "001290",
+          "stopName": "勵德邨勵潔樓, 勵德邨道",
+          "stopNameEn": "Lai Kit Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
+          "dir": "I",
+          "dest": "華富 (中)",
+          "serviceType": 1,
+          "lat": 22.279175742091,
+          "lon": 114.19357793053
         }
       ]
     }
