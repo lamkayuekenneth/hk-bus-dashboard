@@ -1305,6 +1305,18 @@
           "serviceType": 1,
           "lat": 22.278373862091,
           "lon": 114.15978086053
+        },
+        {
+          "route": "40",
+          "co": "ctb",
+          "stopId": "001073",
+          "stopName": "聖約翰座堂, 花園道",
+          "stopNameEn": "St. John's Cathedral, Garden Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.278373862091,
+          "lon": 114.15978086053
         }
       ]
     }
