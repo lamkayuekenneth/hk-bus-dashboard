@@ -1389,6 +1389,18 @@
           "serviceType": 1,
           "lat": 22.290567652091,
           "lon": 114.19788360053
+        },
+        {
+          "route": "81",
+          "co": "ctb",
+          "stopId": "001281",
+          "stopName": "美麗閣, 英皇道",
+          "stopNameEn": "Mary Court, King's Road",
+          "dir": "O",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.290567652091,
+          "lon": 114.19788360053
         }
       ]
     }
