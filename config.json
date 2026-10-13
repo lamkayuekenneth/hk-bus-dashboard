@@ -647,6 +647,18 @@
           "routeSeq": 1,
           "lat": 22.284944141522637,
           "lon": 114.21360243136799
+        },
+        {
+          "route": "770",
+          "co": "ctb",
+          "stopId": "001272",
+          "stopName": "鰂魚涌街, 英皇道",
+          "stopNameEn": "Quarry Bay Street, King's Road",
+          "dir": "I",
+          "dest": "田灣邨",
+          "serviceType": 1,
+          "lat": 22.284722942091,
+          "lon": 114.21210328053
         }
       ]
     },
@@ -946,9 +958,11 @@
           "route": "2",
           "co": "ctb",
           "stopId": "002967",
+          "stopIdCtb": "",
           "stopName": "金星大廈, 駱克道",
           "stopNameEn": "Golden Star Building, Lockhart Road",
           "dir": "I",
+          "dirCtb": null,
           "dest": "西灣河 (嘉亨灣)",
           "serviceType": 1,
           "lat": 22.278188642091,
