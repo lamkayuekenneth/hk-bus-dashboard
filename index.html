@@ -208,6 +208,9 @@ svg{display:block}
 .toast.ok{background:#0a7b3b;color:#fff}.toast.err{background:#b91c1c;color:#fff}
 .toast.blink{animation:toastIn .18s ease,toastBlink 1s ease-in-out 3}
 @keyframes toastBlink{0%,100%{opacity:1}50%{opacity:.25}}
+#scrollBtn{position:fixed;right:18px;bottom:82px;z-index:150;width:46px;height:46px;border-radius:50%;background:#fff;color:#16181d;font-size:20px;font-weight:800;line-height:1;border:1px solid rgba(0,0,0,.12);box-shadow:0 6px 18px rgba(0,0,0,.28);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .15s}
+#scrollBtn.show{opacity:1;pointer-events:auto}
+#scrollBtn:active{transform:scale(.92)}
 @keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ===== 響應式 ===== */
@@ -330,6 +333,9 @@ svg{display:block}
 </footer>
 
 <div id="toasts"></div>
+
+<!-- 浮動按鈕：一 click 去最底／最頂 -->
+<button id="scrollBtn" title="滾動到最底">↓</button>
 
 <!-- ===== Modal：新增組別 ===== -->
 <div class="modal-mask" id="groupModal" hidden>
@@ -1488,6 +1494,22 @@ async function init() {
   refreshAll();
   setInterval(tickAutoCountdown, 1000);
   loadFareData();   // 非阻塞：車費到咗後會再 render，搵唔到就保留「更新」時間
+
+  // 浮動按鈕：scroll 至近底部變「↑」回頂，否則「↓」落底
+  const scrollBtn = $("#scrollBtn");
+  const nearBottomNow = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 120;
+  const updateScrollBtn = () => {
+    const nb = nearBottomNow();
+    scrollBtn.textContent = nb ? "↑" : "↓";
+    scrollBtn.title = nb ? "返回最頂" : "滾動到最底";
+    scrollBtn.classList.toggle("show", window.scrollY > 240 || nb);
+  };
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: nearBottomNow() ? 0 : document.documentElement.scrollHeight, behavior: "smooth" });
+  });
+  window.addEventListener("scroll", updateScrollBtn, { passive: true });
+  window.addEventListener("resize", updateScrollBtn);
+  updateScrollBtn();
 }
 init();
 </script>
