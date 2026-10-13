@@ -1089,6 +1089,18 @@
           "serviceType": 1,
           "lat": 22.289909792091,
           "lon": 114.19515688053
+        },
+        {
+          "route": "41A",
+          "co": "ctb",
+          "stopId": "001282",
+          "stopName": "新時代廣場, 英皇道",
+          "stopNameEn": "New Trend Plaza, King's Road",
+          "dir": "I",
+          "dest": "華富 (中)",
+          "serviceType": 1,
+          "lat": 22.289909792091,
+          "lon": 114.19515688053
         }
       ]
     }
