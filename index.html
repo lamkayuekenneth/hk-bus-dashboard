@@ -122,6 +122,7 @@ svg{display:block}
 .num-chip.kmb{background:var(--kmb)}
 .num-chip.ctb{background:var(--ctb-bg);color:#16181d}
 .num-chip.gmb{background:var(--gmb)}
+.num-chip.joint{background:linear-gradient(135deg,#e60012 0%,#e60012 45%,#ffd100 45%,#ffd100 100%)}
 .stop-name{font-weight:700;font-size:14px}
 .dest{color:var(--muted);font-size:12.5px;font-weight:500;margin-top:2px}
 .dest b{color:var(--text);font-weight:600}
@@ -146,6 +147,9 @@ svg{display:block}
 .eta-empty{font-size:13px;font-weight:700;color:var(--faint)}
 .eta-empty-sub{font-size:10.5px;color:var(--faint);letter-spacing:.5px;margin-top:2px}
 .eta-loading{color:var(--faint);font-size:12px}
+.co-dot{display:inline-flex;align-items:center;height:14px;padding:0 5px;border-radius:3px;font-size:9.5px;font-weight:700;align-self:flex-start;margin-bottom:2px;flex:none}
+.co-dot.kmb{background:var(--tag-kmb-bg);color:var(--kmb)}
+.co-dot.ctb{background:var(--tag-ctb-bg);color:var(--tag-ctb-fg)}
 .row-del{display:none;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:var(--danger-soft);color:var(--danger)}
 .row-del:hover{background:var(--danger-soft-hover)}
 .gmove{display:flex;flex-direction:row;gap:6px;flex:none;align-items:center}
@@ -492,7 +496,7 @@ function autoFilterRegion(lat, lon) {
     toast("已按你所在位置自動篩選地區：" + best, "ok");
   }
 }
-const CO_META = { kmb: {name:"九巴", cls:"kmb"}, ctb: {name:"城巴", cls:"ctb"}, gmb: {name:"小巴", cls:"gmb"} };
+const CO_META = { kmb: {name:"九巴", cls:"kmb"}, ctb: {name:"城巴", cls:"ctb"}, gmb: {name:"小巴", cls:"gmb"}, joint: {name:"城巴九巴聯營", cls:"joint"} };
 const GMB_REGIONS = { HKI: "港島", KLN: "九龍", NT: "新界" };
 
 function toast(msg, type) {
@@ -515,7 +519,7 @@ function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
 function normalizeConfig(c) {
   const groups = (c.groups || []).map((g, i) => ({
     id: g.id || uid(), title: g.title || ("組別 " + (i + 1)), region: g.region || "",
-    routes: (g.routes || []).map(r => ({ route: String(r.route), co: r.co || "kmb", stopId: String(r.stopId), stopName: r.stopName || "", stopNameEn: r.stopNameEn || "", dir: r.dir || null, dest: r.dest || "", serviceType: r.serviceType || 1, routeId: r.routeId, routeSeq: r.routeSeq, lat: r.lat, lon: r.lon }))
+    routes: (g.routes || []).map(r => ({ route: String(r.route), co: r.co || "kmb", stopId: String(r.stopId), stopIdCtb: r.stopIdCtb || "", stopName: r.stopName || "", stopNameEn: r.stopNameEn || "", dir: r.dir || null, dirCtb: r.dirCtb || null, dest: r.dest || "", serviceType: r.serviceType || 1, routeId: r.routeId, routeSeq: r.routeSeq, lat: r.lat, lon: r.lon }))
   }));
   return { appTitle: c.appTitle || "巴士到站 Dashboard 20261012", autoRefreshSeconds: Math.max(15, Number(c.autoRefreshSeconds) || 60), groups };
 }
@@ -656,6 +660,14 @@ async function fetchGmbEta(row) {
   return list.slice(0, 3).map(e => ({ time: e.timestamp, diff: e.diff, remark: (e.remarks_tc || ""), co: "gmb" }));
 }
 async function fetchEtaFor(row) {
+  if (row.co === "joint") {
+    // 聯營：同時攞九巴＋城巴班次，合併按時間排序
+    const [k, c] = await Promise.all([
+      fetchKmbEta({ stopId: row.stopId, route: row.route, dir: row.dir, serviceType: row.serviceType }),
+      fetchCtbEta({ stopId: row.stopIdCtb || row.stopId, route: row.route, dir: row.dirCtb })
+    ]);
+    return k.concat(c).sort((x, y) => new Date(x.time) - new Date(y.time));
+  }
   if (row.co === "kmb") return fetchKmbEta(row);
   if (row.co === "ctb") return fetchCtbEta(row);
   if (row.co === "gmb") return fetchGmbEta(row);
@@ -693,7 +705,7 @@ function fareRoutesFor(row) {
     const g = ((fareData.gmb && fareData.gmb.routes) || []).find(x => row.routeId != null && x.id === row.routeId && (row.routeSeq == null || x.seq === row.routeSeq));
     return g ? [g] : [];
   }
-  const co = ({ kmb: "KMB", ctb: "CTB" })[row.co];
+  const co = ({ kmb: "KMB", ctb: "CTB", joint: "KMB" })[row.co];
   if (!co) return [];
   const seq = row.dir === "O" ? 1 : row.dir === "I" ? 2 : null;
   // KMB 同時覆蓋龍運 LWB（同一 API）；CTB 覆蓋聯營
@@ -854,23 +866,26 @@ function rowHTML(g, r, i, fmm) {
   const destLabel = (eta && eta.list && eta.list.length && eta.list[0].dest) ? eta.list[0].dest : r.dest;
 
   let cells;
+  const isJoint = r.co === "joint";
   const padCells = n => { let s = ""; for (let k = 0; k < n; k++) s += '<div class="eta-cell eta-cell-empty"></div>'; return s; };
   if (!eta || eta.loading) {
-    cells = '<div class="eta-cell"><div class="eta-loading">載入中…</div></div>' + padCells(2);
+    cells = '<div class="eta-cell"><div class="eta-loading">載入中…</div></div>' + padCells(isJoint ? 3 : 2);
   } else if (eta.err) {
-    cells = '<div class="eta-cell"><div class="eta-empty">無法取得</div><div class="eta-empty-sub">API ERROR</div></div>' + padCells(2);
+    cells = '<div class="eta-cell"><div class="eta-empty">無法取得</div><div class="eta-empty-sub">API ERROR</div></div>' + padCells(isJoint ? 3 : 2);
   } else if (!eta.list.length) {
-    cells = '<div class="eta-cell"><div class="eta-empty">訊號未回傳</div><div class="eta-empty-sub">NEXT SIGNAL</div></div>' + padCells(2);
+    cells = '<div class="eta-cell"><div class="eta-empty">訊號未回傳</div><div class="eta-empty-sub">NEXT SIGNAL</div></div>' + padCells(isJoint ? 3 : 2);
   } else {
-    const items = eta.list.slice(0, 3);
+    const items = eta.list.slice(0, isJoint ? 4 : 3);
     cells = items.map((e, idx) => {
       const soon = idx === 0 && minsLeft(e.time) <= 3;
+      const cm = CO_META[e.co] || CO_META.kmb;
       return '<div class="eta-cell' + (idx === 0 ? " first" : "") + '">' +
+        (isJoint ? '<div class="co-dot ' + cm.cls + '">' + cm.name + "</div>" : "") +
         '<div class="n-min' + (soon ? " soon" : "") + '">' + minsLeft(e.time) + '分鐘</div>' +
         '<div class="n-clock">' + hhmm(e.time) + "</div>" +
         (e.remark && idx === 0 ? '<div class="eta-remark">' + esc(e.remark) + "</div>" : "") +
         "</div>";
-    }).join("") + padCells(3 - items.length);
+    }).join("") + padCells((isJoint ? 4 : 3) - items.length);
   }
   const fare = lookupFare(r);
   let fareCls = "dist fare";
@@ -887,7 +902,11 @@ function rowHTML(g, r, i, fmm) {
     : "";
 
   return '<div class="route-row">' +
-    '<div class="route-num"><span class="num-chip ' + meta.cls + '">' + esc(r.route) + '</span><span class="co-tag ' + meta.cls + '">' + meta.name + "</span></div>" +
+    '<div class="route-num"><span class="num-chip ' + meta.cls + '">' + esc(r.route) + '</span>' +
+    (isJoint
+      ? '<span class="co-tag kmb">九巴</span><span class="co-tag ctb">城巴</span>'
+      : '<span class="co-tag ' + meta.cls + '">' + meta.name + "</span>") +
+    "</div>" +
     '<div class="route-info"><div class="stop-name">' + esc(r.stopName) + "</div>" +
     '<div class="dest">往 <b>' + esc(destLabel) + "</b></div>" + metaLine + "</div>" +
     '<div class="eta-cells cell-line">' + cells + "</div>" +
@@ -1101,10 +1120,10 @@ function saveGroup() {
 }
 
 /* ---------- 新增路線精靈 ---------- */
-const wiz = { step: 1, co: "kmb", query: "", kmb: null, ctb: null, gmb: null, gmbRegion: "KLN", searchResults: [], stops: [], stop: null, busy: false };
+const wiz = { step: 1, co: "kmb", query: "", kmb: null, ctb: null, gmb: null, joint: null, ctbDir: null, gmbRegion: "KLN", searchResults: [], stops: [], stop: null, busy: false };
 function openRouteWizard(gid) {
   state.addTargetGroup = gid;
-  Object.assign(wiz, { step: 1, query: "", kmb: null, ctb: null, gmb: null, searchResults: [], stops: [], stop: null, busy: false });
+  Object.assign(wiz, { step: 1, query: "", kmb: null, ctb: null, gmb: null, joint: null, ctbDir: null, searchResults: [], stops: [], stop: null, busy: false });
   renderWizard();
   showModal("routeModal");
 }
@@ -1124,7 +1143,7 @@ function renderWizard() {
         '<div class="btn-row"><button class="btn primary" id="wizSearch">搜尋路線</button></div>';
     } else {
       html = '<div class="step-hint">步驟 2 / 3　輸入路線號碼</div>' +
-        '<div class="search-input"><input id="wizQuery" type="text" placeholder="輸入路線號，如 ' + (w.co === "kmb" ? "601" : "770") + '" value="' + esc(w.query) + '"></div>' +
+        '<div class="search-input"><input id="wizQuery" type="text" placeholder="輸入路線號，如 ' + (w.co === "kmb" || w.co === "joint" ? "601" : "770") + '" value="' + esc(w.query) + '"></div>' +
         '<div class="btn-row"><button class="btn primary" id="wizSearch">搜尋路線</button></div>';
     }
     if (w.busy) html += '<div class="step-hint" style="margin-top:12px">搜尋中…</div>';
@@ -1191,6 +1210,18 @@ async function doWizSearch() {
         { label: "去程　" + r.orig_tc + " → " + r.dest_tc, badge: "outbound", value: { entry: r, dir: "O" } },
         { label: "回程　" + r.dest_tc + " → " + r.orig_tc, badge: "inbound", value: { entry: r, dir: "I" } }
       ]);
+    } else if (wiz.co === "joint") {
+      // 聯營：同一路線號九巴＋城巴都有營運先算，方向以九巴 bound 為準（城巴 dir 喺揀方向時按站序對齊）
+      const [kmbAll, ctbAll] = await Promise.all([getKmbRoutes(), getCtbRoutes()]);
+      const kmbHits = kmbAll.filter(r => String(r.route).toLowerCase() === q);
+      const ctbHits = ctbAll.filter(r => String(r.route).toLowerCase() === q);
+      const byBound = {};
+      kmbHits.forEach(r => { if (!byBound[r.bound]) byBound[r.bound] = r; });
+      wiz.searchResults = Object.values(byBound).map(r => ({
+        label: (r.bound === "O" ? "去程　" : "回程　") + r.orig_tc + " → " + r.dest_tc,
+        badge: ctbHits.length ? "九巴＋城巴聯營" : "淨九巴（非聯營）",
+        value: { route: r.route, bound: r.bound, serviceType: r.service_type, ctb: ctbHits.length > 0, dest: r.dest_tc }
+      }));
     } else {
       const codes = await getGmbRouteList(wiz.gmbRegion);
       const hits = codes.filter(c => String(c).toLowerCase() === q);
@@ -1237,6 +1268,56 @@ async function pickRouteResult(i) {
       stops = list.map(s => { const info = byId[s.stop] || {}; return { stopId: s.stop, name_tc: info.name_tc || s.stop, name_en: info.name_en || "", lat: info.lat, lon: info.long, seq: s.seq, searchKey: ((info.name_tc || "") + " " + (info.name_en || "")).toLowerCase() }; });
       const last = stops[stops.length - 1];
       dest = last ? last.name_tc : (wiz.ctb.dir === "O" ? wiz.ctb.entry.dest_tc : wiz.ctb.entry.orig_tc);
+    } else if (wiz.co === "joint") {
+      wiz.joint = o.value;
+      const dirPathK = wiz.joint.bound === "O" ? "outbound" : "inbound";
+      const kmbList = (await jget("https://data.etabus.gov.hk/v1/transport/kmb/route-stop/" + encodeURIComponent(wiz.joint.route) + "/" + dirPathK + "/" + wiz.joint.serviceType)).data || [];
+      const kmbStopMap = await getKmbStops();
+      // 城巴 outbound + inbound 都攞；方向對齊用 GPS（KMB 頭 3 站 vs CTB 兩端頭 3 站，邊邊命中多就係嗰個方向——兩間公司站名差異大，唔可以用名）
+      const ctbOut = (await jget("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/" + encodeURIComponent(wiz.joint.route) + "/outbound")).data || [];
+      const ctbIn = (await jget("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/" + encodeURIComponent(wiz.joint.route) + "/inbound")).data || [];
+      const normN = s => String(s || "").replace(/[\s,，、()（）]/g, "").toLowerCase().replace(/[a-z]+\d+$/, "");   // 剝走 KMB 站碼後綴（如 wt240）
+      const headStops = async list => {
+        const out = [];
+        for (const s of list.slice(0, 3)) { try { const x = await jget("https://rt.data.gov.hk/v2/transport/citybus/stop/" + encodeURIComponent(s.stop)); if (x.data) out.push(x.data); } catch (e) {} }
+        return out;
+      };
+      const [outHead, inHead] = await Promise.all([headStops(ctbOut), headStops(ctbIn)]);
+      const hitCount = heads => {
+        let n = 0;
+        for (const s of kmbList.slice(0, 3)) {
+          const info = kmbStopMap[s.stop] || {};
+          if (info.lat == null || info.long == null) continue;
+          if (heads.some(ci => ci.lat != null && ci.long != null && Math.abs(ci.lat - info.lat) + Math.abs(ci.long - info.long) < 0.003)) n++;
+        }
+        return n;
+      };
+      const outCnt = hitCount(outHead), inCnt = hitCount(inHead);
+      wiz.ctbDir = outCnt >= 2 && outCnt > inCnt ? "O" : inCnt >= 2 ? "I" : null;
+      if (!wiz.ctbDir) throw new Error("無法對齊城巴方向（兩間公司站點對應失敗）");
+      const ctbList = wiz.ctbDir === "O" ? ctbOut : ctbIn;
+      const ctbInfos = await getCtbStops(ctbList.map(s => s.stop));
+      const ctbById = {}; ctbInfos.forEach(x => { ctbById[x.stop] = x; });
+      // 站配對：完整名 → 包含 → 距離最近（KMB/CTB 站序唔同步，唔可以用 seq 配對）
+      const ctbWithName = ctbList.map(c => ({ c, n: normN((ctbById[c.stop] || {}).name_tc), lat: (ctbById[c.stop] || {}).lat, lon: (ctbById[c.stop] || {}).long }));
+      const pickCtb = (name, lat, lon) => {
+        const n = normN(name);
+        if (!n) return null;
+        let hit = ctbWithName.find(x => x.n && x.n === n);
+        if (!hit) hit = ctbWithName.find(x => x.n && n.length >= 3 && (x.n.includes(n) || n.includes(x.n)));
+        if (!hit && lat != null && lon != null) {
+          let best = null, bd = 0.003;
+          ctbWithName.forEach(x => { if (x.lat != null && x.lon != null) { const dd = Math.abs(x.lat - lat) + Math.abs(x.lon - lon); if (dd < bd) { bd = dd; best = x; } } });
+          hit = best;
+        }
+        return hit ? hit.c.stop : null;
+      };
+      stops = kmbList.map(s => {
+        const info = kmbStopMap[s.stop] || {};
+        return { stopId: s.stop, stopIdCtb: pickCtb(info.name_tc, info.lat, info.long) || "", name_tc: info.name_tc || s.stop, name_en: info.name_en || "", lat: info.lat, lon: info.long, seq: s.seq, searchKey: ((info.name_tc || "") + " " + (info.name_en || "")).toLowerCase() };
+      });
+      const last = stops[stops.length - 1];
+      dest = last ? last.name_tc : wiz.joint.route;
     } else {
       wiz.gmb = o.value;
       const rs = (await jget("https://data.etagmb.gov.hk/route-stop/" + wiz.gmb.routeId + "/" + wiz.gmb.routeSeq)).data.route_stops || [];
@@ -1251,8 +1332,10 @@ async function pickRouteResult(i) {
     // 匹配官方車費：每站顯示分段車費（fare_bus.json / fare_gmb.json，已載入先有）
     let fareRoute = null;
     if (fareData) {
-      if (wiz.co === "kmb") {
-        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "KMB" || x.co === "KMB+CTB" || x.co === "LWB" || x.co === "LWB+CTB") && x.r === String(wiz.kmb.route) && x.seq === (wiz.kmb.bound === "O" ? 1 : 2));
+      if (wiz.co === "kmb" || wiz.co === "joint") {
+        const rr = wiz.co === "joint" ? wiz.joint : wiz.kmb;
+        const bound = wiz.co === "joint" ? wiz.joint.bound : wiz.kmb.bound;
+        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "KMB" || x.co === "KMB+CTB" || x.co === "LWB" || x.co === "LWB+CTB") && x.r === String(rr.route) && x.seq === (bound === "O" ? 1 : 2));
       } else if (wiz.co === "ctb") {
         fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "CTB" || x.co === "KMB+CTB" || x.co === "LWB+CTB") && x.r === String(wiz.ctb.entry.route) && x.seq === (wiz.ctb.dir === "O" ? 1 : 2));
       } else {
@@ -1298,6 +1381,8 @@ function confirmAddRoute() {
   let row;
   if (wiz.co === "kmb") {
     row = { route: wiz.kmb.route, co: "kmb", stopId: s.stopId, stopName: s.name_tc, stopNameEn: s.name_en, dir: wiz.kmb.bound, dest: wiz.kmb.dest_tc, serviceType: wiz.kmb.service_type, lat: +s.lat || null, lon: +s.lon || null };
+  } else if (wiz.co === "joint") {
+    row = { route: wiz.joint.route, co: "joint", stopId: s.stopId, stopIdCtb: s.stopIdCtb || "", stopName: s.name_tc, stopNameEn: s.name_en, dir: wiz.joint.bound, dirCtb: wiz.ctbDir, dest: wiz.joint.dest || wiz.routeDesc, serviceType: wiz.joint.serviceType, lat: +s.lat || null, lon: +s.lon || null };
   } else if (wiz.co === "ctb") {
     row = { route: wiz.ctb.entry.route, co: "ctb", stopId: s.stopId, stopName: s.name_tc, stopNameEn: s.name_en, dir: wiz.ctb.dir, dest: (wiz.stops[wiz.stops.length - 1] || {}).name_tc || wiz.routeDesc.split("→")[1] || "", serviceType: 1, lat: +s.lat || null, lon: +s.lon || null };
   } else {
