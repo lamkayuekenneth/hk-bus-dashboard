@@ -619,20 +619,6 @@
           "lon": 114.21416959053
         },
         {
-          "route": "770",
-          "co": "ctb",
-          "stopId": "001288",
-          "stopIdCtb": "",
-          "stopName": "康怡廣場, 康山道",
-          "stopNameEn": "Kornhill Plaza, Kornhill Road",
-          "dir": "I",
-          "dirCtb": null,
-          "dest": "田灣邨",
-          "serviceType": 1,
-          "lat": 22.284499762091,
-          "lon": 114.21671745053
-        },
-        {
           "route": "69",
           "co": "gmb",
           "stopId": "20005088",
