@@ -1189,7 +1189,20 @@
       "id": "g-mv6bmhlqeofm",
       "title": "灣仔: 北海中心 (往香港公園)",
       "region": "灣仔",
-      "routes": []
+      "routes": [
+        {
+          "route": "23",
+          "co": "ctb",
+          "stopId": "002442",
+          "stopName": "北海中心, 軒尼詩道",
+          "stopNameEn": "CNT Tower, Hennessy Road",
+          "dir": "O",
+          "dest": "蒲飛路",
+          "serviceType": 1,
+          "lat": 22.278327962091,
+          "lon": 114.17845458053
+        }
+      ]
     }
   ]
 }
