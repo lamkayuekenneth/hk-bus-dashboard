@@ -3,6 +3,69 @@
   "autoRefreshSeconds": 60,
   "groups": [
     {
+      "id": "g-kwuntong",
+      "title": "觀塘:往港島",
+      "region": "觀塘",
+      "routes": [
+        {
+          "route": "606",
+          "co": "joint",
+          "stopId": "AB2BD1CDDCB213CB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT991)",
+          "stopNameEn": "KWUN TONG STATION (KT991)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "小西灣(藍灣半島)",
+          "serviceType": "1",
+          "lat": 22.31153,
+          "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "619",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "601",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "金鐘站(東)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        }
+      ]
+    },
+    {
       "id": "g-mv0jnqe5jn28",
       "title": "大坑: 勵德邨 (往北角)",
       "region": "大坑",
@@ -1279,69 +1342,6 @@
           "serviceType": 1,
           "lat": 22.278188642091,
           "lon": 114.16975256053
-        }
-      ]
-    },
-    {
-      "id": "g-kwuntong",
-      "title": "觀塘:往港島",
-      "region": "觀塘",
-      "routes": [
-        {
-          "route": "606",
-          "co": "joint",
-          "stopId": "AB2BD1CDDCB213CB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT991)",
-          "stopNameEn": "KWUN TONG STATION (KT991)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "小西灣(藍灣半島)",
-          "serviceType": "1",
-          "lat": 22.31153,
-          "lon": 114.227804
-        },
-        {
-          "route": "641",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "619",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "601",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "金鐘站(東)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
         }
       ]
     },
