@@ -1288,6 +1288,12 @@
       "title": "temp",
       "region": "temp",
       "routes": []
+    },
+    {
+      "id": "g-mv6bqnlut2pl",
+      "title": "金鐘: 聖約翰座堂",
+      "region": "金鐘",
+      "routes": []
     }
   ]
 }
