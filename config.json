@@ -1391,6 +1391,18 @@
           "serviceType": 1,
           "lat": 22.279175742091,
           "lon": 114.19357793053
+        },
+        {
+          "route": "26",
+          "co": "ctb",
+          "stopId": "001289",
+          "stopName": "勵德邨德全樓, 勵德邨道",
+          "stopNameEn": "Tak Chuen Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
+          "dir": "I",
+          "dest": "勵德邨",
+          "serviceType": 1,
+          "lat": 22.278859622091,
+          "lon": 114.19353863053
         }
       ]
     }
