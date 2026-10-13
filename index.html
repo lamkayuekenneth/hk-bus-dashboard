@@ -147,7 +147,9 @@ svg{display:block}
 .eta-loading{color:var(--faint);font-size:12px}
 .row-del{display:none;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:var(--danger-soft);color:var(--danger)}
 .row-del:hover{background:var(--danger-soft-hover)}
-.gmove{display:flex;flex-direction:column;gap:3px;flex:none}
+.gmove{display:flex;flex-direction:row;gap:6px;flex:none;align-items:center}
+.gmv-arrows{display:flex;flex-direction:column;gap:3px}
+.gmv-ext{display:flex;flex-direction:column;gap:3px}
 .gmove button{width:26px;height:22px;border-radius:6px;background:var(--accent-soft);color:var(--accent);align-items:center;justify-content:center;display:inline-flex}
 .gmove button:hover{background:var(--accent-soft-strong)}
 .gmove button:disabled{opacity:.3}
@@ -892,9 +894,13 @@ function boardHTML(g, gi) {
   const fmm = fareMinMax(rows);
   const edit = state.editBoard === g.id;
   const gmove = state.reorderGroups
-    ? '<div class="gmove"><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="-1" ' + (gi === 0 ? "disabled" : "") + ' title="組別上移">' + IC.up + '</button><button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="1" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="組別下移">' + IC.down + '</button>' +
+    ? '<div class="gmove"><div class="gmv-arrows">' +
+      '<button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="-1" ' + (gi === 0 ? "disabled" : "") + ' title="組別上移">' + IC.up + '</button>' +
+      '<button data-action="gmove" data-gid="' + esc(g.id) + '" data-dir="1" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="組別下移">' + IC.down + '</button>' +
+      '</div><div class="gmv-ext">' +
       '<button class="mvtop" data-action="gmove-top" data-gid="' + esc(g.id) + '" ' + (gi === 0 ? "disabled" : "") + ' title="移到最頂">移到最頂</button>' +
-      '<button class="mvbot" data-action="gmove-bottom" data-gid="' + esc(g.id) + '" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="移到最底">移到最底</button></div>'
+      '<button class="mvbot" data-action="gmove-bottom" data-gid="' + esc(g.id) + '" ' + (gi === config.groups.length - 1 ? "disabled" : "") + ' title="移到最底">移到最底</button>' +
+      '</div></div>'
     : "";
   return '<section class="board' + (edit ? " edit" : "") + '" data-gid="' + esc(g.id) + '">' +
     '<header class="board-head">' + gmove +
