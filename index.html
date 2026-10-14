@@ -907,7 +907,7 @@ function rowHTML(g, r, i, fmm) {
       const cm = CO_META[e.co] || CO_META.kmb;
       return '<div class="eta-cell' + (idx === 0 ? " first" : "") + '">' +
         (isJoint ? '<div class="co-dot ' + cm.cls + '">' + cm.name + "</div>" : "") +
-        '<div class="n-min' + (soon ? " soon" : "") + '">' + minsLeft(e.time) + '分鐘</div>' +
+        '<div class="n-min' + (soon ? " soon" : "") + '">' + (minsLeft(e.time) === 0 ? "<1 分鐘" : minsLeft(e.time) + '分鐘') + '</div>' +
         '<div class="n-clock">' + hhmm(e.time) + "</div>" +
         (e.remark && idx === 0 ? '<div class="eta-remark">' + esc(e.remark) + "</div>" : "") +
         "</div>";
