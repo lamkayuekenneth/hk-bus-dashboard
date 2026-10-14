@@ -290,6 +290,20 @@
           "serviceType": 1,
           "lat": 22.291435122091,
           "lon": 114.20118525053
+        },
+        {
+          "route": "619",
+          "co": "joint",
+          "stopId": "745B539CC1A71251",
+          "stopIdCtb": "001278",
+          "stopName": "港運城",
+          "stopNameEn": "ISLAND PLACE",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.291453,
+          "lon": 114.202388
         }
       ]
     },
