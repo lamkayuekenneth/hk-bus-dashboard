@@ -1375,6 +1375,18 @@
           "serviceType": 1,
           "lat": 22.291204122091,
           "lon": 114.20095851053
+        },
+        {
+          "route": "2A",
+          "co": "ctb",
+          "stopId": "001278",
+          "stopName": "港運城, 英皇道",
+          "stopNameEn": "Island Place, King's Road",
+          "dir": "O",
+          "dest": "會展站",
+          "serviceType": 1,
+          "lat": 22.291505782091,
+          "lon": 114.20241339053
         }
       ]
     }
