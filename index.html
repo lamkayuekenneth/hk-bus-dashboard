@@ -834,7 +834,7 @@ function visibleGroups() {
   return config.groups.filter(g => {
     if (state.regionFilter !== "all" && g.region !== state.regionFilter) return false;
     if (state.groupFilter !== "all" && g.id !== state.groupFilter) return false;
-    if (qg && !g.title.toLowerCase().includes(qg)) return false;
+    if (qg && !(g.title.toLowerCase().includes(qg) || g.routes.some(r => (r.stopName || "").toLowerCase().includes(qg) || (r.stopNameEn || "").toLowerCase().includes(qg)))) return false;
     const q = state.routeFilter.trim().toLowerCase();
     if (q && !g.routes.some(r => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q))) return false;
     return true;
