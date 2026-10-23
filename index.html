@@ -847,8 +847,10 @@ function etaFirstMin(g, r, i) {
 }
 function visibleRoutes(g) {
   const q = state.routeFilter.trim().toLowerCase();
+  const qg = state.groupNameFilter.trim().toLowerCase();
   let list = g.routes.map((r, i) => ({ r, i }));
   if (q) list = list.filter(({ r }) => String(r.route).toLowerCase().includes(q) || (r.stopName || "").toLowerCase().includes(q) || (r.stopNameEn || "").toLowerCase().includes(q));
+  if (qg && !g.title.toLowerCase().includes(qg)) list = list.filter(({ r }) => (r.stopName || "").toLowerCase().includes(qg) || (r.stopNameEn || "").toLowerCase().includes(qg));
   list.sort((a, b) => {
     const ma = etaFirstMin(g, a.r, a.i), mb = etaFirstMin(g, b.r, b.i);
     return (ma == null ? 1e9 : ma) - (mb == null ? 1e9 : mb);
