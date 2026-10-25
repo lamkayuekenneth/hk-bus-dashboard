@@ -1006,8 +1006,31 @@ async function refreshGroup(gid) {
   renderBoards();
 }
 let pendingRender = false;   // modal 開住時自動更新暫停 render，關閉後一次過補
+async function refreshConfig() {
+  try {
+    const r = await fetch("./config.json", { cache: "no-store" });
+    if (!r.ok) return;
+    const remote = normalizeConfig(await r.json());
+    if (JSON.stringify(remote) === JSON.stringify(config)) return;   // 冇新版
+    let localDirty = false;
+    try {
+      const raw = localStorage.getItem("hkbus.config.v1");
+      if (raw) localDirty = JSON.stringify(JSON.parse(raw)) !== JSON.stringify(remote);
+    } catch (e) {}
+    if (localDirty) {   // 本機有未上傳改動：唔覆蓋，提示用戶
+      toast("偵測到新設定；你本機有未上傳嘅改動，請先「匯出設定」再重新載入", "warn");
+      return;
+    }
+    config = remote;
+    try { localStorage.setItem("hkbus.config.v1", JSON.stringify(config)); } catch (e) {}
+    renderFilterOptions();
+    renderBoards();
+    toast("已載入最新路線設定", "ok");
+  } catch (e) { /* 暫時性失敗：下一輪再試 */ }
+}
 function refreshAll() {
   resetAutoCountdown();
+  refreshConfig();
   config.groups.forEach(g => refreshGroup(g.id));
 }
 /* ---------- 自動更新倒數（每秒更新 label，到 0 自動刷新） ---------- */
