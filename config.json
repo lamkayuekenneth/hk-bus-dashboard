@@ -88,9 +88,11 @@
           "route": "81",
           "co": "ctb",
           "stopId": "001291",
+          "stopIdCtb": "",
           "stopName": "勵德邨邨榮樓, 勵德邨道",
           "stopNameEn": "Tsuen Wing Lau Lai Tak Tsuen, Lai Tak Tsuen Road",
           "dir": "I",
+          "dirCtb": null,
           "dest": "興華邨",
           "serviceType": 1,
           "lat": 22.278092282091,
@@ -1389,6 +1391,20 @@
           "serviceType": 1,
           "lat": 22.291505782091,
           "lon": 114.20241339053
+        },
+        {
+          "route": "619",
+          "co": "joint",
+          "stopId": "52C01B7F122297BD",
+          "stopIdCtb": "001034",
+          "stopName": "砵典乍街",
+          "stopNameEn": "POTTINGER STREET",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.283712,
+          "lon": 114.157197
         }
       ]
     }
