@@ -572,6 +572,20 @@
           "serviceType": 1,
           "lat": 22.279778702091,
           "lon": 114.18607065053
+        },
+        {
+          "route": "21A",
+          "co": "gmb",
+          "stopId": 20000093,
+          "routeId": 2000967,
+          "routeSeq": 1,
+          "stopName": "蘭芳道, 近利園一期",
+          "stopNameEn": "Near Lee Garden One, Lan Fong Road",
+          "dir": null,
+          "dest": "勵德邨 (循環線)",
+          "serviceType": 1,
+          "lat": 22.27863571575401,
+          "lon": 114.18439429153928
         }
       ]
     },
@@ -1410,9 +1424,11 @@
           "route": "2",
           "co": "ctb",
           "stopId": "001278",
+          "stopIdCtb": "",
           "stopName": "港運城, 英皇道",
           "stopNameEn": "Island Place, King's Road",
           "dir": "O",
+          "dirCtb": null,
           "dest": "中環 (港澳碼頭)",
           "serviceType": 1,
           "lat": 22.291505782091,
