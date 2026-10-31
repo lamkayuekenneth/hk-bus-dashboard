@@ -1409,14 +1409,14 @@
         {
           "route": "2",
           "co": "ctb",
-          "stopId": "001272",
-          "stopName": "鰂魚涌街, 英皇道",
-          "stopNameEn": "Quarry Bay Street, King's Road",
+          "stopId": "001278",
+          "stopName": "港運城, 英皇道",
+          "stopNameEn": "Island Place, King's Road",
           "dir": "O",
           "dest": "中環 (港澳碼頭)",
           "serviceType": 1,
-          "lat": 22.284722942091,
-          "lon": 114.21210328053
+          "lat": 22.291505782091,
+          "lon": 114.20241339053
         }
       ]
     }
