@@ -778,9 +778,11 @@
           "route": "2A",
           "co": "ctb",
           "stopId": "001269",
+          "stopIdCtb": "",
           "stopName": "惠安苑, 英皇道",
           "stopNameEn": "Westlands Gardens, King's Road",
           "dir": "I",
+          "dirCtb": null,
           "dest": "耀東邨",
           "serviceType": 1,
           "lat": 22.284763112091,
@@ -1403,6 +1405,18 @@
           "serviceType": 1,
           "lat": 22.291505782091,
           "lon": 114.20241339053
+        },
+        {
+          "route": "2",
+          "co": "ctb",
+          "stopId": "001272",
+          "stopName": "鰂魚涌街, 英皇道",
+          "stopNameEn": "Quarry Bay Street, King's Road",
+          "dir": "O",
+          "dest": "中環 (港澳碼頭)",
+          "serviceType": 1,
+          "lat": 22.284722942091,
+          "lon": 114.21210328053
         }
       ]
     }
