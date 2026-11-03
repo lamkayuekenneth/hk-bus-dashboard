@@ -807,14 +807,16 @@
         {
           "route": "69",
           "co": "gmb",
-          "stopId": 20002787,
-          "routeId": 2000410,
-          "routeSeq": 1,
+          "stopId": "20002787",
+          "stopIdCtb": "",
           "stopName": "英皇道, 惠安苑",
           "stopNameEn": "King's Road, Westlands Gardens",
           "dir": null,
+          "dirCtb": null,
           "dest": "鰂魚涌(船塢里)(循環線)",
           "serviceType": 1,
+          "routeId": 2000410,
+          "routeSeq": 1,
           "lat": 22.284772675217784,
           "lon": 114.21308809701628
         }
@@ -1451,6 +1453,12 @@
           "lon": 114.20241339053
         }
       ]
+    },
+    {
+      "id": "g-mw17j0xveskg",
+      "title": "鰂魚涌: 寶峰園 (往機場)",
+      "region": "鰂魚涌",
+      "routes": []
     }
   ]
 }
