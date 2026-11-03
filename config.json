@@ -1489,7 +1489,20 @@
       "id": "g-mw17pfhyb5e2",
       "title": "機場: 往南豐",
       "region": "機場",
-      "routes": []
+      "routes": [
+        {
+          "route": "A12",
+          "co": "ctb",
+          "stopId": "001837",
+          "stopName": "機場 (地面運輸中心)",
+          "stopNameEn": "Airport (Ground Transportation Centre)",
+          "dir": "I",
+          "dest": "小西灣 (藍灣半島)",
+          "serviceType": 1,
+          "lat": 22.314155382091,
+          "lon": 113.93690708053
+        }
+      ]
     }
   ]
 }
