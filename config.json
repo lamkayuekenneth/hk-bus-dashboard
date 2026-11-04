@@ -649,9 +649,11 @@
           "route": "A12",
           "co": "ctb",
           "stopId": "001837",
+          "stopIdCtb": "",
           "stopName": "機場 (地面運輸中心)",
           "stopNameEn": "Airport (Ground Transportation Centre)",
           "dir": "I",
+          "dirCtb": null,
           "dest": "小西灣 (藍灣半島)",
           "serviceType": 1,
           "lat": 22.314155382091,
@@ -1020,9 +1022,11 @@
           "route": "A12",
           "co": "ctb",
           "stopId": "001271",
+          "stopIdCtb": "",
           "stopName": "寶峰園, 英皇道",
           "stopNameEn": "Bo Fung Gardens, King's Road",
           "dir": "O",
+          "dirCtb": null,
           "dest": "機場 (地面運輸中心)",
           "serviceType": 1,
           "lat": 22.284594642091,
@@ -1032,9 +1036,11 @@
           "route": "NA12",
           "co": "ctb",
           "stopId": "001271",
+          "stopIdCtb": "",
           "stopName": "寶峰園, 英皇道",
           "stopNameEn": "Bo Fung Gardens, King's Road",
           "dir": "O",
+          "dirCtb": null,
           "dest": "港珠澳大橋香港口岸",
           "serviceType": 1,
           "lat": 22.284594642091,
@@ -1503,6 +1509,12 @@
           "lon": 114.20241339053
         }
       ]
+    },
+    {
+      "id": "g-mw1fvypolexx",
+      "title": "機場: 往南豐",
+      "region": "機場",
+      "routes": []
     }
   ]
 }
