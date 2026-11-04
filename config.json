@@ -1526,6 +1526,18 @@
           "serviceType": 1,
           "lat": 22.314155382091,
           "lon": 113.93690708053
+        },
+        {
+          "route": "NA12",
+          "co": "ctb",
+          "stopId": "001837",
+          "stopName": "機場 (地面運輸中心)",
+          "stopNameEn": "Airport (Ground Transportation Centre)",
+          "dir": "I",
+          "dest": "杏花邨",
+          "serviceType": 1,
+          "lat": 22.314155382091,
+          "lon": 113.93690708053
         }
       ]
     }
