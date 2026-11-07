@@ -1542,7 +1542,20 @@
       "id": "g-mw60w0yg3st2",
       "title": "灣仔: 會展 (往勵德邨)",
       "region": "灣仔",
-      "routes": []
+      "routes": [
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "003415",
+          "stopName": "會展站",
+          "stopNameEn": "Exhibition Centre Station",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.281692412091,
+          "lon": 114.17584606053
+        }
+      ]
     }
   ]
 }
