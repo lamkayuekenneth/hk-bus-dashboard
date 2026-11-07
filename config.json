@@ -1535,18 +1535,6 @@
           "serviceType": 1,
           "lat": 22.281692412091,
           "lon": 114.17584606053
-        },
-        {
-          "route": "25A",
-          "co": "ctb",
-          "stopId": "002435",
-          "stopName": "杜老誌道, 軒尼詩道",
-          "stopNameEn": "Tonnochy Road, Hennessy Road",
-          "dir": "O",
-          "dest": "雲景台, 雲景道",
-          "serviceType": 1,
-          "lat": 22.278720922091,
-          "lon": 114.17909682053
         }
       ]
     }
