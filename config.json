@@ -649,9 +649,11 @@
           "route": "A12",
           "co": "ctb",
           "stopId": "001837",
+          "stopIdCtb": "",
           "stopName": "機場 (地面運輸中心)",
           "stopNameEn": "Airport (Ground Transportation Centre)",
           "dir": "I",
+          "dirCtb": null,
           "dest": "小西灣 (藍灣半島)",
           "serviceType": 1,
           "lat": 22.314155382091,
@@ -661,9 +663,11 @@
           "route": "NA12",
           "co": "ctb",
           "stopId": "001837",
+          "stopIdCtb": "",
           "stopName": "機場 (地面運輸中心)",
           "stopNameEn": "Airport (Ground Transportation Centre)",
           "dir": "I",
+          "dirCtb": null,
           "dest": "杏花邨",
           "serviceType": 1,
           "lat": 22.314155382091,
@@ -1517,6 +1521,18 @@
           "serviceType": 1,
           "lat": 22.291505782091,
           "lon": 114.20241339053
+        },
+        {
+          "route": "25A",
+          "co": "ctb",
+          "stopId": "003415",
+          "stopName": "會展站",
+          "stopNameEn": "Exhibition Centre Station",
+          "dir": "O",
+          "dest": "雲景台, 雲景道",
+          "serviceType": 1,
+          "lat": 22.281692412091,
+          "lon": 114.17584606053
         }
       ]
     }
