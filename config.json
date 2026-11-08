@@ -3,69 +3,6 @@
   "autoRefreshSeconds": 60,
   "groups": [
     {
-      "id": "g-kwuntong",
-      "title": "觀塘:往港島",
-      "region": "觀塘",
-      "routes": [
-        {
-          "route": "606",
-          "co": "joint",
-          "stopId": "AB2BD1CDDCB213CB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT991)",
-          "stopNameEn": "KWUN TONG STATION (KT991)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "小西灣(藍灣半島)",
-          "serviceType": "1",
-          "lat": 22.31153,
-          "lon": 114.227804
-        },
-        {
-          "route": "641",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "619",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "中環(港澳碼頭)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        },
-        {
-          "route": "601",
-          "co": "joint",
-          "stopId": "114381B039350CBB",
-          "stopIdCtb": "001510",
-          "stopName": "觀塘站 (KT992)",
-          "stopNameEn": "KWUN TONG STATION (KT992)",
-          "dir": "O",
-          "dirCtb": "I",
-          "dest": "金鐘站(東)",
-          "serviceType": "1",
-          "lat": 22.311431,
-          "lon": 114.227935
-        }
-      ]
-    },
-    {
       "id": "g-mv0jnqe5jn28",
       "title": "大坑: 勵德邨 (往北角)",
       "region": "大坑",
@@ -1476,6 +1413,49 @@
       ]
     },
     {
+      "id": "g-mw8e3l7bddjd",
+      "title": "灣仔: 修頓球場 (往香港公園)",
+      "region": "灣仔",
+      "routes": [
+        {
+          "route": "23",
+          "co": "ctb",
+          "stopId": "002446",
+          "stopName": "修頓球場, 軒尼詩道",
+          "stopNameEn": "Southorn Playground, Hennessy Road",
+          "dir": "O",
+          "dest": "蒲飛路",
+          "serviceType": 1,
+          "lat": 22.277433042091,
+          "lon": 114.17187855053
+        },
+        {
+          "route": "40",
+          "co": "ctb",
+          "stopId": "002446",
+          "stopName": "修頓球場, 軒尼詩道",
+          "stopNameEn": "Southorn Playground, Hennessy Road",
+          "dir": "I",
+          "dest": "華富 (北)",
+          "serviceType": 1,
+          "lat": 22.277433042091,
+          "lon": 114.17187855053
+        },
+        {
+          "route": "23B",
+          "co": "ctb",
+          "stopId": "002446",
+          "stopName": "修頓球場, 軒尼詩道",
+          "stopNameEn": "Southorn Playground, Hennessy Road",
+          "dir": "O",
+          "dest": "高主教書院, 羅便臣道",
+          "serviceType": 1,
+          "lat": 22.277433042091,
+          "lon": 114.17187855053
+        }
+      ]
+    },
+    {
       "id": "g-mw60w0yg3st2",
       "title": "灣仔: 會展 (往勵德邨)",
       "region": "灣仔",
@@ -1493,6 +1473,69 @@
           "serviceType": 1,
           "lat": 22.281692412091,
           "lon": 114.17584606053
+        }
+      ]
+    },
+    {
+      "id": "g-kwuntong",
+      "title": "觀塘:往港島",
+      "region": "觀塘",
+      "routes": [
+        {
+          "route": "606",
+          "co": "joint",
+          "stopId": "AB2BD1CDDCB213CB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT991)",
+          "stopNameEn": "KWUN TONG STATION (KT991)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "小西灣(藍灣半島)",
+          "serviceType": "1",
+          "lat": 22.31153,
+          "lon": 114.227804
+        },
+        {
+          "route": "641",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "619",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "中環(港澳碼頭)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
+        },
+        {
+          "route": "601",
+          "co": "joint",
+          "stopId": "114381B039350CBB",
+          "stopIdCtb": "001510",
+          "stopName": "觀塘站 (KT992)",
+          "stopNameEn": "KWUN TONG STATION (KT992)",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "金鐘站(東)",
+          "serviceType": "1",
+          "lat": 22.311431,
+          "lon": 114.227935
         }
       ]
     },
@@ -1556,49 +1599,6 @@
           "serviceType": 1,
           "lat": 22.281692412091,
           "lon": 114.17584606053
-        }
-      ]
-    },
-    {
-      "id": "g-mw8e3l7bddjd",
-      "title": "灣仔: 修頓球場 (往香港公園)",
-      "region": "灣仔",
-      "routes": [
-        {
-          "route": "23",
-          "co": "ctb",
-          "stopId": "002446",
-          "stopName": "修頓球場, 軒尼詩道",
-          "stopNameEn": "Southorn Playground, Hennessy Road",
-          "dir": "O",
-          "dest": "蒲飛路",
-          "serviceType": 1,
-          "lat": 22.277433042091,
-          "lon": 114.17187855053
-        },
-        {
-          "route": "40",
-          "co": "ctb",
-          "stopId": "002446",
-          "stopName": "修頓球場, 軒尼詩道",
-          "stopNameEn": "Southorn Playground, Hennessy Road",
-          "dir": "I",
-          "dest": "華富 (北)",
-          "serviceType": 1,
-          "lat": 22.277433042091,
-          "lon": 114.17187855053
-        },
-        {
-          "route": "23B",
-          "co": "ctb",
-          "stopId": "002446",
-          "stopName": "修頓球場, 軒尼詩道",
-          "stopNameEn": "Southorn Playground, Hennessy Road",
-          "dir": "O",
-          "dest": "高主教書院, 羅便臣道",
-          "serviceType": 1,
-          "lat": 22.277433042091,
-          "lon": 114.17187855053
         }
       ]
     }
