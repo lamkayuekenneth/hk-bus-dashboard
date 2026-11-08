@@ -1563,7 +1563,20 @@
       "id": "g-mw8e3l7bddjd",
       "title": "灣仔: 修頓球場 (往香港公園)",
       "region": "灣仔",
-      "routes": []
+      "routes": [
+        {
+          "route": "23",
+          "co": "ctb",
+          "stopId": "002446",
+          "stopName": "修頓球場, 軒尼詩道",
+          "stopNameEn": "Southorn Playground, Hennessy Road",
+          "dir": "O",
+          "dest": "蒲飛路",
+          "serviceType": 1,
+          "lat": 22.277433042091,
+          "lon": 114.17187855053
+        }
+      ]
     }
   ]
 }
