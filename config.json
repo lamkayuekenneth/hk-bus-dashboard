@@ -1575,6 +1575,18 @@
           "serviceType": 1,
           "lat": 22.277433042091,
           "lon": 114.17187855053
+        },
+        {
+          "route": "40",
+          "co": "ctb",
+          "stopId": "002446",
+          "stopName": "修頓球場, 軒尼詩道",
+          "stopNameEn": "Southorn Playground, Hennessy Road",
+          "dir": "I",
+          "dest": "華富 (北)",
+          "serviceType": 1,
+          "lat": 22.277433042091,
+          "lon": 114.17187855053
         }
       ]
     }
