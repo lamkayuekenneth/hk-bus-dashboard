@@ -1591,6 +1591,20 @@
           "serviceType": 1,
           "lat": 22.281692412091,
           "lon": 114.17584606053
+        },
+        {
+          "route": "101",
+          "co": "joint",
+          "stopId": "164F83410B45C24B",
+          "stopIdCtb": "002446",
+          "stopName": "修頓球場",
+          "stopNameEn": "SOUTHORN PLAYGROUND",
+          "dir": "O",
+          "dirCtb": "I",
+          "dest": "堅尼地城",
+          "serviceType": "1",
+          "lat": 22.277383,
+          "lon": 114.172261
         }
       ]
     }
