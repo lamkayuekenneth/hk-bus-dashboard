@@ -1579,20 +1579,6 @@
           "lon": 114.20241339053
         },
         {
-          "route": "2",
-          "co": "ctb",
-          "stopId": "001278",
-          "stopIdCtb": "",
-          "stopName": "港運城, 英皇道",
-          "stopNameEn": "Island Place, King's Road",
-          "dir": "O",
-          "dirCtb": null,
-          "dest": "中環 (港澳碼頭)",
-          "serviceType": 1,
-          "lat": 22.291505782091,
-          "lon": 114.20241339053
-        },
-        {
           "route": "25A",
           "co": "ctb",
           "stopId": "003415",
@@ -1605,18 +1591,6 @@
           "serviceType": 1,
           "lat": 22.281692412091,
           "lon": 114.17584606053
-        },
-        {
-          "route": "B13",
-          "co": "ctb",
-          "stopId": "001288",
-          "stopName": "康怡廣場, 康山道",
-          "stopNameEn": "Kornhill Plaza, Kornhill Road",
-          "dir": "I",
-          "dest": "皇崗口岸",
-          "serviceType": 1,
-          "lat": 22.284499762091,
-          "lon": 114.21671745053
         }
       ]
     }
