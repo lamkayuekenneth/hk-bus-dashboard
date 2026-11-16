@@ -1605,6 +1605,18 @@
           "serviceType": "1",
           "lat": 22.277383,
           "lon": 114.172261
+        },
+        {
+          "route": "18X",
+          "co": "ctb",
+          "stopId": "001061",
+          "stopName": "嘉安街, 德輔道西",
+          "stopNameEn": "Ka On Street, Des Voeux Road West",
+          "dir": "I",
+          "dest": "筲箕灣",
+          "serviceType": 1,
+          "lat": 22.287051912091,
+          "lon": 114.13710489053
         }
       ]
     }
