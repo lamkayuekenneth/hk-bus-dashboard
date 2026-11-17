@@ -871,6 +871,7 @@ function renderFilterOptions() {
 function clearFilters() {
   state.routeFilter = ""; state.regionFilter = "all"; state.groupFilter = "all"; state.groupNameFilter = "";
   $("#routeFilter").value = ""; $("#groupNameFilter").value = ""; renderFilterOptions(); renderBoards();
+  refreshVisibleNow();   // 清篩選後即刻刷新報時
 }
 
 /* ---------- 渲染板塊 ---------- */
@@ -1032,6 +1033,22 @@ function refreshAll() {
   resetAutoCountdown();
   refreshConfig();
   config.groups.forEach(g => refreshGroup(g.id));
+}
+/* ---------- 切換組別篩選即時刷新（令「xx:xx 更新」報時同步最新 ETA） ---------- */
+let filterRefreshTimer = null;
+const refreshingGids = {};   // 同一組別正在拉：避免重複請求
+function refreshVisibleNow() {
+  resetAutoCountdown();                     // 倒數／報時一齊重新起算
+  const gids = visibleGroups().map(g => g.id);
+  gids.forEach(gid => {
+    if (refreshingGids[gid]) return;
+    refreshingGids[gid] = true;
+    refreshGroup(gid).finally(() => { delete refreshingGids[gid]; });
+  });
+}
+function scheduleFilterRefresh(delay) {     // 文字篩選：等手停定先拉，免得逐個字都請求
+  clearTimeout(filterRefreshTimer);
+  filterRefreshTimer = setTimeout(refreshVisibleNow, delay == null ? 300 : delay);
 }
 /* ---------- 自動更新倒數（每秒更新 label，到 0 自動刷新） ---------- */
 let autoCountdown = 60;
@@ -1482,9 +1499,9 @@ $("#ghSaveBtn").addEventListener("click", () => {
 $("#exportCsvBtn").addEventListener("click", exportRoutesCsv);
 $("#resetBtn").addEventListener("click", () => askConfirm("重設設定", "確定要重設所有設定？本地改動會清除並回復雲端／預設設定。", resetLocal));
 $("#routeFilter").addEventListener("input", debounce(e => { state.routeFilter = e.target.value; renderBoards(); }, 250));
-$("#groupNameFilter").addEventListener("input", debounce(e => { state.groupNameFilter = e.target.value; renderBoards(); }, 250));
-$("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderFilterOptions(); renderBoards(); });
-$("#groupFilter").addEventListener("change", e => { state.groupFilter = e.target.value; renderBoards(); });
+$("#groupNameFilter").addEventListener("input", debounce(e => { state.groupNameFilter = e.target.value; renderBoards(); scheduleFilterRefresh(300); }, 250));
+$("#regionFilter").addEventListener("change", e => { state.regionFilter = e.target.value; renderFilterOptions(); renderBoards(); refreshVisibleNow(); });
+$("#groupFilter").addEventListener("change", e => { state.groupFilter = e.target.value; renderBoards(); refreshVisibleNow(); });
 $("#groupSaveBtn").addEventListener("click", saveGroup);
 $("#routeBackBtn").addEventListener("click", wizBack);
 $("#routeConfirmBtn").addEventListener("click", () => { if (wiz.step === 1) { wiz.step = 2; renderWizard(); } else { confirmAddRoute(); } });
