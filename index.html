@@ -700,42 +700,81 @@ async function fetchEtaFor(row) {
   return [];
 }
 
-/* ---------- 車費查詢（fare_bus.json / fare_gmb.json：運輸署開放數據精簡版） ---------- */
-let fareData = null;
+/* ---------- 車費查詢（fare_*_slim.json 優先；查唔到再按需載入全量 fare_*.json） ---------- */
+let fareData = null, fareIdx = null, fareWm = new WeakMap();
+let fareFullLoaded = false, fareFullLoading = false;
 const normName = s => String(s || "").replace(/[，,、\s]/g, "").toLowerCase();
 function fmtFare(f) {
   const n = Number(f);
   if (!isFinite(n)) return null;
   return n % 1 === 0 ? String(n) : n.toFixed(1);
 }
+/* 建索引：路線號 → routes 陣列，避免每次 render 都 filter 幾千條路線 */
+function buildFareIndex() {
+  const bus = new Map(), gmb = new Map();
+  if (fareData && fareData.bus) {
+    for (const x of (fareData.bus.routes || [])) {
+      const k = String(x.r);
+      let a = bus.get(k); if (!a) { a = []; bus.set(k, a); }
+      a.push(x);
+    }
+  }
+  if (fareData && fareData.gmb) {
+    for (const x of (fareData.gmb.routes || [])) {
+      const k = String(x.id);
+      let a = gmb.get(k); if (!a) { a = []; gmb.set(k, a); }
+      a.push(x);
+    }
+  }
+  fareIdx = { bus, gmb };
+  fareWm = new WeakMap();   // 車費結果快取跟住新資料重算
+}
+/* 輕量版（只含 config 用嘅路線）：檔案細 90%+，省記憶體 */
 async function loadFareData() {
   try {
-    // 每次載入都重新驗證（no-cache：GitHub Pages 有 ETag，未變會回 304 慳 bandwidth；
-    // 已變就攞最新，避免 Cache API 令車費修正睇唔到）
+    const [rb, rg] = await Promise.all([
+      fetch("./fare_bus_slim.json", { cache: "no-cache" }),
+      fetch("./fare_gmb_slim.json", { cache: "no-cache" })
+    ]);
+    if (rb.ok && rg.ok) {
+      fareData = { bus: await rb.json(), gmb: await rg.json(), ts: Date.now(), slim: true };
+      buildFareIndex();
+      renderBoards();
+      return;
+    }
+    await loadFareFull();
+  } catch (e) {
+    console.error("[fare] slim 載入失敗，改用全量：", e);
+    try { await loadFareFull(); } catch (e2) { fareData = null; console.error("[fare] 全量載入失敗：", e2); }
+  }
+}
+async function loadFareFull() {
+  if (fareFullLoading) return;
+  fareFullLoading = true;
+  try {
     const [rb, rg] = await Promise.all([
       fetch("./fare_bus.json", { cache: "no-cache" }),
       fetch("./fare_gmb.json", { cache: "no-cache" })
     ]);
-    const bus = rb.ok ? await rb.json() : null;
-    const gmb = rg.ok ? await rg.json() : null;
-    fareData = { bus, gmb, ts: Date.now() };
+    fareData = { bus: rb.ok ? await rb.json() : null, gmb: rg.ok ? await rg.json() : null, ts: Date.now(), slim: false };
+    fareFullLoaded = true;
+    buildFareIndex();
     renderBoards();
-  } catch (e) {
-    console.error("[fare] 載入車費資料失敗：", e);
-    fareData = null;
-  }
+  } finally { fareFullLoading = false; }
 }
 function fareRoutesFor(row) {
-  if (!fareData) return [];
+  if (!fareData || !fareIdx) return [];
   if (row.co === "gmb") {
-    const g = ((fareData.gmb && fareData.gmb.routes) || []).find(x => row.routeId != null && x.id === row.routeId && (row.routeSeq == null || x.seq === row.routeSeq));
+    if (row.routeId == null) return [];
+    const arr = fareIdx.gmb.get(String(row.routeId)) || [];
+    const g = arr.find(x => row.routeSeq == null || x.seq === row.routeSeq);
     return g ? [g] : [];
   }
   const co = ({ kmb: "KMB", ctb: "CTB", joint: "KMB" })[row.co];
   if (!co) return [];
   const seq = row.dir === "O" ? 1 : row.dir === "I" ? 2 : null;
   // KMB 同時覆蓋龍運 LWB（同一 API）；CTB 覆蓋聯營
-  const pool = ((fareData.bus && fareData.bus.routes) || []).filter(x => {
+  const pool = (fareIdx.bus.get(String(row.route)) || []).filter(x => {
     const xc = x.co;
     const ok = co === "KMB" ? (xc === "KMB" || xc === "KMB+CTB" || xc === "LWB" || xc === "LWB+CTB")
              : co === "CTB" ? (xc === "CTB" || xc === "KMB+CTB" || xc === "LWB+CTB")
@@ -760,30 +799,39 @@ function fareRoutesFor(row) {
   return pool;
 }
 function lookupFare(row) {
+  if (!row || typeof row !== "object") return null;
+  if (!fareData || !fareIdx) return null;   // 車費未載入：唔寫快取，等載入後重算
+  if (fareWm.has(row)) return fareWm.get(row);   // 同一 config 路線只計一次
   let routes = fareRoutesFor(row);
-  if (!routes.length) return null;
-  // 方向優先：用 config 嘅目的地同 fare 檔每 seq 嘅終點站名匹配（v2 分段後兩方向車費唔同）
-  const destKey = normName(row.dest || "");
-  if (destKey) {
-    const byDest = routes.filter(g => {
-      const d = normName(g.dest || "");
-      return d && (d.includes(destKey) || destKey.includes(d));
-    });
-    if (byDest.length) routes = byDest;
-  }
-  const haveLat = row.lat != null && row.lon != null;
-  let bestDist = null, bestName = null;
-  for (const g of routes) {
-    for (const st of g.stops) {
-      if (haveLat && st.lat != null && st.lon != null) {
-        const dd = haversine(row.lat, row.lon, st.lat, st.lon);
-        if (dd <= 400 && (bestDist == null || dd < bestDist.d)) bestDist = { d: dd, fare: st.f };
-      }
-      const a = normName(row.stopName), b = normName(st.n);
-      if (a && b && !bestName && (a === b || a.includes(b) || b.includes(a))) bestName = { fare: st.f };
+  let result = null;
+  if (routes.length) {
+    // 方向優先：用 config 嘅目的地同 fare 檔每 seq 嘅終點站名匹配（v2 分段後兩方向車費唔同）
+    const destKey = normName(row.dest || "");
+    if (destKey) {
+      const byDest = routes.filter(g => {
+        const d = normName(g.dest || "");
+        return d && (d.includes(destKey) || destKey.includes(d));
+      });
+      if (byDest.length) routes = byDest;
     }
+    const haveLat = row.lat != null && row.lon != null;
+    let bestDist = null, bestName = null;
+    for (const g of routes) {
+      for (const st of g.stops) {
+        if (haveLat && st.lat != null && st.lon != null) {
+          const dd = haversine(row.lat, row.lon, st.lat, st.lon);
+          if (dd <= 400 && (bestDist == null || dd < bestDist.d)) bestDist = { d: dd, fare: st.f };
+        }
+        const a = normName(row.stopName), b = normName(st.n);
+        if (a && b && !bestName && (a === b || a.includes(b) || b.includes(a))) bestName = { fare: st.f };
+      }
+    }
+    result = bestDist ? bestDist.fare : (bestName ? bestName.fare : null);
   }
-  return bestDist ? bestDist.fare : (bestName ? bestName.fare : null);
+  // slim 檔查唔到 → 一次性補載全量（例如啱啱新增嘅路線未同步入 slim）
+  if (result == null && fareData && fareData.slim && !fareFullLoaded && !fareFullLoading) loadFareFull();
+  fareWm.set(row, result);
+  return result;
 }
 
 /* ---------- 路線／車站查詢（編輯器用，快取於模組變數） ---------- */
@@ -982,7 +1030,7 @@ function renderBoards() {
 }
 
 /* ---------- ETA 刷新 ---------- */
-async function refreshGroup(gid) {
+async function refreshGroup(gid, skipRender) {
   const g = config.groups.find(x => x.id === gid);
   if (!g) return;
   await Promise.all(g.routes.map(async (r, i) => {
@@ -1003,6 +1051,7 @@ async function refreshGroup(gid) {
       }
     }
   }));
+  if (skipRender) return;   // 批次刷新：等全部組別拉完先一次過 render，減少 DOM 重建
   if ($$(".modal-mask").some(m => !m.hidden)) { pendingRender = true; return; }   // modal 開住：唔重建版面，避免跳動誤觸，關閉後補 render
   renderBoards();
 }
@@ -1023,16 +1072,28 @@ async function refreshConfig() {
       return;
     }
     config = remote;
+    pruneEtaCache();
     try { localStorage.setItem("hkbus.config.v1", JSON.stringify(config)); } catch (e) {}
     renderFilterOptions();
     renderBoards();
     toast("已載入最新路線設定", "ok");
   } catch (e) { /* 暫時性失敗：下一輪再試 */ }
 }
+function renderAfterBatch() {   // 批次刷新完成後統一 render 一次
+  if ($$(".modal-mask").some(m => !m.hidden)) { pendingRender = true; return; }
+  renderBoards();
+}
+/* 清走 config 已刪／改位後殘留嘅 ETA 快取，避免長期累積 */
+function pruneEtaCache() {
+  if (!state.etaCache) return;
+  const keep = new Set();
+  config.groups.forEach(g => { for (let i = 0; i < g.routes.length; i++) keep.add(g.id + "::" + i); });
+  for (const k of Object.keys(state.etaCache)) if (!keep.has(k)) delete state.etaCache[k];
+}
 function refreshAll() {
   resetAutoCountdown();
   refreshConfig();
-  config.groups.forEach(g => refreshGroup(g.id));
+  Promise.all(config.groups.map(g => refreshGroup(g.id, true))).then(renderAfterBatch);
 }
 /* ---------- 切換組別篩選即時刷新（令「xx:xx 更新」報時同步最新 ETA） ---------- */
 let filterRefreshTimer = null;
@@ -1040,11 +1101,11 @@ const refreshingGids = {};   // 同一組別正在拉：避免重複請求
 function refreshVisibleNow() {
   resetAutoCountdown();                     // 倒數／報時一齊重新起算
   const gids = visibleGroups().map(g => g.id);
-  gids.forEach(gid => {
-    if (refreshingGids[gid]) return;
+  const tasks = gids.filter(gid => !refreshingGids[gid]).map(gid => {
     refreshingGids[gid] = true;
-    refreshGroup(gid).finally(() => { delete refreshingGids[gid]; });
+    return refreshGroup(gid, true).finally(() => { delete refreshingGids[gid]; });
   });
+  if (tasks.length) Promise.all(tasks).then(renderAfterBatch);
 }
 function scheduleFilterRefresh(delay) {     // 文字篩選：等手停定先拉，免得逐個字都請求
   clearTimeout(filterRefreshTimer);
@@ -1399,18 +1460,24 @@ async function pickRouteResult(i) {
       }
       dest = wiz.gmb.dest;
     }
-    // 匹配官方車費：每站顯示分段車費（fare_bus.json / fare_gmb.json，已載入先有）
+    // 匹配官方車費：每站顯示分段車費（fare_*_slim.json 優先，查唔到再補載全量）
     let fareRoute = null;
-    if (fareData) {
+    const pickFareRoute = () => {
+      if (!fareData) return null;
       if (wiz.co === "kmb" || wiz.co === "joint") {
         const rr = wiz.co === "joint" ? wiz.joint : wiz.kmb;
         const bound = wiz.co === "joint" ? wiz.joint.bound : wiz.kmb.bound;
-        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "KMB" || x.co === "KMB+CTB" || x.co === "LWB" || x.co === "LWB+CTB") && x.r === String(rr.route) && x.seq === (bound === "O" ? 1 : 2));
-      } else if (wiz.co === "ctb") {
-        fareRoute = ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "CTB" || x.co === "KMB+CTB" || x.co === "LWB+CTB") && x.r === String(wiz.ctb.entry.route) && x.seq === (wiz.ctb.dir === "O" ? 1 : 2));
-      } else {
-        fareRoute = ((fareData.gmb && fareData.gmb.routes) || []).find(x => x.id === wiz.gmb.routeId && (wiz.gmb.routeSeq == null || x.seq === wiz.gmb.routeSeq));
+        return ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "KMB" || x.co === "KMB+CTB" || x.co === "LWB" || x.co === "LWB+CTB") && x.r === String(rr.route) && x.seq === (bound === "O" ? 1 : 2)) || null;
       }
+      if (wiz.co === "ctb") {
+        return ((fareData.bus && fareData.bus.routes) || []).find(x => (x.co === "CTB" || x.co === "KMB+CTB" || x.co === "LWB+CTB") && x.r === String(wiz.ctb.entry.route) && x.seq === (wiz.ctb.dir === "O" ? 1 : 2)) || null;
+      }
+      return ((fareData.gmb && fareData.gmb.routes) || []).find(x => x.id === wiz.gmb.routeId && (wiz.gmb.routeSeq == null || x.seq === wiz.gmb.routeSeq)) || null;
+    };
+    fareRoute = pickFareRoute();
+    if (!fareRoute && fareData && fareData.slim && !fareFullLoaded && !fareFullLoading) {
+      await loadFareFull();          // 新路線唔喺 slim 內：一次性補載全量
+      fareRoute = pickFareRoute();
     }
     const fareBySeq = {};
     if (fareRoute) (fareRoute.stops || []).forEach(fs => { fareBySeq[fs.s] = fs.f; });

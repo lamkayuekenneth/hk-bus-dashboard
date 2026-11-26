@@ -136,5 +136,13 @@ def main():
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     print(f"寫入 {path}: {len(routes)} 條路線（{no_term} 班次冇 FARE）  ({time.time()-t0:.1f}s)", flush=True)
 
+    # 6) 同步產生輕量版（只含 config 用到嘅路線），供網頁優先載入
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from fare_slim import build as build_slim
+        build_slim("bus")
+    except Exception as e:   # slim 失敗唔影響主產物
+        print(f"[slim] 巴士輕量版生成失敗（可忽略）：{e}", flush=True)
+
 if __name__ == "__main__":
     main()

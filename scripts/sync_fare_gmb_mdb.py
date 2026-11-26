@@ -157,5 +157,13 @@ def main():
     print(f"GPS: JSON_GMB.json 命中 {gps_hit} 站, fallback {gps_miss} 站")
     print(f"全程價驗證: {sum(1 for r in new_routes if abs(r['stops'][0]['f'] - full_fare.get(r['id'], 0)) < 0.01)}/{len(new_routes)} 首站=全程價")
 
+    # 同步產生輕量版（只含 config 用到嘅路線），供網頁優先載入
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from fare_slim import build as build_slim
+        build_slim("gmb")
+    except Exception as e:   # slim 失敗唔影響主產物
+        print(f"[slim] 小巴輕量版生成失敗（可忽略）：{e}")
+
 if __name__ == "__main__":
     main()
